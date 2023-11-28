@@ -16,7 +16,7 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
-        //TODO: 클릭 등의 인풋은 따로 관리하고, 통합관리 컴포넌트에서 인풋과 이동을 연결.
+        //TODO: 나중)클릭 등의 인풋은 따로 관리하고, 통합관리 컴포넌트에서 인풋과 이동을 연결.
         //AI의 경우 AI용 통합관리 컴포넌트에서 자체적 판단 이후 이동하도록 만들것.
         if (Input.GetMouseButton(1) && isMovable)
         {

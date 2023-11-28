@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
         cameraRig.target = player1.transform;
         #endregion 테스트 게임
 
-        //TODO: 메뉴에서 캐릭터나 맵을 선택해 정보를 받아오고 인스턴스 만들고 할당하는 방식으로 완성.
+        //TODO: 나중)메뉴에서 캐릭터나 맵을 선택해 정보를 받아오고 인스턴스 만들고 할당하는 방식으로 완성.
         //멀티나 카메라는 나중에 생각하자.
     }
 }
