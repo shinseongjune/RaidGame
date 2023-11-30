@@ -76,6 +76,7 @@ public class StatMod : IComparable<StatMod>
     }
 }
 
+[Serializable]
 public class Stat
 {
     public enum Type

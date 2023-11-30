@@ -10,5 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eff2cc56bcf64b241bf8a0c7d7643b73, type: 3}
-  m_Name: Test
+  m_Name: TestBasicAttack
   m_EditorClassIdentifier: 
+  skillName: "\uD3C9\uD0C0A"
+  description: 
+  type: 0
+  costStat: 1
+  cost: 10
+  coolDown: 2
+  preDelay: 0.2
+  postDelay: 0
+  skillPrefab: {fileID: 4988494055859785916, guid: 519e12f236fb5564cbb3869e86a6e980, type: 3}
+  afterEffectPrefabs:
+  - {fileID: 4841544300303640527, guid: 7dcdf562fd066bd44b65d13ff9bdaeec, type: 3}

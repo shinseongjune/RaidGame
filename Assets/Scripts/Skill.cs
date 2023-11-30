@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewSkill", menuName = "ScriptableObjects/Skill")]
@@ -40,3 +41,4 @@ public class Skill : ScriptableObject
 }
 
 //TODO:나중) 패시브, 토글, 자동실행(그냥 bool로 해도 될지도?) 등
+//TODO:바닥표시자 변수.

@@ -72,6 +72,7 @@ abstract class SpecialEffect
         RestTime = endTime;
     }
 
+    /// <param name="deltaTime">일반적으로 Time.deltaTime을 사용할 것.</param>
     public void UpdateTime(float deltaTime)
     {
         RestTime -= deltaTime;

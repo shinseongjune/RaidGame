@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Playables;
 using UnityEngine;
 
 class Stats : MonoBehaviour
@@ -32,6 +33,19 @@ class Stats : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        //TODO: 임시 스탯. 기본값 저장해둔다음 플레이어 변화치나 아이템 넣어서 수정하는 구조로 만들것.
+        stats.Add(new Stat(100)); //MaxHP
+        hp = 100;
+        stats.Add(new Stat(100)); //MaxMP
+        mp = 100;
+        stats.Add(new Stat(100)); //Might
+        stats.Add(new Stat(100)); //Agility
+        stats.Add(new Stat(100)); //Dignity
+        stats.Add(new Stat(100)); //Willpower
+    }
+
     public void Damaged(float damage)
     {
         hp = Mathf.Max(hp - damage, 0);
@@ -47,15 +61,27 @@ class Stats : MonoBehaviour
         hp = Mathf.Min(hp + heal, stats[(int)Stat.Type.MaxMP].Current);
     }
 
-    public bool UseMana(float cost)
+    public bool UseMana(float cost, Skill.CostStat costStat)
     {
-        if (mp < cost)
+        if ((costStat == Skill.CostStat.MP && mp < cost) || (costStat == Skill.CostStat.HP && hp < cost))
         {
             return false;
         }
+        else
+        {
+            switch (costStat)
+            {
+                case Skill.CostStat.MP:
+                    mp -= cost;
+                    return true;
+                case Skill.CostStat.HP:
+                    hp -= cost;
+                    return true;
+            }
+        }
 
-        mp -= cost;
-        return true;
+        //something wrong
+        return false;
     }
 
     public void HealMana(float heal)
