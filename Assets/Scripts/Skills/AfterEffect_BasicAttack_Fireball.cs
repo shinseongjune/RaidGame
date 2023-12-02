@@ -7,8 +7,9 @@ public class AfterEffect_BasicAttack_Fireball : SkillBase
     public Damage damage;
     public float lifeTime;
     public Transform boomCore;
+    public GameObject source;
 
-    List<GameObject> alreadyHitObjects = new List<GameObject>();
+    public List<GameObject> alreadyHitObjects = new List<GameObject>();
 
     void Update()
     {
@@ -23,5 +24,14 @@ public class AfterEffect_BasicAttack_Fireball : SkillBase
     private void OnTriggerEnter(Collider other)
     {
         //TODO: if (!already.contain(other)) other.damage, already.add(other.gameob)
+    }
+
+    public void SetDataAndTriggerOn(Damage damage, List<GameObject> alreadys, GameObject source)
+    {
+        this.damage = damage;
+        alreadyHitObjects.AddRange(alreadys);
+        this.source = source;
+
+        GetComponent<Collider>().enabled = true;
     }
 }

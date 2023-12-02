@@ -51,7 +51,8 @@ public class BasicAttack_Fireball : SkillBase
     void Boom()
     {
         //TODO:instantiate(after), after.alread = already, source, damage ¡÷¿‘
-        Instantiate(afterEffect_Explosion, transform.position, transform.rotation);
+        AfterEffect_BasicAttack_Fireball boom = Instantiate(afterEffect_Explosion, transform.position, transform.rotation).GetComponent<AfterEffect_BasicAttack_Fireball>();
+        boom.SetDataAndTriggerOn(damage, alreadyHitObjects, source);
         Destroy(gameObject);
     }
 }

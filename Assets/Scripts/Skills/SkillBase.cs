@@ -5,5 +5,4 @@ using UnityEngine;
 public class SkillBase : MonoBehaviour
 {
     public GameObject source;
-    public float preDelay;
 }
