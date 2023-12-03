@@ -7,7 +7,6 @@ public class AfterEffect_BasicAttack_Fireball : SkillBase
     public Damage damage;
     public float lifeTime;
     public Transform boomCore;
-    public GameObject source;
 
     public List<GameObject> alreadyHitObjects = new List<GameObject>();
 
