@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1366823907135045968}
   - component: {fileID: 5651578122304516777}
   m_Layer: 0
-  m_Name: BasicAttack_TestFireball
+  m_Name: Skill_TestFireball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

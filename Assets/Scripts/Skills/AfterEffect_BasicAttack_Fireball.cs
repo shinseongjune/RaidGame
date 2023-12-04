@@ -8,8 +8,6 @@ public class AfterEffect_BasicAttack_Fireball : SkillBase
     public float lifeTime;
     public Transform boomCore;
 
-    public List<GameObject> alreadyHitObjects = new List<GameObject>();
-
     void Update()
     {
         lifeTime -= Time.deltaTime;

@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 0}
-  lifeTime: 1
+  lifeTime: 0.4
   boomCore: {fileID: 6182367306394348100}
   alreadyHitObjects: []
 --- !u!1 &7783469809822200226

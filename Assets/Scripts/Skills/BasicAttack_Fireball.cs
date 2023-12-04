@@ -14,8 +14,6 @@ public class BasicAttack_Fireball : SkillBase
     [SerializeField]
     GameObject afterEffect_Explosion;
 
-    List<GameObject> alreadyHitObjects = new List<GameObject>();
-
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -43,7 +41,6 @@ public class BasicAttack_Fireball : SkillBase
 
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            print("피해가 적용됨");
             Boom();
         }
     }

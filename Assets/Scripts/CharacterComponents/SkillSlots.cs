@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class SkillSlots : MonoBehaviour
 {
+    public SkillSlot basicAttack = new SkillSlot();
+
     public Dictionary<string, SkillSlot> slots = new Dictionary<string, SkillSlot>();
 
     //TODO:임시 스킬오브젝트. 지울것.
     public Skill tempSkillQ;
+    public Skill tempBasic;
 
     Stats stats;
 
@@ -50,13 +53,50 @@ public class SkillSlots : MonoBehaviour
         SkillSlot qSlot = new();
         qSlot.skillObject = tempSkillQ;
         slots.Add("q", qSlot);
+        basicAttack.skillObject = tempBasic;
     }
 
     void Update()
     {
+        basicAttack.cooldown = Mathf.Max(basicAttack.cooldown - Time.deltaTime, 0);
+
         foreach (SkillSlot slot in slots.Values)
         {
             slot.cooldown = Mathf.Max(slot.cooldown - Time.deltaTime, 0);
+        }
+    }
+
+    public void DoBasicAttack()
+    {
+        Skill skill = basicAttack.skillObject;
+
+        if (basicAttack.cooldown > 0)
+        {
+            return;
+        }
+
+        if (stats.UseMana(skill.cost, skill.costStat))
+        {
+            basicAttack.cooldown = skill.coolDown;
+            Vector3 skillPosition;
+            switch (skill.type)
+            {
+                case Skill.Type.Projectile:
+                    skillPosition = firePoint.position == null ? transform.position + Vector3.up : firePoint.position;
+
+                    StartCoroutine(SpawnPrefab(skill.skillPrefab, skillPosition, skill.preDelay));
+                    //TODO: predelay, postdelay를 캐릭터컨트롤러에 전달하기.
+                    break;
+                case Skill.Type.Place:
+                    break;
+                case Skill.Type.Target:
+                    break;
+                case Skill.Type.Instant:
+                    skillPosition = firePoint.position == null ? transform.position + Vector3.up : firePoint.position;
+
+                    StartCoroutine(SpawnPrefab(skill.skillPrefab, skillPosition, skill.preDelay));
+                    break;
+            }
         }
     }
 
@@ -73,11 +113,11 @@ public class SkillSlots : MonoBehaviour
         if (stats.UseMana(skill.cost, skill.costStat))
         {
             slot.cooldown = skill.coolDown;
-
+            Vector3 skillPosition;
             switch (skill.type)
             {
                 case Skill.Type.Projectile:
-                    Vector3 skillPosition = firePoint.position == null ? transform.position + Vector3.up : firePoint.position;
+                    skillPosition = firePoint.position == null ? transform.position + Vector3.up : firePoint.position;
 
                     StartCoroutine(SpawnPrefab(skill.skillPrefab, skillPosition, skill.preDelay));
                     //TODO: predelay, postdelay를 캐릭터컨트롤러에 전달하기.
@@ -87,6 +127,9 @@ public class SkillSlots : MonoBehaviour
                 case Skill.Type.Target:
                     break;
                 case Skill.Type.Instant:
+                    skillPosition = firePoint.position == null ? transform.position + Vector3.up : firePoint.position;
+
+                    StartCoroutine(SpawnPrefab(skill.skillPrefab, skillPosition, skill.preDelay));
                     break;
             }
 

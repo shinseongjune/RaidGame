@@ -16,5 +16,8 @@ public struct Damage
     public float damage;
     public Type type;
 
+    public GameObject source;
+    public GameObject target;
+
     //TODO:관통 등등
 }

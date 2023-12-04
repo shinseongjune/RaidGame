@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor.Playables;
 using UnityEngine;
 
-class Stats : MonoBehaviour
+public class Stats : MonoBehaviour
 {
     List<Stat> stats = new List<Stat>();
 
