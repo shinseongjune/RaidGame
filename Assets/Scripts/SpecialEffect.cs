@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class SpecialEffect
+public abstract class SpecialEffect : IEquatable<SpecialEffect>
 {
     public enum Type
     {
@@ -37,7 +38,7 @@ public abstract class SpecialEffect
         private set;
     }
 
-    public CharacterControlComponent Target
+    public ControlComponent Target
     {
         get;
         private set;
@@ -69,7 +70,21 @@ public abstract class SpecialEffect
         }
     }
 
-    public SpecialEffect(string name, Type type, bool isHidden, GameObject source, CharacterControlComponent target, float endTime)
+    int stack = 1;
+
+    public int Stack
+    {
+        get
+        {
+            return stack;
+        }
+        set
+        {
+            stack = value;
+        }
+    }
+
+    public SpecialEffect(string name, Type type, bool isHidden, GameObject source, ControlComponent target, float endTime)
     {
         Name = name;
         EffectType = type;
@@ -95,13 +110,16 @@ public abstract class SpecialEffect
     public abstract void OnUpdate();
 
     public abstract void OnExit();
+
+    public bool Equals(SpecialEffect other)
+    {
+        return Name == other.Name;
+    }
 }
 
-//TODO: 캐릭터 이후)기본적인 특수효과(출혈, 화상, 도트힐, 방깎, cc기 등) 구현.
-//상세 효과는 각 소스에서 직접 만들것.
 public class Stun : SpecialEffect
 {
-    public Stun(string name, Type type, bool isHidden, GameObject source, CharacterControlComponent target, float endTime) : base(name, type, isHidden, source, target, endTime) { }
+    public Stun(string name, Type type, bool isHidden, GameObject source, ControlComponent target, float endTime) : base(name, type, isHidden, source, target, endTime) { }
 
     public override void OnEnter()
     {
@@ -126,7 +144,7 @@ public class Stun : SpecialEffect
 
 public class Snare : SpecialEffect
 {
-    public Snare(string name, Type type, bool isHidden, GameObject source, CharacterControlComponent target, float endTime) : base(name, type, isHidden, source, target, endTime) { }
+    public Snare(string name, Type type, bool isHidden, GameObject source, ControlComponent target, float endTime) : base(name, type, isHidden, source, target, endTime) { }
 
     public override void OnEnter()
     {
@@ -156,12 +174,12 @@ public class Snare : SpecialEffect
     }
 }
 
-public class KnuckBack : SpecialEffect
+public class KnockBack : SpecialEffect
 {
-    public static float KNUCKBACK_SPEED = 4f;
+    public static float KnockBack_SPEED = 4f;
     public Vector3 direction;
 
-    public KnuckBack(string name, Type type, bool isHidden, GameObject source, CharacterControlComponent target, Vector3 dir) : base(name, type, isHidden, source, target, dir.magnitude / KNUCKBACK_SPEED)
+    public KnockBack(string name, Type type, bool isHidden, GameObject source, ControlComponent target, Vector3 dir) : base(name, type, isHidden, source, target, dir.magnitude / KnockBack_SPEED)
     {
         direction = dir;
     }
@@ -171,7 +189,7 @@ public class KnuckBack : SpecialEffect
         if (Target.movement != null)
         {
             Target.actPreventer++;
-            Target.movement.GetKnuckBack(direction);
+            Target.movement.GetKnockBack(direction);
         }
     }
 

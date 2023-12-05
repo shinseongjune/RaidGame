@@ -31,7 +31,11 @@ public class Movement : MonoBehaviour
     {
         if (isMovable)
         {
-            agent.SetDestination(destination);
+            NavMeshHit navMeshHit;
+            if (NavMesh.SamplePosition(destination, out navMeshHit, 100f, NavMesh.AllAreas))
+            {
+                agent.SetDestination(navMeshHit.position);
+            }
         }
     }
 
@@ -55,10 +59,10 @@ public class Movement : MonoBehaviour
         agent.velocity = Vector3.zero;
     }
 
-    public void GetKnuckBack(Vector3 direction)
+    public void GetKnockBack(Vector3 direction)
     {
         DisableMovement();
-        agent.Move(direction * KnuckBack.KNUCKBACK_SPEED);
+        agent.Move(direction * KnockBack.KnockBack_SPEED);
         agent.velocity = Vector3.zero;
         agent.SetDestination(transform.position);
         EnableMovement();

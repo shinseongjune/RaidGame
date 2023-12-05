@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 1990769260264647504}
   - component: {fileID: 6291721613013323589}
   - component: {fileID: 5766178162184186737}
-  - component: {fileID: 4531521678240036555}
+  - component: {fileID: 2133535245724198391}
   m_Layer: 7
   m_Name: TempPlayer
   m_TagString: Untagged
@@ -211,9 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2a505e093cdabd47b5dbf21fb679c05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DASH_SPEED: 30
-  DASH_DISTANCE: 4.5
-  dashTime: 0
+  isMovable: 1
 --- !u!114 &6291721613013323589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,7 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 703ea63258dea5741b71d34f4e288aee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4531521678240036555
+--- !u!114 &2133535245724198391
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -250,12 +248,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6789263574828256460}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 033b73b2dc4cad3488ae7cd2c036d34e, type: 3}
+  m_Script: {fileID: 11500000, guid: 6128b74095ad76e46b0adf3a46902cc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   movement: {fileID: 0}
   stats: {fileID: 0}
-  canAct: 1
+  skillSlots: {fileID: 0}
+  actPreventer: 0
 --- !u!1 &9095417020748843156
 GameObject:
   m_ObjectHideFlags: 0

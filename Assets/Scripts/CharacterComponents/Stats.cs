@@ -8,7 +8,9 @@ public class Stats : MonoBehaviour
 {
     List<Stat> stats = new List<Stat>();
 
+    [SerializeField]
     float hp;
+    [SerializeField]
     float mp;
 
     public float HP
@@ -22,8 +24,6 @@ public class Stats : MonoBehaviour
         get { return mp; }
         private set { mp = value; }
     }
-
-    //TODO: 스페셜이펙트(타입별 4분류, 히든까지 8타입.)
 
     public Stat this[int index]
     {
@@ -53,6 +53,7 @@ public class Stats : MonoBehaviour
         if (hp <= 0)
         {
             //TODO: 캐릭터후) character 스크립트에서 죽음 처리.
+            Destroy(gameObject);
         }
     }
 

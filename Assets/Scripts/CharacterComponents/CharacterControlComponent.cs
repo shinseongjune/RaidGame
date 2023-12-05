@@ -2,83 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterControlComponent : MonoBehaviour
+public class CharacterControlComponent : ControlComponent
 {
-    public Movement movement;
-    public Stats stats;
     public SkillSlots skillSlots;
 
-    //TODO: equips, consumables
-
-    List<SpecialEffect> effects_sequencial = new List<SpecialEffect>();
-    List<SpecialEffect> effects_renewable = new List<SpecialEffect>();
-    List<SpecialEffect> effects_sharedDuration = new List<SpecialEffect>();
-    List<SpecialEffect> effects_individualDuration = new List<SpecialEffect>();
-
-    List<SpecialEffect> effects_hidden = new List<SpecialEffect>();
-
-    public float actPreventer = 0;
-
-    void Start()
+    public override void Start()
     {
-        movement = GetComponent<Movement>();
-        stats = GetComponent<Stats>();
-        skillSlots = GetComponent<SkillSlots>();
+        base.Start();
+
+        TryGetComponent<SkillSlots>(out skillSlots);
     }
 
-    void Update()
+    public override void Update()
     {
-        foreach (SpecialEffect effect in effects_sequencial)
-        {
-            effect.OnUpdate();
-        }
-        foreach (SpecialEffect effect in effects_renewable)
-        {
-            effect.OnUpdate();
-        }
-        foreach (SpecialEffect effect in effects_sharedDuration)
-        {
-            effect.OnUpdate();
-        }
-        foreach (SpecialEffect effect in effects_individualDuration)
-        {
-            effect.OnUpdate();
-        }
-        foreach (SpecialEffect effect in effects_hidden)
-        {
-            effect.OnUpdate();
-        }
-
-        //TODO: item tick => 아이템슬롯에서 계산
-
-    }
-
-    public void AppendSpecialEffect(SpecialEffect effect)
-    {
-
-    }
-
-    public void RemoveSpecialEffect(SpecialEffect effect)
-    {
-        switch (effect.EffectType)
-        {
-            case SpecialEffect.Type.Sequencial:
-                effects_sequencial.Remove(effect);
-                break;
-            case SpecialEffect.Type.Renewable:
-                effects_renewable.Remove(effect);
-                break;
-            case SpecialEffect.Type.SharedDuration:
-                effects_sharedDuration.Remove(effect);
-                break;
-            case SpecialEffect.Type.IndividualDuration:
-                effects_individualDuration.Remove(effect);
-                break;
-            case SpecialEffect.Type.Hidden:
-                effects_hidden.Remove(effect);
-                break;
-        }
-        effect.OnExit();
+        base.Update();
     }
 
     public void UseConsumable()

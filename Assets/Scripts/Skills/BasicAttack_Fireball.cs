@@ -18,7 +18,9 @@ public class BasicAttack_Fireball : SkillBase
     {
         rb = GetComponent<Rigidbody>();
 
-        //source.stats 등으로부터 damage 계산.
+        //TODO: source.stats 등으로부터 damage 계산.
+        damage = new Damage();
+        damage.damage = 30;
     }
 
     void Update()
@@ -41,6 +43,7 @@ public class BasicAttack_Fireball : SkillBase
 
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
+            other.GetComponentInParent<Stats>().Damaged(damage.damage);
             Boom();
         }
     }
