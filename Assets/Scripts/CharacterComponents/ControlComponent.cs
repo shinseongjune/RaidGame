@@ -139,4 +139,9 @@ public abstract class ControlComponent : MonoBehaviour
                 break;
         }
     }
+
+    /// <summary>
+    /// animator.SetBool("isWalking", false);
+    /// </summary>
+    public abstract void EndMovement();
 }

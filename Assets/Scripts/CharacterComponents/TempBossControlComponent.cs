@@ -35,5 +35,8 @@ public class TempBossControlComponent : ControlComponent
         base.Update();
     }
 
-
+    public override void EndMovement()
+    {
+        throw new System.NotImplementedException();
+    }
 }

@@ -5,17 +5,26 @@ using UnityEngine;
 public class CharacterControlComponent : ControlComponent
 {
     public SkillSlots skillSlots;
+    public Animator animator;
 
     public override void Start()
     {
         base.Start();
 
         TryGetComponent<SkillSlots>(out skillSlots);
+        TryGetComponent<Animator>(out animator);
     }
 
     public override void Update()
     {
         base.Update();
+    }
+
+    public override void EndMovement()
+    {
+        animator.SetBool("isWalking", false);
+        animator.SetBool("isDashing", false);
+        animator.SetBool("isKnockBacked", false);
     }
 
     public void UseConsumable()
@@ -36,6 +45,7 @@ public class CharacterControlComponent : ControlComponent
             movement.CancelMove();
             Look(point);
             skillSlots.DoBasicAttack();
+            animator.SetTrigger("SlashTrigger");
         }
     }
 
@@ -44,6 +54,7 @@ public class CharacterControlComponent : ControlComponent
         if (actPreventer == 0)
         {
             movement.MoveTo(point);
+            animator.SetBool("isWalking", true);
         }
     }
 
@@ -57,6 +68,10 @@ public class CharacterControlComponent : ControlComponent
             {
                 //TODO: 실패 피드백. 아이콘 흔들 등
             }
+            else
+            {
+                animator.SetTrigger("SlashTrigger");
+            }
         }
     }
 
@@ -68,6 +83,7 @@ public class CharacterControlComponent : ControlComponent
             movement.CancelMove();
             Look(point);
             movement.Dash(direction);
+            animator.SetBool("isDashing", true);
         }
     }
 }

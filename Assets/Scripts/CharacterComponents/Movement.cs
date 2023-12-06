@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class Movement : MonoBehaviour
 {
     NavMeshAgent agent;
+    ControlComponent control;
 
     public bool isMovable = true;
 
@@ -14,17 +15,15 @@ public class Movement : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        control = GetComponent<ControlComponent>();
     }
 
     private void Update()
     {
-        if (!isMovable)
+        if (Vector3.Distance(transform.position, agent.destination) < agent.stoppingDistance)
         {
-            return;
+            CancelMove();
         }
-
-        //TODO: 나중)클릭 등의 인풋은 따로 관리하고, 통합관리 컴포넌트에서 인풋과 이동을 연결.
-        //AI의 경우 AI용 통합관리 컴포넌트에서 자체적 판단 이후 이동하도록 만들것.
     }
 
     public void MoveTo(Vector3 destination)
@@ -34,6 +33,7 @@ public class Movement : MonoBehaviour
             NavMeshHit navMeshHit;
             if (NavMesh.SamplePosition(destination, out navMeshHit, 100f, NavMesh.AllAreas))
             {
+                agent.isStopped = false;
                 agent.SetDestination(navMeshHit.position);
             }
         }
@@ -41,8 +41,9 @@ public class Movement : MonoBehaviour
 
     public void CancelMove()
     {
-        agent.SetDestination(gameObject.transform.position);
-        agent.velocity = Vector3.zero;
+        agent.SetDestination(transform.position);
+        agent.isStopped = true;
+        control.EndMovement();
     }
 
     public void DisableMovement()
@@ -55,8 +56,8 @@ public class Movement : MonoBehaviour
     public void EnableMovement()
     {
         isMovable = true;
+        CancelMove();
         agent.isStopped = false;
-        agent.velocity = Vector3.zero;
     }
 
     public void GetKnockBack(Vector3 direction)
@@ -66,14 +67,19 @@ public class Movement : MonoBehaviour
         agent.velocity = Vector3.zero;
         agent.SetDestination(transform.position);
         EnableMovement();
+        control.EndMovement();
     }
 
     public void Dash(Vector3 direction)
     {
-        DisableMovement();
-        agent.Move(direction * DASH_SPEED);
-        agent.velocity = Vector3.zero;
-        agent.SetDestination(transform.position);
-        EnableMovement();
+        if (isMovable)
+        {
+            DisableMovement();
+            agent.Move(direction * DASH_SPEED);
+            agent.SetDestination(transform.position);
+            agent.velocity = Vector3.zero;
+            EnableMovement();
+            control.EndMovement();
+        }
     }
 }
