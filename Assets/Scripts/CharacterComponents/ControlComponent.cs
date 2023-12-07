@@ -17,6 +17,7 @@ public abstract class ControlComponent : MonoBehaviour
     List<SpecialEffect> effects_hidden = new List<SpecialEffect>();
 
     public float actPreventer = 0;
+    public float movePreventer = 0;
 
     public virtual void Start()
     {
@@ -144,4 +145,10 @@ public abstract class ControlComponent : MonoBehaviour
     /// animator.SetBool("isWalking", false);
     /// </summary>
     public abstract void EndMovement();
+
+    public void Look(Vector3 point)
+    {
+        Vector3 dir = new Vector3(point.x, transform.position.y, point.z);
+        transform.LookAt(dir);
+    }
 }

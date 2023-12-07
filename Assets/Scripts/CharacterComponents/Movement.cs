@@ -8,9 +8,20 @@ public class Movement : MonoBehaviour
     NavMeshAgent agent;
     ControlComponent control;
 
-    public bool isMovable = true;
+    float DASH_SPEED = 20f;
+    float DASH_TIME = 0.2f;
+    float restDashTime = 0;
 
-    float DASH_SPEED = 4f;
+    float DASH_COOLDOWN = 2f;
+    float restDashCooldown = 0;
+    Vector3 dashDirection;
+
+    bool isDashing = false;
+    bool isKnockBacked = false;
+
+
+    Vector3 knockBackDirection;
+    float restKnockBackTime = 0;
 
     void Start()
     {
@@ -20,7 +31,38 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
-        if (Vector3.Distance(transform.position, agent.destination) < agent.stoppingDistance)
+        if (restDashCooldown > 0)
+        {
+            restDashCooldown = Mathf.Max(restDashCooldown - Time.deltaTime, 0);
+        }
+
+        if (isKnockBacked)
+        {
+            restKnockBackTime = Mathf.Max(restKnockBackTime - Time.deltaTime, 0);
+
+            agent.Move(knockBackDirection * Time.deltaTime);
+
+            if (restKnockBackTime <= 0)
+            {
+                isKnockBacked = false;
+                EnableMovement();
+                control.EndMovement();
+            }
+        }
+        else if (isDashing)
+        {
+            restDashTime = Mathf.Max(restDashTime - Time.deltaTime, 0);
+
+            agent.Move(dashDirection * DASH_SPEED * Time.deltaTime);
+
+            if (restDashTime <= 0)
+            {
+                isDashing = false;
+                EnableMovement();
+                control.EndMovement();
+            }
+        }
+        else if (Vector3.Distance(transform.position, agent.destination) < agent.stoppingDistance)
         {
             CancelMove();
         }
@@ -28,14 +70,11 @@ public class Movement : MonoBehaviour
 
     public void MoveTo(Vector3 destination)
     {
-        if (isMovable)
+        NavMeshHit navMeshHit;
+        if (NavMesh.SamplePosition(destination, out navMeshHit, 100f, NavMesh.AllAreas))
         {
-            NavMeshHit navMeshHit;
-            if (NavMesh.SamplePosition(destination, out navMeshHit, 100f, NavMesh.AllAreas))
-            {
-                agent.isStopped = false;
-                agent.SetDestination(navMeshHit.position);
-            }
+            agent.isStopped = false;
+            agent.SetDestination(navMeshHit.position);
         }
     }
 
@@ -46,40 +85,30 @@ public class Movement : MonoBehaviour
         control.EndMovement();
     }
 
-    public void DisableMovement()
-    {
-        isMovable = false;
-        CancelMove();
-        agent.isStopped = true;
-    }
-
     public void EnableMovement()
     {
-        isMovable = true;
         CancelMove();
         agent.isStopped = false;
     }
 
     public void GetKnockBack(Vector3 direction)
     {
-        DisableMovement();
-        agent.Move(direction * KnockBack.KnockBack_SPEED);
-        agent.velocity = Vector3.zero;
-        agent.SetDestination(transform.position);
-        EnableMovement();
-        control.EndMovement();
+        CancelMove();
+        restKnockBackTime = KnockBack.KnockBack_Time;
+        isKnockBacked = true;
     }
 
-    public void Dash(Vector3 direction)
+    public void Dash(Vector3 point, Vector3 direction)
     {
-        if (isMovable)
+        if (restDashCooldown <= 0)
         {
-            DisableMovement();
-            agent.Move(direction * DASH_SPEED);
-            agent.SetDestination(transform.position);
-            agent.velocity = Vector3.zero;
-            EnableMovement();
-            control.EndMovement();
+            CancelMove();
+            control.Look(point);
+            dashDirection = direction;
+            restDashTime = DASH_TIME;
+            isDashing = true;
+
+            restDashCooldown = DASH_COOLDOWN;
         }
     }
 }

@@ -7,6 +7,13 @@ public class TestBasicAttack : SkillBase
     public Damage damage;
     public float lifeTime;
 
+    private void Start()
+    {
+        damage = new Damage();
+        damage.damage = 15;
+        damage.type = Damage.Type.Physical;
+    }
+
     void Update()
     {
         lifeTime -= Time.deltaTime;
@@ -19,10 +26,11 @@ public class TestBasicAttack : SkillBase
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && !alreadyHitObjects.Contains(other.gameObject))
         {
-            //TODO:피해주기
-            print("피해발생");
+            alreadyHitObjects.Add(other.gameObject);
+            Stats stats = other.GetComponentInParent<Stats>();
+            stats.Damaged(damage.damage);
         }
     }
 }

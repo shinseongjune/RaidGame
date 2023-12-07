@@ -38,11 +38,9 @@ public class BasicAttack_Fireball : SkillBase
 
     private void OnTriggerEnter(Collider other)
     {
-        //TODO:if (!already.contain(other)) if (!other.layer) other.character.damaged(~~), alreadyhit.add(other.gameob)
-        //Boom();
-
-        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && !alreadyHitObjects.Contains(other.gameObject))
         {
+            alreadyHitObjects.Add(other.gameObject);
             other.GetComponentInParent<Stats>().Damaged(damage.damage);
             Boom();
         }
@@ -50,7 +48,6 @@ public class BasicAttack_Fireball : SkillBase
 
     void Boom()
     {
-        //TODO:instantiate(after), after.alread = already, source, damage ¡÷¿‘
         AfterEffect_BasicAttack_Fireball boom = Instantiate(afterEffect_Explosion, transform.position, transform.rotation).GetComponent<AfterEffect_BasicAttack_Fireball>();
         boom.SetDataAndTriggerOn(damage, alreadyHitObjects, source);
         Destroy(gameObject);

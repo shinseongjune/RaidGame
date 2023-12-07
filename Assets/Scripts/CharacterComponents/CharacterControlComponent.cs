@@ -32,12 +32,6 @@ public class CharacterControlComponent : ControlComponent
 
     }
 
-    public void Look(Vector3 point)
-    {
-        Vector3 dir = new Vector3(point.x, transform.position.y, point.z);
-        transform.LookAt(dir);
-    }
-
     public void GetLeftClick(Vector3 point)
     {
         if (actPreventer == 0)
@@ -51,7 +45,7 @@ public class CharacterControlComponent : ControlComponent
 
     public void GetRightClick(Vector3 point)
     {
-        if (actPreventer == 0)
+        if (actPreventer == 0 && movePreventer == 0)
         {
             movement.MoveTo(point);
             animator.SetBool("isWalking", true);
@@ -77,12 +71,11 @@ public class CharacterControlComponent : ControlComponent
 
     public void GetSpaceBar(Vector3 point)
     {
-        if (actPreventer == 0)
+        if (actPreventer == 0 && movePreventer == 0)
         {
             Vector3 direction = (point - transform.position).normalized;
-            movement.CancelMove();
             Look(point);
-            movement.Dash(direction);
+            movement.Dash(point, direction);
             animator.SetBool("isDashing", true);
         }
     }

@@ -17,8 +17,8 @@ MonoBehaviour:
   type: 3
   costStat: 1
   cost: 0
-  coolDown: 0.1
-  preDelay: 0.1
-  postDelay: 0.1
+  coolDown: 0.2
+  preDelay: 0.2
+  postDelay: 0.3
   skillPrefab: {fileID: 1430408056455349902, guid: 56f1ca3af9a66b140b3615373f5bb001, type: 3}
   afterEffectPrefabs: []

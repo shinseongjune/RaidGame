@@ -148,23 +148,16 @@ public class Snare : SpecialEffect
 
     public override void OnEnter()
     {
-        if (Target.movement != null)
-        {
-            Target.movement.DisableMovement();
-        }
+        Target.movePreventer++;
     }
 
     public override void OnExit()
     {
-        if (Target.movement != null)
-        {
-            Target.movement.EnableMovement();
-        }
+        Target.movePreventer--;
     }
 
     public override void OnUpdate()
     {
-        Target.movement.DisableMovement();
         Duration -= Time.deltaTime;
 
         if (Duration <= 0)
@@ -176,10 +169,10 @@ public class Snare : SpecialEffect
 
 public class KnockBack : SpecialEffect
 {
-    public static float KnockBack_SPEED = 4f;
+    public static float KnockBack_Time = 0.1f;
     public Vector3 direction;
 
-    public KnockBack(string name, Type type, bool isHidden, GameObject source, ControlComponent target, Vector3 dir) : base(name, type, isHidden, source, target, dir.magnitude / KnockBack_SPEED)
+    public KnockBack(string name, Type type, bool isHidden, GameObject source, ControlComponent target, Vector3 dir) : base(name, type, isHidden, source, target, dir.magnitude / KnockBack_Time)
     {
         direction = dir;
     }

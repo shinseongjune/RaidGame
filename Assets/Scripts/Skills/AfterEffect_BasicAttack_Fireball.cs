@@ -20,7 +20,11 @@ public class AfterEffect_BasicAttack_Fireball : SkillBase
 
     private void OnTriggerEnter(Collider other)
     {
-        //TODO: if (!already.contain(other)) other.damage, already.add(other.gameob)
+        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && !alreadyHitObjects.Contains(other.gameObject))
+        {
+            alreadyHitObjects.Add(other.gameObject);
+            other.GetComponentInParent<Stats>().Damaged(damage.damage);
+        }
     }
 
     public void SetDataAndTriggerOn(Damage damage, List<GameObject> alreadys, GameObject source)
