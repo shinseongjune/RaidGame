@@ -20,5 +20,5 @@ MonoBehaviour:
   coolDown: 0.7
   preDelay: 0.6
   postDelay: 0.6
-  skillPrefab: {fileID: 0}
+  skillPrefab: {fileID: 1430408056455349902, guid: 546ac1a95588f534b93629ee07a721f0, type: 3}
   afterEffectPrefabs: []
