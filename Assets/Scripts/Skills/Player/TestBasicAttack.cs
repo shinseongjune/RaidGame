@@ -7,6 +7,8 @@ public class TestBasicAttack : SkillBase
     public Damage damage;
     public float lifeTime;
 
+    public GameObject hitEffect;
+
     private void Start()
     {
         damage = new Damage();
@@ -31,6 +33,9 @@ public class TestBasicAttack : SkillBase
             alreadyHitObjects.Add(other.gameObject);
             Stats stats = other.GetComponentInParent<Stats>();
             stats.Damaged(damage.damage);
+
+            Vector3 closest = other.ClosestPoint(transform.position);
+            Instantiate(hitEffect, closest, Quaternion.identity);
         }
     }
 }
