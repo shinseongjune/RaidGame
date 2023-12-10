@@ -58,7 +58,7 @@ public class CharacterControlComponent : ControlComponent
         {
             movement.CancelMove();
             Look(point);
-            if (!skillSlots.DoSkill(button))
+            if (!skillSlots.DoSkill(button, point))
             {
                 //TODO: 실패 피드백. 아이콘 흔들 등
             }

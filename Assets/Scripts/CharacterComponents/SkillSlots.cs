@@ -9,8 +9,9 @@ public class SkillSlots : MonoBehaviour
     public Dictionary<string, SkillSlot> slots = new Dictionary<string, SkillSlot>();
 
     //TODO:임시 스킬오브젝트. 지울것.
-    public Skill tempSkillQ;
     public Skill tempBasic;
+    public Skill tempSkillQ;
+    public Skill tempSkillW;
 
     Stats stats;
 
@@ -50,10 +51,15 @@ public class SkillSlots : MonoBehaviour
         stats = GetComponent<Stats>();
 
         //TODO: 임시코드. 지우고 외부에서 player가 선택한대로 할당하기.
+        basicAttack.skillObject = tempBasic;
+        
         SkillSlot qSlot = new();
         qSlot.skillObject = tempSkillQ;
         slots.Add("q", qSlot);
-        basicAttack.skillObject = tempBasic;
+
+        SkillSlot wSlot = new();
+        wSlot.skillObject = tempSkillW;
+        slots.Add("w", wSlot);
     }
 
     void Update()
@@ -100,9 +106,13 @@ public class SkillSlots : MonoBehaviour
         }
     }
 
-    public bool DoSkill(string input)
+    public bool DoSkill(string input, Vector3 point)
     {
         SkillSlot slot = slots[input];
+        if (slot == null)
+        {
+            return false;
+        }
         Skill skill = slot.skillObject;
 
         if (slot.cooldown > 0)
@@ -123,6 +133,8 @@ public class SkillSlots : MonoBehaviour
                     //TODO: predelay, postdelay를 캐릭터컨트롤러에 전달하기.
                     break;
                 case Skill.Type.Place:
+
+                    StartCoroutine(SpawnPrefab(skill.skillPrefab, point, skill.preDelay));
                     break;
                 case Skill.Type.Target:
                     break;

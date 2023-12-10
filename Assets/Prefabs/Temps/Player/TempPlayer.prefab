@@ -4669,8 +4669,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9724352284cdd3e43b41053b4fef14e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tempSkillQ: {fileID: 11400000, guid: 0a8596b1b1eaae240a0feb3809efef21, type: 2}
   tempBasic: {fileID: 11400000, guid: fc70f8e9d7e1e9441851cf7d7250fda8, type: 2}
+  tempSkillQ: {fileID: 11400000, guid: 0a8596b1b1eaae240a0feb3809efef21, type: 2}
+  tempSkillW: {fileID: 11400000, guid: 7ea6f53ed1049ea4486417b30c586413, type: 2}
   firePoint: {fileID: 786243720159185981}
 --- !u!114 &5766178162184186737
 MonoBehaviour:

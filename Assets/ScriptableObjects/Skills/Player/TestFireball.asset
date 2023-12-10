@@ -21,5 +21,4 @@ MonoBehaviour:
   preDelay: 0.2
   postDelay: 0
   skillPrefab: {fileID: 4988494055859785916, guid: 519e12f236fb5564cbb3869e86a6e980, type: 3}
-  afterEffectPrefabs:
-  - {fileID: 4841544300303640527, guid: 7dcdf562fd066bd44b65d13ff9bdaeec, type: 3}
+  afterEffectPrefabs: []
