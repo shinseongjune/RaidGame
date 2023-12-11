@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eff2cc56bcf64b241bf8a0c7d7643b73, type: 3}
+  m_Name: BossKnockBack
+  m_EditorClassIdentifier: 
+  skillName: "\uB109\uBC31\uD3ED\uBC1C"
+  description: 
+  type: 1
+  costStat: 1
+  cost: 0
+  coolDown: 15
+  preDelay: 0.8
+  postDelay: 0.1
+  skillPrefab: {fileID: 2778452510968483617, guid: 25d7e0b8fff870e44ae869e9ecc87016, type: 3}
+  afterEffectPrefabs: []

@@ -13,14 +13,13 @@ public class TempBossControlComponent : ControlComponent
     }
 
     public SkillSlot basicAttackSlot;
-    public SkillSlot KnockBackSkill1Slot;
-    public SkillSlot KnockBackSkill2Slot;
-    public SkillSlot multipleBoomGroundSkillSlot;
+    public SkillSlot KnockBackSkillSlot;
 
     public SkillSlot globalKnockBackSkillSlot;
     public SkillSlot bombStoneSkillSlot;
     public SkillSlot hellfireBallSkillSlot;
 
+    public Transform skillPoint;
     public Transform hellfirePoint;
 
     public override void Start()
@@ -37,6 +36,6 @@ public class TempBossControlComponent : ControlComponent
 
     public override void EndMovement()
     {
-        throw new System.NotImplementedException();
+
     }
 }

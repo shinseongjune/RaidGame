@@ -1,12 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Playables;
 using UnityEngine;
 
 public class Stats : MonoBehaviour
 {
     List<Stat> stats = new List<Stat>();
+
+    float REGEN_TICK_TIME = 0.2f;
+    float hpRegenCurrent = 0.2f;
+    float mpRegenCurrent = 0.2f;
 
     [SerializeField]
     float hp;
@@ -88,5 +91,32 @@ public class Stats : MonoBehaviour
     public void HealMana(float heal)
     {
         mp = Mathf.Min(mp + heal, stats[(int)Stat.Type.MaxMP].Current);
+    }
+
+    private void Update()
+    {
+        if (hp != stats[(int)Stat.Type.MaxHP].Current)
+        {
+            hpRegenCurrent -= Time.deltaTime;
+
+            if (hpRegenCurrent <= 0)
+            {
+                hp = Mathf.Min(hp + 0.5f, stats[(int)Stat.Type.MaxHP].Current);
+
+                hpRegenCurrent = REGEN_TICK_TIME;
+            }
+        }
+
+        if (mp != stats[(int)Stat.Type.MaxMP].Current)
+        {
+            mpRegenCurrent -= Time.deltaTime;
+
+            if (mpRegenCurrent <= 0)
+            {
+                mp = Mathf.Min(mp + 0.5f, stats[(int)Stat.Type.MaxMP].Current);
+
+                mpRegenCurrent = REGEN_TICK_TIME;
+            }
+        }
     }
 }

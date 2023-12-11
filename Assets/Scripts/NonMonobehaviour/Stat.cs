@@ -34,7 +34,7 @@ public class StatMod : IComparable<StatMod>
         get;
     }
 
-    public int Stacks;
+    public int stack = 1;
     public readonly int MAX_STACKS;
 
     /// <param name="value">곱연산의 경우 기본 배율 1을 제외한 추가 배율만 작성할 것.
@@ -134,7 +134,7 @@ public class Stat
 
         if (found != null)
         {
-            found.Stacks++;
+            found.stack++;
         }
         else
         {
@@ -151,15 +151,15 @@ public class Stat
 
         if (found != null)
         {
-            found.Stacks--;
-        }
+            found.stack--;
 
-        if (found.Stacks <= 0)
-        {
-            mods.Remove(found);
-        }
+            if (found.stack <= 0)
+            {
+                mods.Remove(found);
+            }
 
-        IsDirty = true;
+            IsDirty = true;
+        }
     }
 
     void CalculateCurrentValue()
@@ -175,10 +175,10 @@ public class Stat
             switch (mod.ModType)
             {
                 case StatMod.Type.BaseAdd:
-                    origin += mod.Value * mod.Stacks;
+                    origin += mod.Value * mod.stack;
                     break;
                 case StatMod.Type.BaseMul:
-                    origin *= 1 + mod.Value * mod.Stacks;
+                    origin *= 1 + mod.Value * mod.stack;
                     break;
                 case StatMod.Type.TotalMulA:
                     totalMulA.Add(mod);
@@ -206,7 +206,7 @@ public class Stat
         float total = 0;
         foreach (StatMod mod in mods)
         {
-            total += mod.Value * mod.Stacks;
+            total += mod.Value * mod.stack;
         }
         return total;
     }

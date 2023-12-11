@@ -38,4 +38,9 @@ public class TestBasicAttack : SkillBase
             Instantiate(hitEffect, closest, Quaternion.identity);
         }
     }
+
+    public override void GetOn()
+    {
+
+    }
 }

@@ -16,6 +16,8 @@ public abstract class ControlComponent : MonoBehaviour
 
     List<SpecialEffect> effects_hidden = new List<SpecialEffect>();
 
+    List<SpecialEffect> removeList = new List<SpecialEffect>();
+
     public float actPreventer = 0;
     public float movePreventer = 0;
 
@@ -50,6 +52,12 @@ public abstract class ControlComponent : MonoBehaviour
 
         //TODO: item tick => 아이템슬롯에서 계산
 
+        foreach(SpecialEffect effect in removeList)
+        {
+            RemoveSpecialEffect(effect);
+        }
+
+        removeList.Clear();
     }
 
     public void AppendSpecialEffect(SpecialEffect effect)
@@ -98,7 +106,12 @@ public abstract class ControlComponent : MonoBehaviour
         }
     }
 
-    public void RemoveSpecialEffect(SpecialEffect effect)
+    public void AddToRemoveSpecialEffectList(SpecialEffect effect)
+    {
+        removeList.Add(effect);
+    }
+
+    void RemoveSpecialEffect(SpecialEffect effect)
     {
         switch (effect.EffectType)
         {

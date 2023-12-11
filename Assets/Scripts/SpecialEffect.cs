@@ -137,7 +137,7 @@ public class Stun : SpecialEffect
 
         if (Duration <= 0)
         {
-            Target.RemoveSpecialEffect(this);
+            Target.AddToRemoveSpecialEffectList(this);
         }
     }
 }
@@ -162,7 +162,7 @@ public class Snare : SpecialEffect
 
         if (Duration <= 0)
         {
-            Target.RemoveSpecialEffect(this);
+            Target.AddToRemoveSpecialEffectList(this);
         }
     }
 }
@@ -172,7 +172,7 @@ public class KnockBack : SpecialEffect
     public static float KnockBack_Time = 0.1f;
     public Vector3 direction;
 
-    public KnockBack(string name, Type type, bool isHidden, GameObject source, ControlComponent target, Vector3 dir) : base(name, type, isHidden, source, target, dir.magnitude / KnockBack_Time)
+    public KnockBack(string name, Type type, bool isHidden, GameObject source, ControlComponent target, Vector3 dir) : base(name, type, isHidden, source, target, KnockBack_Time)
     {
         direction = dir;
     }
@@ -200,7 +200,7 @@ public class KnockBack : SpecialEffect
         Duration -= Time.deltaTime;
         if (Duration <= 0)
         {
-            Target.RemoveSpecialEffect(this);
+            Target.AddToRemoveSpecialEffectList(this);
         }
     }
 }

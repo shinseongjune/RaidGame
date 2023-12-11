@@ -95,6 +95,7 @@ public class Movement : MonoBehaviour
     {
         CancelMove();
         restKnockBackTime = KnockBack.KnockBack_Time;
+        knockBackDirection = direction;
         isKnockBacked = true;
     }
 

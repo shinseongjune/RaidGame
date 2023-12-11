@@ -12,6 +12,8 @@ public class SkillSlots : MonoBehaviour
     public Skill tempBasic;
     public Skill tempSkillQ;
     public Skill tempSkillW;
+    public Skill tempSkillE;
+    public Skill tempSkillR;
 
     Stats stats;
 
@@ -60,6 +62,14 @@ public class SkillSlots : MonoBehaviour
         SkillSlot wSlot = new();
         wSlot.skillObject = tempSkillW;
         slots.Add("w", wSlot);
+
+        SkillSlot eSlot = new();
+        eSlot.skillObject = tempSkillE;
+        slots.Add("e", eSlot);
+
+        SkillSlot rSlot = new();
+        rSlot.skillObject = tempSkillR;
+        slots.Add("r", rSlot);
     }
 
     void Update()
@@ -158,7 +168,9 @@ public class SkillSlots : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
 
-        Instantiate(prefab, position, transform.rotation);
+        SkillBase skill = Instantiate(prefab, position, transform.rotation).GetComponent<SkillBase>();
+        skill.source = gameObject;
+        skill.GetOn();
     }
 
     /// <summary>

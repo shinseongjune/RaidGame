@@ -38,4 +38,9 @@ public class Skill_Meteor : SkillBase
             Destroy(gameObject);
         }
     }
+
+    public override void GetOn()
+    {
+
+    }
 }

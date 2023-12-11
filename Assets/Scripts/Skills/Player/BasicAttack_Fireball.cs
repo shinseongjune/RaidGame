@@ -52,4 +52,9 @@ public class BasicAttack_Fireball : SkillBase
         boom.SetDataAndTriggerOn(damage, alreadyHitObjects, source);
         Destroy(gameObject);
     }
+
+    public override void GetOn()
+    {
+
+    }
 }

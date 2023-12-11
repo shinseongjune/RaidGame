@@ -35,4 +35,9 @@ public class AfterEffect_BasicAttack_Fireball : SkillBase
 
         GetComponent<Collider>().enabled = true;
     }
+
+    public override void GetOn()
+    {
+
+    }
 }
