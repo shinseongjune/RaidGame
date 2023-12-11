@@ -14759,7 +14759,7 @@ GameObject:
   - component: {fileID: 5783413083223930814}
   - component: {fileID: 2820282581730142898}
   m_Layer: 0
-  m_Name: TestBossBaseAttack1
+  m_Name: Skill_TestBossBaseAttack1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
