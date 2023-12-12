@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SkillSlot
 {
-    public Skill skillObject;
+    public Skill skill;
     public float cooldown = 0;
 }
 

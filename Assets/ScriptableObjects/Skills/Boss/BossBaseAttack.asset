@@ -15,10 +15,11 @@ MonoBehaviour:
   skillName: "\uBCF4\uC2A4\uD3C9\uD0C0"
   description: 
   type: 3
+  range: 4
   costStat: 1
   cost: 0
   coolDown: 2
-  preDelay: 0.6
+  preDelay: 1
   postDelay: 0.6
   skillPrefab: {fileID: 1430408056455349902, guid: 546ac1a95588f534b93629ee07a721f0, type: 3}
   afterEffectPrefabs: []

@@ -112,4 +112,14 @@ public class Movement : MonoBehaviour
             restDashCooldown = DASH_COOLDOWN;
         }
     }
+
+    public void SetStoppingDistance(float dist)
+    {
+        agent.stoppingDistance = dist;
+    }
+
+    public bool IsReached()
+    {
+        return agent.remainingDistance <= 0.1f;
+    }
 }

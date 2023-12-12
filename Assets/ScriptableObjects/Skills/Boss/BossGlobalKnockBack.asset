@@ -15,6 +15,7 @@ MonoBehaviour:
   skillName: "\uB300\uADDC\uBAA8 \uD3ED\uBC1C"
   description: 
   type: 1
+  range: 0
   costStat: 1
   cost: 0
   coolDown: 0

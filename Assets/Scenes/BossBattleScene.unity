@@ -524,10 +524,10 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 7
-  m_Acceleration: 3000
+  m_Speed: 10
+  m_Acceleration: 150
   avoidancePriority: 50
-  m_AngularSpeed: 3000
+  m_AngularSpeed: 1500
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
@@ -552,6 +552,10 @@ MonoBehaviour:
   stats: {fileID: 0}
   actPreventer: 0
   movePreventer: 0
+  nowState: 0
+  nowSkill: {fileID: 0}
+  target: {fileID: 0}
+  sight: 60
   skillPoint: {fileID: 2112057240}
   hellfirePoint: {fileID: 1074317980}
 --- !u!54 &628399475

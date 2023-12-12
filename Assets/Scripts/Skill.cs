@@ -19,6 +19,8 @@ public class Skill : ScriptableObject
 
     public Type type;
 
+    public float range;
+
     public enum CostStat
     {
         HP,

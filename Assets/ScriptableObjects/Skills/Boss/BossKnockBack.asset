@@ -15,6 +15,7 @@ MonoBehaviour:
   skillName: "\uB109\uBC31\uD3ED\uBC1C"
   description: 
   type: 1
+  range: 10
   costStat: 1
   cost: 0
   coolDown: 15

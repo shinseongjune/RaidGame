@@ -53,22 +53,22 @@ public class SkillSlots : MonoBehaviour
         stats = GetComponent<Stats>();
 
         //TODO: 임시코드. 지우고 외부에서 player가 선택한대로 할당하기.
-        basicAttack.skillObject = tempBasic;
+        basicAttack.skill = tempBasic;
         
         SkillSlot qSlot = new();
-        qSlot.skillObject = tempSkillQ;
+        qSlot.skill = tempSkillQ;
         slots.Add("q", qSlot);
 
         SkillSlot wSlot = new();
-        wSlot.skillObject = tempSkillW;
+        wSlot.skill = tempSkillW;
         slots.Add("w", wSlot);
 
         SkillSlot eSlot = new();
-        eSlot.skillObject = tempSkillE;
+        eSlot.skill = tempSkillE;
         slots.Add("e", eSlot);
 
         SkillSlot rSlot = new();
-        rSlot.skillObject = tempSkillR;
+        rSlot.skill = tempSkillR;
         slots.Add("r", rSlot);
     }
 
@@ -84,7 +84,7 @@ public class SkillSlots : MonoBehaviour
 
     public void DoBasicAttack()
     {
-        Skill skill = basicAttack.skillObject;
+        Skill skill = basicAttack.skill;
 
         if (basicAttack.cooldown > 0)
         {
@@ -123,7 +123,7 @@ public class SkillSlots : MonoBehaviour
         {
             return false;
         }
-        Skill skill = slot.skillObject;
+        Skill skill = slot.skill;
 
         if (slot.cooldown > 0)
         {
