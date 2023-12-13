@@ -131,6 +131,7 @@ public class TempBossControlComponent : ControlComponent
             case State.Normal:
                 if (isdisappearing)
                 {
+                    movement.agent.enabled = true;
                     transform.GetChild(0).gameObject.SetActive(true);
                     isdisappearing = false;
                 }
@@ -186,6 +187,7 @@ public class TempBossControlComponent : ControlComponent
                 if (isdisappearing)
                 {
                     transform.GetChild(0).gameObject.SetActive(false);
+                    movement.agent.enabled = false;
                 }
 
                 waitingTime -= Time.deltaTime;
