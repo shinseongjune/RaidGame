@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class Movement : MonoBehaviour
 {
-    NavMeshAgent agent;
+    public NavMeshAgent agent;
     ControlComponent control;
 
     float DASH_SPEED = 20f;

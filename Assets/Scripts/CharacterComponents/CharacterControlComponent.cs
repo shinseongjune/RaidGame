@@ -6,6 +6,8 @@ public class CharacterControlComponent : ControlComponent
 {
     public SkillSlots skillSlots;
     public Animator animator;
+    public bool isDead = false;
+    public bool isEnd = false;
 
     public override void Start()
     {
@@ -13,11 +15,23 @@ public class CharacterControlComponent : ControlComponent
 
         TryGetComponent<SkillSlots>(out skillSlots);
         TryGetComponent<Animator>(out animator);
+
+        stats.canRegen = true;
     }
 
     public override void Update()
     {
+        if (isDead || isEnd)
+        {
+            return;
+        }
+
         base.Update();
+
+        if (actPreventer > 0)
+        {
+            skillSlots.CancelSkill();
+        }
     }
 
     public override void EndMovement()
@@ -64,6 +78,7 @@ public class CharacterControlComponent : ControlComponent
             }
             else
             {
+                //TODO: 스킬 딜레이 받아와서 모션 시간 지정+actpreventer 처리할것.
                 animator.SetTrigger("SlashTrigger");
             }
         }
@@ -78,5 +93,16 @@ public class CharacterControlComponent : ControlComponent
             movement.Dash(point, direction);
             animator.SetBool("isDashing", true);
         }
+    }
+
+    public override void Death()
+    {
+        EndMovement();
+        StopAllCoroutines();
+        stats.enabled = false;
+        movement.enabled = false;
+        skillSlots.enabled = false;
+        animator.SetTrigger("DyingTrigger");
+        isDead = true;
     }
 }

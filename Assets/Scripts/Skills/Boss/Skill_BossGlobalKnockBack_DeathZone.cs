@@ -9,6 +9,8 @@ public class Skill_BossGlobalKnockBack_DeathZone : MonoBehaviour
 
     public Dictionary<GameObject, int> targets = new Dictionary<GameObject, int>();
 
+    public bool isOn = false;
+
     void Start()
     {
         damage = new();
@@ -18,10 +20,16 @@ public class Skill_BossGlobalKnockBack_DeathZone : MonoBehaviour
 
     private void Update()
     {
-        foreach (GameObject target in targets.Keys.ToList())
+        if (isOn)
         {
-            Stats stats = target.GetComponentInParent<Stats>();
-            stats.Damaged(damage.damage * Time.deltaTime);
+            foreach (GameObject target in targets.Keys.ToList())
+            {
+                if (target != null)
+                {
+                    Stats stats = target.GetComponentInParent<Stats>();
+                    stats.Damaged(damage.damage * Time.deltaTime);
+                }
+            }
         }
     }
 

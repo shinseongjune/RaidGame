@@ -8,6 +8,11 @@ public class InputHandler : MonoBehaviour
 
     void Update()
     {
+        if (player.character.isDead || player.character.isEnd)
+        {
+            return;
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             player.GetLeftClick();

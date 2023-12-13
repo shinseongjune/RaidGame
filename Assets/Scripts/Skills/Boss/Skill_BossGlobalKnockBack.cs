@@ -13,6 +13,9 @@ public class Skill_BossGlobalKnockBack : SkillBase
     public float knockbackPower;
 
     public GameObject aftereffect_globalBoom;
+    public Skill_BossGlobalKnockBack_DeathZone deathzone;
+
+    public float deathzoneTime = 1.5f;
 
     private void Start()
     {
@@ -23,6 +26,15 @@ public class Skill_BossGlobalKnockBack : SkillBase
 
     void Update()
     {
+        if (deathzoneTime > 0)
+        {
+            deathzoneTime -= Time.deltaTime;
+            if (deathzoneTime <= 0) 
+            {
+                deathzone.isOn = true;
+            }
+        }
+
         boomTime -= Time.deltaTime;
 
         if (boomTime <= 0)

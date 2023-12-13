@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eff2cc56bcf64b241bf8a0c7d7643b73, type: 3}
   m_Name: BossGlobalKnockBack
   m_EditorClassIdentifier: 
-  skillName: "\uB300\uADDC\uBAA8 \uD3ED\uBC1C"
+  skillName: "\uAE00\uB85C\uBC8C\uB109\uBC31"
   description: 
   type: 1
   range: 0

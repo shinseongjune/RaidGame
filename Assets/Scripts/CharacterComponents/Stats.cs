@@ -11,8 +11,12 @@ public class Stats : MonoBehaviour
     float hpRegenCurrent = 0.2f;
     float mpRegenCurrent = 0.2f;
 
-    [SerializeField]
-    float hp;
+    public bool canRegen = false;
+
+    public bool isDead = false;
+
+    [SerializeField] //TODO: 임시로 public. 제대로 된 스탯 로드해서 자동으로 초기화하는 시스템 필요
+    public float hp;
     [SerializeField]
     float mp;
 
@@ -36,11 +40,11 @@ public class Stats : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void Awake()
     {
         //TODO: 임시 스탯. 기본값 저장해둔다음 플레이어 변화치나 아이템 넣어서 수정하는 구조로 만들것.
-        stats.Add(new Stat(100)); //MaxHP
-        hp = 100;
+        stats.Add(new Stat(500)); //MaxHP
+        hp = 500;
         stats.Add(new Stat(100)); //MaxMP
         mp = 100;
         stats.Add(new Stat(100)); //Might
@@ -55,8 +59,7 @@ public class Stats : MonoBehaviour
 
         if (hp <= 0)
         {
-            //TODO: 캐릭터후) character 스크립트에서 죽음 처리.
-            Destroy(gameObject);
+            isDead = true;
         }
     }
 
@@ -95,27 +98,30 @@ public class Stats : MonoBehaviour
 
     private void Update()
     {
-        if (hp != stats[(int)Stat.Type.MaxHP].Current)
+        if (canRegen)
         {
-            hpRegenCurrent -= Time.deltaTime;
-
-            if (hpRegenCurrent <= 0)
+            if (hp != stats[(int)Stat.Type.MaxHP].Current)
             {
-                hp = Mathf.Min(hp + 0.5f, stats[(int)Stat.Type.MaxHP].Current);
+                hpRegenCurrent -= Time.deltaTime;
 
-                hpRegenCurrent = REGEN_TICK_TIME;
+                if (hpRegenCurrent <= 0)
+                {
+                    hp = Mathf.Min(hp + 0.5f, stats[(int)Stat.Type.MaxHP].Current);
+
+                    hpRegenCurrent = REGEN_TICK_TIME;
+                }
             }
-        }
 
-        if (mp != stats[(int)Stat.Type.MaxMP].Current)
-        {
-            mpRegenCurrent -= Time.deltaTime;
-
-            if (mpRegenCurrent <= 0)
+            if (mp != stats[(int)Stat.Type.MaxMP].Current)
             {
-                mp = Mathf.Min(mp + 0.5f, stats[(int)Stat.Type.MaxMP].Current);
+                mpRegenCurrent -= Time.deltaTime;
 
-                mpRegenCurrent = REGEN_TICK_TIME;
+                if (mpRegenCurrent <= 0)
+                {
+                    mp = Mathf.Min(mp + 0.5f, stats[(int)Stat.Type.MaxMP].Current);
+
+                    mpRegenCurrent = REGEN_TICK_TIME;
+                }
             }
         }
     }

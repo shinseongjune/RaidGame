@@ -7,6 +7,13 @@ public class TestBossBasicAttack : SkillBase
     public Damage damage;
     public float lifeTime;
 
+    private void Start()
+    {
+        damage = new Damage();
+        damage.damage = 5f;
+        damage.type = Damage.Type.Physical;
+    }
+
     void Update()
     {
         lifeTime -= Time.deltaTime;
@@ -21,8 +28,11 @@ public class TestBossBasicAttack : SkillBase
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            //TODO:피해주기
-            print("피해발생");
+            Stats stats = other.GetComponentInParent<Stats>();
+            if (stats != null)
+            {
+                stats.Damaged(damage.damage);
+            }
         }
     }
 

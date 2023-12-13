@@ -11,21 +11,26 @@ public class Skill_BossHellfireBall : SkillBase
 
     public float speed;
 
-    public Transform target;
-
     public GameObject aftereffect_hellfireBoomEffect;
 
     public Damage damage;
 
+    bool isOn = false;
+
     private void Start()
     {
         damage = new Damage();
-        damage.damage = 70f;
+        damage.damage = 350f;
         damage.type = Damage.Type.Fire;
     }
 
     void Update()
     {
+        if (!isOn)
+        {
+            return;
+        }
+
         if (!isStarted)
         {
             startTime -= Time.deltaTime;
@@ -37,7 +42,7 @@ public class Skill_BossHellfireBall : SkillBase
         }
         else
         {
-            transform.position = Vector3.Lerp(transform.position, target.position + Vector3.up, speed * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, target.transform.position + Vector3.up, speed * Time.deltaTime);
 
             lifeTime -= Time.deltaTime;
 
@@ -50,7 +55,7 @@ public class Skill_BossHellfireBall : SkillBase
 
     public override void GetOn()
     {
-
+        isOn = true;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -60,7 +65,7 @@ public class Skill_BossHellfireBall : SkillBase
             Stats stats = other.GetComponentInParent<Stats>();
             stats.Damaged(damage.damage);
 
-            Instantiate(aftereffect_hellfireBoomEffect, target.position, target.rotation);
+            Instantiate(aftereffect_hellfireBoomEffect, target.transform.position, target.transform.rotation);
 
             Destroy(gameObject);
         }

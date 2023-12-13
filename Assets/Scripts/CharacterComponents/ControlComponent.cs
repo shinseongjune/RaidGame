@@ -23,8 +23,8 @@ public abstract class ControlComponent : MonoBehaviour
 
     public virtual void Start()
     {
-        TryGetComponent<Movement>(out movement);
-        TryGetComponent<Stats>(out stats);
+        TryGetComponent(out movement);
+        TryGetComponent(out stats);
     }
 
     public virtual void Update()
@@ -58,6 +58,11 @@ public abstract class ControlComponent : MonoBehaviour
         }
 
         removeList.Clear();
+
+        if (stats.isDead)
+        {
+            Death();
+        }
     }
 
     public void AppendSpecialEffect(SpecialEffect effect)
@@ -164,4 +169,6 @@ public abstract class ControlComponent : MonoBehaviour
         Vector3 dir = new Vector3(point.x, transform.position.y, point.z);
         transform.LookAt(dir);
     }
+
+    public abstract void Death();
 }

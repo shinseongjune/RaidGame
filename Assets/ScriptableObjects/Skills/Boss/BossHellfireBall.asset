@@ -18,7 +18,7 @@ MonoBehaviour:
   range: 30
   costStat: 1
   cost: 0
-  coolDown: 0
+  coolDown: 30
   preDelay: 3
   postDelay: 0.5
   skillPrefab: {fileID: 8293777894670662020, guid: 3d076f3a6386b944d88c2132a9344263, type: 3}

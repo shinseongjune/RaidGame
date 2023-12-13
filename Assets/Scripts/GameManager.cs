@@ -2,9 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject gameOverBackground;
+    public GameObject winImage;
+    public GameObject loseImage;
+    public GameObject titleButton;
+    public GameObject gameCanvas;
+
     [SerializeField]
     CameraRig cameraRig;
 
@@ -18,6 +26,9 @@ public class GameManager : MonoBehaviour
     List<GameObject> tempPlayerPrefabs = new List<GameObject>();
 
     [SerializeField]
+    GameObject tempBossPrefab;
+
+    [SerializeField]
     GameObject inputHandlerPrefab;
 
     Player player;
@@ -26,6 +37,15 @@ public class GameManager : MonoBehaviour
     GameObject playerCharacter;
 
     GameObject field;
+
+    CharacterControlComponent playerControl;
+    TempBossControlComponent bossControl;
+
+    public SliderValueSetter playerHPBar;
+    public SliderValueSetter playerMPBar;
+    public SliderValueSetter bossHPBar;
+
+    bool isGameOver = false;
 
     void Start()
     {
@@ -44,11 +64,67 @@ public class GameManager : MonoBehaviour
         cameraRig.target = playerCharacter.transform;
         
         player.character = playerCharacter.GetComponent<CharacterControlComponent>();
+        playerControl = player.character;
         player.inputHandler = inputHandler;
         inputHandler.player = player;
+
+        Stats playerStats = playerCharacter.GetComponent<Stats>();
+        playerHPBar.targetStats = playerStats;
+        playerHPBar.targetType = Stat.Type.MaxHP;
+        playerMPBar.targetStats = playerStats;
+        playerMPBar.targetType = Stat.Type.MaxMP;
+
+        //test boss generation
+        bossControl = Instantiate(tempBossPrefab, field.transform.Find("BossStartPositions").GetChild(0).position, Quaternion.LookRotation(Vector3.back)).GetComponent<TempBossControlComponent>();
+        bossControl.mapCenter = field.transform.Find("SpecialPositions").GetChild(0).transform.position;
+
+        Stats bossStats = bossControl.GetComponent<Stats>();
+        bossHPBar.targetStats = bossStats;
+        bossHPBar.targetType = Stat.Type.MaxHP;
+
         #endregion 테스트 게임
 
         //TODO: 나중)메뉴에서 캐릭터나 맵을 선택해 정보를 받아오고 인스턴스 만들고 할당하는 방식으로 완성.
         //멀티나 카메라는 나중에 생각하자.
+    }
+
+    private void Update()
+    {
+        if (isGameOver)
+        {
+            return;
+        }
+
+        if (bossControl.isDead)
+        {
+            playerControl.isEnd = true;
+
+            gameCanvas.SetActive(false);
+
+            //승리처리
+            gameOverBackground.SetActive(true);
+            winImage.SetActive(true);
+            titleButton.SetActive(true);
+
+            isGameOver = true;
+        }
+        else if (playerControl.isDead)
+        {
+            bossControl.isEnd = true;
+
+            gameCanvas.SetActive(false);
+
+            //패배처리
+            gameOverBackground.SetActive(true);
+            loseImage.SetActive(true);
+            titleButton.SetActive(true);
+
+            isGameOver = true;
+        }
+    }
+
+    public void GoTitleScene()
+    {
+        SceneManager.LoadScene("TitleScene");
     }
 }
