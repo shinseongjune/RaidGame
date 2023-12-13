@@ -62,9 +62,9 @@ public class TempBossControlComponent : ControlComponent
     public bool isDead = false;
     public bool isEnd = false;
 
-    public override void Start()
+    public override void Awake()
     {
-        base.Start();
+        base.Awake();
 
         nowSkill = basicAttackSlot;
         nowSkillName = SkillName.basic;

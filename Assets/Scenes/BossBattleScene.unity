@@ -706,6 +706,7 @@ GameObject:
   - component: {fileID: 200402465}
   - component: {fileID: 200402467}
   - component: {fileID: 200402466}
+  - component: {fileID: 200402468}
   m_Layer: 5
   m_Name: CooldownBack
   m_TagString: Untagged
@@ -771,6 +772,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 200402464}
   m_CullTransparentMesh: 1
+--- !u!114 &200402468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 200402464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f41e5900f5205c84f90557b9e5e3b80d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  back: {fileID: 200402466}
+  fill: {fileID: 547674021}
+  text: {fileID: 1513079246}
 --- !u!1 &220731998
 GameObject:
   m_ObjectHideFlags: 0
@@ -1703,6 +1719,7 @@ GameObject:
   - component: {fileID: 661090930}
   - component: {fileID: 661090932}
   - component: {fileID: 661090931}
+  - component: {fileID: 661090933}
   m_Layer: 5
   m_Name: CooldownBack
   m_TagString: Untagged
@@ -1768,6 +1785,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 661090929}
   m_CullTransparentMesh: 1
+--- !u!114 &661090933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 661090929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d05b1bd4362663948a3ccb4afc9fe697, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  move: {fileID: 0}
+  back: {fileID: 661090931}
+  fill: {fileID: 804847347}
+  text: {fileID: 74039836}
 --- !u!1 &668964686
 GameObject:
   m_ObjectHideFlags: 0
@@ -2787,6 +2820,7 @@ GameObject:
   - component: {fileID: 1187501984}
   - component: {fileID: 1187501986}
   - component: {fileID: 1187501985}
+  - component: {fileID: 1187501987}
   m_Layer: 5
   m_Name: CooldownBack
   m_TagString: Untagged
@@ -2852,6 +2886,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1187501983}
   m_CullTransparentMesh: 1
+--- !u!114 &1187501987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1187501983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f41e5900f5205c84f90557b9e5e3b80d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  back: {fileID: 1187501985}
+  fill: {fileID: 773893086}
+  text: {fileID: 1679019096}
 --- !u!1 &1294853730
 GameObject:
   m_ObjectHideFlags: 0
@@ -3255,6 +3304,10 @@ MonoBehaviour:
   playerHPBar: {fileID: 469290899}
   playerMPBar: {fileID: 26618186}
   bossHPBar: {fileID: 220732001}
+  qCoolSetter: {fileID: 1999157558}
+  wCoolSetter: {fileID: 200402468}
+  eCoolSetter: {fileID: 1187501987}
+  dashCoolSetter: {fileID: 661090933}
 --- !u!1 &1513079244
 GameObject:
   m_ObjectHideFlags: 0
@@ -4143,6 +4196,7 @@ GameObject:
   - component: {fileID: 1999157555}
   - component: {fileID: 1999157557}
   - component: {fileID: 1999157556}
+  - component: {fileID: 1999157558}
   m_Layer: 5
   m_Name: CooldownBack
   m_TagString: Untagged
@@ -4208,6 +4262,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1999157554}
   m_CullTransparentMesh: 1
+--- !u!114 &1999157558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999157554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f41e5900f5205c84f90557b9e5e3b80d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  back: {fileID: 1999157556}
+  fill: {fileID: 29864233}
+  text: {fileID: 2097758128}
 --- !u!1 &2097758126
 GameObject:
   m_ObjectHideFlags: 0

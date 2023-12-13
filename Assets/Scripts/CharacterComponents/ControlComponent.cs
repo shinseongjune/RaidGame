@@ -21,7 +21,7 @@ public abstract class ControlComponent : MonoBehaviour
     public float actPreventer = 0;
     public float movePreventer = 0;
 
-    public virtual void Start()
+    public virtual void Awake()
     {
         TryGetComponent(out movement);
         TryGetComponent(out stats);

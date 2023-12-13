@@ -9,9 +9,9 @@ public class CharacterControlComponent : ControlComponent
     public bool isDead = false;
     public bool isEnd = false;
 
-    public override void Start()
+    public override void Awake()
     {
-        base.Start();
+        base.Awake();
 
         TryGetComponent<SkillSlots>(out skillSlots);
         TryGetComponent<Animator>(out animator);

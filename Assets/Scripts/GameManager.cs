@@ -45,6 +45,11 @@ public class GameManager : MonoBehaviour
     public SliderValueSetter playerMPBar;
     public SliderValueSetter bossHPBar;
 
+    public SkillIconCooldownSetter qCoolSetter;
+    public SkillIconCooldownSetter wCoolSetter;
+    public SkillIconCooldownSetter eCoolSetter;
+    public DashIconCooldownSetter dashCoolSetter;
+
     bool isGameOver = false;
 
     void Start()
@@ -73,6 +78,13 @@ public class GameManager : MonoBehaviour
         playerHPBar.targetType = Stat.Type.MaxHP;
         playerMPBar.targetStats = playerStats;
         playerMPBar.targetType = Stat.Type.MaxMP;
+
+        SkillSlots slots = playerControl.skillSlots;
+        slots.AssignTempSkill();
+        qCoolSetter.slot = slots.q;
+        wCoolSetter.slot = slots.w;
+        eCoolSetter.slot = slots.e;
+        dashCoolSetter.move = playerControl.movement;
 
         //test boss generation
         bossControl = Instantiate(tempBossPrefab, field.transform.Find("BossStartPositions").GetChild(0).position, Quaternion.LookRotation(Vector3.back)).GetComponent<TempBossControlComponent>();

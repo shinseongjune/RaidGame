@@ -12,8 +12,8 @@ public class Movement : MonoBehaviour
     float DASH_TIME = 0.2f;
     float restDashTime = 0;
 
-    float DASH_COOLDOWN = 2f;
-    float restDashCooldown = 0;
+    public float DASH_COOLDOWN = 2f;
+    public float restDashCooldown = 0;
     Vector3 dashDirection;
 
     bool isDashing = false;

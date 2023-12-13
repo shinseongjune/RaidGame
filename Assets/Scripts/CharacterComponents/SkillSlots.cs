@@ -48,13 +48,11 @@ public class SkillSlots : MonoBehaviour
     public SkillSlot v;
     */
 
-    private void Start()
+    //TODO: 임시코드. 지우고 외부에서 player가 선택한대로 할당하기.
+    public void AssignTempSkill()
     {
-        stats = GetComponent<Stats>();
-
-        //TODO: 임시코드. 지우고 외부에서 player가 선택한대로 할당하기.
         basicAttack.skill = tempBasic;
-        
+
         SkillSlot qSlot = new();
         qSlot.skill = tempSkillQ;
         slots.Add("q", qSlot);
@@ -70,6 +68,11 @@ public class SkillSlots : MonoBehaviour
         SkillSlot rSlot = new();
         rSlot.skill = tempSkillR;
         slots.Add("r", rSlot);
+    }
+
+    private void Start()
+    {
+        stats = GetComponent<Stats>();
     }
 
     void Update()
@@ -119,7 +122,7 @@ public class SkillSlots : MonoBehaviour
     public bool DoSkill(string input, Vector3 point)
     {
         SkillSlot slot = slots[input];
-        if (slot == null)
+        if (slot == null || slot.skill == null)
         {
             return false;
         }
