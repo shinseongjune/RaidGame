@@ -46,7 +46,9 @@ public class Skill_BossGlobalKnockBack : SkillBase
                 Stats stats = other.GetComponentInParent<Stats>();
                 stats.Damaged(damage.damage);
                 CharacterControlComponent control = other.GetComponentInParent<CharacterControlComponent>();
-                Vector3 knockbackVector = (other.transform.position - transform.position).normalized * knockbackPower;
+                Vector3 dir = (other.transform.position - transform.position).normalized;
+                if (dir == Vector3.zero) dir = -other.transform.forward;
+                Vector3 knockbackVector = dir * knockbackPower;
 
                 KnockBack knockBack = new KnockBack("Æø¹ßÀÇ ¿©ÆÄ", SpecialEffect.Type.Renewable, false, source, control, knockbackVector);
 

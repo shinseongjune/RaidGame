@@ -137,6 +137,11 @@ public class GameManager : MonoBehaviour
 
     public void GoTitleScene()
     {
+#if UNITY_ANDROID
+        SceneManager.LoadScene("AndroidTitleScene");
+#endif
+#if UNITY_STANDALONE_WIN
         SceneManager.LoadScene("TitleScene");
+#endif
     }
 }

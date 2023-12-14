@@ -174,6 +174,10 @@ public class KnockBack : SpecialEffect
 
     public KnockBack(string name, Type type, bool isHidden, GameObject source, ControlComponent target, Vector3 dir) : base(name, type, isHidden, source, target, KnockBack_Time)
     {
+        if (dir == Vector3.zero)
+        {
+            throw new ArgumentException("넉백 방향이 없습니다. 넉백 방향을 설계할 때 영벡터가 발생 시 대상의 등 뒤 방향으로 이동하도록 설계하세요.");
+        }
         direction = dir;
     }
 
