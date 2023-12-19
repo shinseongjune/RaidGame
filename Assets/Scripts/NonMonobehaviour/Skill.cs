@@ -19,6 +19,7 @@ public class Skill : ScriptableObject
 
     public Type type;
 
+    //TODO: skill slots에서 range 구현.
     public float range;
 
     public enum CostStat

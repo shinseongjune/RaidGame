@@ -17,53 +17,43 @@ public class InputHandler : MonoBehaviour
         {
             player.GetLeftClick();
         }
-
-        if (Input.GetMouseButtonDown(1))
+        else if (Input.GetMouseButtonDown(1))
         {
             player.GetRightClick();
         }
-
-        if (Input.GetButtonDown("Q"))
+        else if (Input.GetButtonDown("Q"))
         {
             player.GetButton("q");
         }
-
-        if (Input.GetButtonDown("W"))
+        else if (Input.GetButtonDown("W"))
         {
             player.GetButton("w");
         }
-
-        if (Input.GetButtonDown("E"))
+        else if (Input.GetButtonDown("E"))
         {
             player.GetButton("e");
         }
-
-        if (Input.GetButtonDown("R"))
+        else if (Input.GetButtonDown("R"))
         {
             player.GetButton("r");
         }
-
-        if (Input.GetButtonDown("Space"))
+        else if (Input.GetButtonDown("Space"))
         {
             player.GetButton("space");
         }
-
-        if (Input.GetButtonDown("1"))
+        else if (Input.GetButtonDown("1"))
         {
 
         }
-
-        if (Input.GetButtonDown("2"))
+        else if (Input.GetButtonDown("2"))
         {
 
         }
-
-        if (Input.GetButtonDown("3"))
+        else if (Input.GetButtonDown("3"))
         {
 
         }
-
-        if (Input.GetButtonDown("4"))
+        else if (Input.GetButtonDown("4"))
         {
 
         }
