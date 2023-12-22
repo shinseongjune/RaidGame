@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class AfterEffect_Meteor_MagmaGround : MonoBehaviour
+public class AfterEffect_Meteor_MagmaGround : SkillBase
 {
     public Damage damage;
 
@@ -51,5 +51,10 @@ public class AfterEffect_Meteor_MagmaGround : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public override void GetOn()
+    {
+
     }
 }

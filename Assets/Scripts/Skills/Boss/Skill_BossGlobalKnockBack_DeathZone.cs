@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Skill_BossGlobalKnockBack_DeathZone : MonoBehaviour
+public class Skill_BossGlobalKnockBack_DeathZone : SkillBase
 {
     public Damage damage;
 
@@ -56,5 +56,10 @@ public class Skill_BossGlobalKnockBack_DeathZone : MonoBehaviour
                 targets.Remove(obj);
             }
         }
+    }
+
+    public override void GetOn()
+    {
+
     }
 }

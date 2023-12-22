@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StatMod : IComparable<StatMod>
+public class StatMod : IComparable<StatMod>, IEquatable<StatMod>
 {
     public enum Type
     {
@@ -55,14 +55,9 @@ public class StatMod : IComparable<StatMod>
         MAX_STACKS = maxStacks;
     }
 
-    public override bool Equals(object obj)
+    public bool Equals(StatMod obj)
     {
-        if (obj == null || GetType() != obj.GetType())
-        {
-            return false;
-        }
-
-        return Name == ((StatMod)obj).Name;
+        return Name == obj.Name;
     }
 
     public override int GetHashCode()

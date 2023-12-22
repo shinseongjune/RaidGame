@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CharacterControlComponent" Collapsed="true">
+    <Position X="8.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAQAAAgCAAQAAAABAAAAAAAAABAAAEAgAAAAAAAEEEA=</HashCode>
+      <FileName>Assets\Scripts\CharacterComponents\CharacterControlComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControlComponent" Collapsed="true">
+    <Position X="9.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAQQEACSAACEAAAAAgAAAEAAAAgAAQAgAAAAAIgQAEA=</HashCode>
+      <FileName>Assets\Scripts\CharacterComponents\ControlComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Movement" Collapsed="true">
+    <Position X="11.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAQQQAgAACAABQAIAQIMCAAAAAAIIAggAAAAAAAAAkA=</HashCode>
+      <FileName>Assets\Scripts\CharacterComponents\Movement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkillSlots" Collapsed="true">
+    <Position X="9.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIQAAAAYACAEAzAUgAAAAAAAgAAAAAACACgBAAACAAE=</HashCode>
+      <FileName>Assets\Scripts\CharacterComponents\SkillSlots.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Stats" Collapsed="true">
+    <Position X="7" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAwAAAAAAQACAgAAAAgQhAAgAAQAABKAAAAAEQ=</HashCode>
+      <FileName>Assets\Scripts\CharacterComponents\Stats.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TempBossControlComponent" Collapsed="true">
+    <Position X="10.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QCRSAwAKAAAkACAAIAgCcRAAQBAAAAAgAIgYIUABAEE=</HashCode>
+      <FileName>Assets\Scripts\CharacterComponents\TempBossControlComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Equipable" Collapsed="true">
+    <Position X="4.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\NonMonobehaviour\Equipable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Player" Collapsed="true">
+    <Position X="9.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAgAAAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAUwA=</HashCode>
+      <FileName>Assets\Scripts\NonMonobehaviour\Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Skill" Collapsed="true">
+    <Position X="9.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAIAAAAAAAAJAAAAEAQIAIRAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\NonMonobehaviour\Skill.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkillSlot" Collapsed="true">
+    <Position X="9.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\NonMonobehaviour\SkillSlot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpecialEffect" Collapsed="true">
+    <Position X="18.5" Y="3.25" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="SpecialEffect.Type" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\NonMonobehaviour\SpecialEffect.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgACAQAAgAAAECSAgBAwAIAAAIAAAAEAEAA=</HashCode>
+      <FileName>Assets\Scripts\NonMonobehaviour\SpecialEffect.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Stun" Collapsed="true">
+    <Position X="17.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAIAAAAEAAAA=</HashCode>
+      <FileName>Assets\Scripts\NonMonobehaviour\SpecialEffect.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snare" Collapsed="true">
+    <Position X="19.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAIAAAAEAAAA=</HashCode>
+      <FileName>Assets\Scripts\NonMonobehaviour\SpecialEffect.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KnockBack" Collapsed="true">
+    <Position X="15.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAIAAAAAAAAAAAAAAQAAAAAIAAAAEAAAA=</HashCode>
+      <FileName>Assets\Scripts\NonMonobehaviour\SpecialEffect.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StatMod" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAQQAgAAAAAQAAABAAIAAAAAgAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\NonMonobehaviour\Stat.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Left" Position="0.1" />
+  </Class>
+  <Class Name="Stat" Collapsed="true">
+    <Position X="7" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAIAAAAAAAAAIACCAAAAAAAAAAAEAAAAHAEAAAAA=</HashCode>
+      <FileName>Assets\Scripts\NonMonobehaviour\Stat.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BossKnockback" Collapsed="true">
+    <Position X="22" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAgAIAABAAAAAAAAAAAAAAAAAAAABgAAA=</HashCode>
+      <FileName>Assets\Scripts\Skills\Boss\BossKnockback.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Skill_BossBombStone" Collapsed="true">
+    <Position X="26.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAQAiAAwAIIAAAAAAAEAAAAAAARAAAAIAAgAAA=</HashCode>
+      <FileName>Assets\Scripts\Skills\Boss\Skill_BossBombStone.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Skill_BossGlobalKnockBack" Collapsed="true">
+    <Position X="24.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAoAIAAAAAAAABAAAAAABAAAQAAQBgAAA=</HashCode>
+      <FileName>Assets\Scripts\Skills\Boss\Skill_BossGlobalKnockBack.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Skill_BossGlobalKnockBack_DeathZone" Collapsed="true">
+    <Position X="24.25" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAgAgAAAABAAAAAAAAAAAAAEBAAAAgAAA=</HashCode>
+      <FileName>Assets\Scripts\Skills\Boss\Skill_BossGlobalKnockBack_DeathZone.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Skill_BossGlobalKnockBack_DeathZone_Trigger" Collapsed="true">
+    <Position X="24.25" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAQAAAAIAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Skills\Boss\Skill_BossGlobalKnockBack_DeathZone_Trigger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Skill_BossHellfireBall" Collapsed="true">
+    <Position X="28" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAABACAAwAAAAAAhAEAAAAAAAQAAQAAAAAAgAAA=</HashCode>
+      <FileName>Assets\Scripts\Skills\Boss\Skill_BossHellfireBall.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestBossBasicAttack" Collapsed="true">
+    <Position X="20" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAwAAAAAAAAAAAAAAAAAAAQAAAAAAgAAA=</HashCode>
+      <FileName>Assets\Scripts\Skills\Boss\TestBossBasicAttack.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HitEffectDestroyer" Collapsed="true">
+    <Position X="20.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Assets\Scripts\Skills\HitEffectDestroyer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AfterEffect_BasicAttack_Fireball" Collapsed="true">
+    <Position X="10.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAQAAAAAAAAAwAAAAAAAAAAAAAAAAAAAQBAAAAAgAAA=</HashCode>
+      <FileName>Assets\Scripts\Skills\Player\AfterEffect_BasicAttack_Fireball.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AfterEffect_Meteor_MagmaGround" Collapsed="true">
+    <Position X="13" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAwAAAAAAAAAAAgAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>Assets\Scripts\Skills\Player\AfterEffect_Meteor_MagmaGround.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BasicAttack_Fireball" Collapsed="true">
+    <Position X="10.5" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAwAAUAAAAAAAAAAAACQAAQAAAAAAgAAA=</HashCode>
+      <FileName>Assets\Scripts\Skills\Player\BasicAttack_Fireball.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Skill_Meteor" Collapsed="true">
+    <Position X="13" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAwAAAAAAAAAAAAAAAAAAAAAAAAAEgAAA=</HashCode>
+      <FileName>Assets\Scripts\Skills\Player\Skill_Meteor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Skill_Shield" Collapsed="true">
+    <Position X="15.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQDCAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAEAAAgAAA=</HashCode>
+      <FileName>Assets\Scripts\Skills\Player\Skill_Shield.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShieldEffect" Collapsed="true">
+    <Position X="21.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAQAAAAAIAAAAEAAAA=</HashCode>
+      <FileName>Assets\Scripts\Skills\Player\Skill_Shield.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestBasicAttack" Collapsed="true">
+    <Position X="8.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAwAAAAAAAAAAAAAAAAAAAQAAABAAgAAA=</HashCode>
+      <FileName>Assets\Scripts\Skills\Player\TestBasicAttack.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkillBase" Collapsed="true">
+    <Position X="17.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAIAIAACAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>Assets\Scripts\Skills\SkillBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CameraRig" Collapsed="true">
+    <Position X="24.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAIAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\System\CameraRig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameManager" Collapsed="true">
+    <Position X="0.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QASCAkAQECSACAIIAYQAAACEAAAAAIABAomAACAAAQA=</HashCode>
+      <FileName>Assets\Scripts\System\GameManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InputHandler" Collapsed="true">
+    <Position X="4.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\System\InputHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TitleManager" Collapsed="true">
+    <Position X="2.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\System\TitleManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DashIconCooldownSetter" Collapsed="true">
+    <Position X="28.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAEAACAAAACCAAABAAAAAAAAAAAIAAgAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\UI\DashIconCooldownSetter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkillIconCooldownSetter" Collapsed="true">
+    <Position X="30.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAEAACAAAAACAAABAAAAAAAAAAAIAAgCAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\UI\SkillIconCooldownSetter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SliderValueSetter" Collapsed="true">
+    <Position X="26.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAKAAAAAAAAAAAAAAAAAAAAIAAAAEAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\UI\SliderValueSetter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Damage" Collapsed="true">
+    <Position X="0.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAIAIAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\NonMonobehaviour\Damage.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>
