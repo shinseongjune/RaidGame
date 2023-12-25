@@ -9940,6 +9940,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  owner: {fileID: 0}
   source: {fileID: 0}
   alreadyHitObjects: []
   lifeTime: 10
@@ -9961,6 +9962,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 703ea63258dea5741b71d34f4e288aee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: d906ed7259b6c364785c8724886de538, type: 2}
+  stats: []
   canRegen: 0
   isDead: 0
   hp: 100

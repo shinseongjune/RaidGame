@@ -26,11 +26,11 @@ public class SliderValueSetter : MonoBehaviour
                 break;
             case Stat.Type.Might:
                 break;
-            case Stat.Type.Agility:
+            case Stat.Type.Armor:
                 break;
-            case Stat.Type.Dignity:
+            case Stat.Type.FireResist:
                 break;
-            case Stat.Type.Willpower:
+            case Stat.Type.ColdResist:
                 break;
         }
     }

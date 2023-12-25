@@ -4657,6 +4657,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2a505e093cdabd47b5dbf21fb679c05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+  DASH_COOLDOWN: 2
+  restDashCooldown: 0
 --- !u!114 &6291721613013323589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4687,6 +4690,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 703ea63258dea5741b71d34f4e288aee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 0f21bffe7e003464f97b90d5675e0f49, type: 2}
+  stats: []
+  canRegen: 0
+  isDead: 0
   hp: 0
   mp: 0
 --- !u!114 &2133535245724198391
@@ -4707,6 +4714,8 @@ MonoBehaviour:
   movePreventer: 0
   skillSlots: {fileID: 0}
   animator: {fileID: 0}
+  isDead: 0
+  isEnd: 0
 --- !u!54 &7482776909802102051
 Rigidbody:
   m_ObjectHideFlags: 0

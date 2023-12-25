@@ -94,7 +94,7 @@ public class SkillSlots : MonoBehaviour
             return;
         }
 
-        if (stats.UseMana(skill.cost, skill.costStat))
+        if (stats.UseCost(skill.cost, skill.costStat))
         {
             basicAttack.cooldown = skill.coolDown;
             Vector3 skillPosition;
@@ -133,7 +133,7 @@ public class SkillSlots : MonoBehaviour
             return false;
         }
 
-        if (stats.UseMana(skill.cost, skill.costStat))
+        if (stats.UseCost(skill.cost, skill.costStat))
         {
             slot.cooldown = skill.coolDown;
             Vector3 skillPosition;

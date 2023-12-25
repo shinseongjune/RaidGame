@@ -49,6 +49,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 703ea63258dea5741b71d34f4e288aee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: c2696ba8d396260488aad82dc8a0e002, type: 2}
+  stats: []
   canRegen: 0
   isDead: 0
   hp: 0
@@ -66,6 +68,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
+  DASH_COOLDOWN: 2
+  restDashCooldown: 0
 --- !u!195 &954607326307175591
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -59,7 +59,7 @@ public class Skill_Shield : SkillBase
 
 public class ShieldEffect : SpecialEffect
 {
-    StatMod mod = new StatMod(Stat.Type.Dignity, StatMod.Type.BaseAdd, 10, "Skill_Shield_Dignity_10");
+    StatMod mod = new StatMod(Stat.Type.Armor, StatMod.Type.BaseAdd, 10, "Skill_Shield_Armor_10");
 
     public ShieldEffect(string name, Type type, bool isHidden, GameObject source, ControlComponent target, float endTime) : base(name, type, isHidden, source, target, endTime)
     {
@@ -68,13 +68,13 @@ public class ShieldEffect : SpecialEffect
     public override void OnEnter()
     {
         Stats stats = Target.GetComponentInParent<Stats>();
-        stats[(int)Stat.Type.Dignity].AppendMod(mod);
+        stats[(int)Stat.Type.Armor].AppendMod(mod);
     }
 
     public override void OnExit()
     {
         Stats stats = Target.GetComponentInParent<Stats>();
-        stats[(int)Stat.Type.Dignity].RemoveMod(mod);
+        stats[(int)Stat.Type.Armor].RemoveMod(mod);
     }
 
     public override void OnUpdate()

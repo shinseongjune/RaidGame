@@ -34,8 +34,6 @@ public class Skill_BossBombStone : SkillBase
         damage = new();
         damage.damage = 450f;
         damage.type = Damage.Type.Fire;
-        stats.hp = 300;
-        stats[(int)Stat.Type.MaxHP].SetBaseValue(300);
     }
 
     void Update()

@@ -74,25 +74,25 @@ public class GameManager : MonoBehaviour
         inputHandler.player = player;
 
         Stats playerStats = playerCharacter.GetComponent<Stats>();
-        playerHPBar.targetStats = playerStats;
-        playerHPBar.targetType = Stat.Type.MaxHP;
-        playerMPBar.targetStats = playerStats;
-        playerMPBar.targetType = Stat.Type.MaxMP;
+        //playerHPBar.targetStats = playerStats;
+        //playerHPBar.targetType = Stat.Type.MaxHP;
+        //playerMPBar.targetStats = playerStats;
+        //playerMPBar.targetType = Stat.Type.MaxMP;
 
         SkillSlots slots = playerControl.skillSlots;
         slots.AssignTempSkill();
-        qCoolSetter.slot = slots.q;
-        wCoolSetter.slot = slots.w;
-        eCoolSetter.slot = slots.e;
-        dashCoolSetter.move = playerControl.movement;
+        //qCoolSetter.slot = slots.q;
+        //wCoolSetter.slot = slots.w;
+        //eCoolSetter.slot = slots.e;
+        //dashCoolSetter.move = playerControl.movement;
 
         //test boss generation
         bossControl = Instantiate(tempBossPrefab, field.transform.Find("BossStartPositions").GetChild(0).position, Quaternion.LookRotation(Vector3.back)).GetComponent<TempBossControlComponent>();
         bossControl.mapCenter = field.transform.Find("SpecialPositions").GetChild(0).transform.position;
 
         Stats bossStats = bossControl.GetComponent<Stats>();
-        bossHPBar.targetStats = bossStats;
-        bossHPBar.targetType = Stat.Type.MaxHP;
+        //bossHPBar.targetStats = bossStats;
+        //bossHPBar.targetType = Stat.Type.MaxHP;
 
         #endregion 테스트 게임
 

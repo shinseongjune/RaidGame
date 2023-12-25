@@ -79,9 +79,12 @@ public class Stat
         MaxHP,
         MaxMP,
         Might,
-        Agility,
-        Dignity,
-        Willpower,
+        Armor,
+        FireResist,
+        ColdResist,
+        LightningResist,
+        CritChance,
+        CritDamage,
         __COUNT
     }
 
@@ -205,12 +208,5 @@ public class Stat
             total += mod.Value * mod.stack;
         }
         return total;
-    }
-
-    //TODO: 임시 베이스밸류 세팅 함수. 제대로 스탯 로드&초기화 시스템 구축 후 지울것.
-    public void SetBaseValue(float value)
-    {
-        BaseValue = value;
-        IsDirty = true;
     }
 }

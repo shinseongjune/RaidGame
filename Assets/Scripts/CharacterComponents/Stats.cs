@@ -1,10 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Stats : MonoBehaviour
 {
+    public CharacterBaseData data;
+
+    [SerializeField]
     List<Stat> stats = new List<Stat>();
 
     float REGEN_TICK_TIME = 0.2f;
@@ -15,8 +19,15 @@ public class Stats : MonoBehaviour
 
     public bool isDead = false;
 
-    [SerializeField] //TODO: 임시로 public. 제대로 된 스탯 로드해서 자동으로 초기화하는 시스템 필요
-    public float hp;
+    bool isImmune = false;
+
+    public bool IsImmune
+    {
+        get { return isImmune; }
+    }
+
+    [SerializeField]
+    float hp;
     [SerializeField]
     float mp;
 
@@ -40,64 +51,18 @@ public class Stats : MonoBehaviour
         }
     }
 
-    private void Awake()
+    private void Start()
     {
-        //TODO: 임시 스탯. 기본값 저장해둔다음 플레이어 변화치나 아이템 넣어서 수정하는 구조로 만들것.
-        stats.Add(new Stat(500)); //MaxHP
-        hp = 500;
-        stats.Add(new Stat(100)); //MaxMP
-        mp = 100;
-        stats.Add(new Stat(100)); //Might
-        stats.Add(new Stat(100)); //Agility
-        stats.Add(new Stat(100)); //Dignity
-        stats.Add(new Stat(100)); //Willpower
-    }
-
-    public void Damaged(float damage)
-    {
-        hp = Mathf.Max(hp - damage, 0);
-
-        if (hp <= 0)
-        {
-            isDead = true;
-        }
-    }
-
-    public void Healed(float heal)
-    {
-        hp = Mathf.Min(hp + heal, stats[(int)Stat.Type.MaxMP].Current);
-    }
-
-    public bool UseMana(float cost, Skill.CostStat costStat)
-    {
-        if ((costStat == Skill.CostStat.MP && mp < cost) || (costStat == Skill.CostStat.HP && hp < cost))
-        {
-            return false;
-        }
-        else
-        {
-            switch (costStat)
-            {
-                case Skill.CostStat.MP:
-                    mp -= cost;
-                    return true;
-                case Skill.CostStat.HP:
-                    hp -= cost;
-                    return true;
-            }
-        }
-
-        //something wrong
-        return false;
-    }
-
-    public void HealMana(float heal)
-    {
-        mp = Mathf.Min(mp + heal, stats[(int)Stat.Type.MaxMP].Current);
+        InitializeStats(data.MaxHP, data.MaxMP, data.Might, data.Armor, data.FireResist, data.ColdResist, data.LightningResist, data.CritChance, data.CritDamage);
     }
 
     private void Update()
     {
+        if (isDead)
+        {
+            return;
+        }
+
         if (canRegen)
         {
             if (hp != stats[(int)Stat.Type.MaxHP].Current)
@@ -124,5 +89,95 @@ public class Stats : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void InitializeStats(float maxHP, float maxMP, float might, float armor, float fireRes, float coldRes, float lightningRes, float critChance, float critDamage)
+    {
+        stats.Add(new Stat(maxHP));
+        hp = maxHP;
+        stats.Add(new Stat(maxMP));
+        mp = maxMP;
+        stats.Add(new Stat(might));
+        stats.Add(new Stat(armor));
+        stats.Add(new Stat(fireRes));
+        stats.Add(new Stat(coldRes));
+        stats.Add(new Stat(lightningRes));
+        stats.Add(new Stat(critChance));
+        stats.Add(new Stat(critDamage));
+    }
+
+    public void SetImmunityOn()
+    {
+        isImmune = true;
+    }
+
+    public void SetImmunityOff()
+    {
+        isImmune = false;
+    }
+
+    /// <summary>
+    /// control component에서만 접근 가능
+    /// </summary>
+    public void Damaged(float damage, [CallerMemberName] string caller = "")
+    {
+        Type callerType = Type.GetType(caller);
+
+        if (typeof(ControlComponent).IsAssignableFrom(callerType))
+        {
+
+        }
+
+        if (isImmune)
+        {
+            return;
+        }
+
+        hp = Mathf.Max(hp - damage, 0);
+
+        if (hp <= 0)
+        {
+            isDead = true;
+        }
+    }
+
+    public void Healed(float heal)
+    {
+        hp = Mathf.Min(hp + heal, stats[(int)Stat.Type.MaxMP].Current);
+    }
+
+    public bool HasEnoughCost(float cost, Skill.CostStat costStat)
+    {
+        if ((costStat == Skill.CostStat.MP && mp < cost) || (costStat == Skill.CostStat.HP && hp < cost))
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    public bool UseCost(float cost, Skill.CostStat costStat)
+    {
+        if (HasEnoughCost(cost, costStat))
+        {
+            switch (costStat)
+            {
+                case Skill.CostStat.MP:
+                    mp -= cost;
+                    return true;
+                case Skill.CostStat.HP:
+                    hp -= cost;
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void HealMana(float heal)
+    {
+        mp = Mathf.Min(mp + heal, stats[(int)Stat.Type.MaxMP].Current);
     }
 }
