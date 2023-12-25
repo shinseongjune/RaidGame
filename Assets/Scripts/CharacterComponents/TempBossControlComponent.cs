@@ -363,9 +363,12 @@ public class TempBossControlComponent : ControlComponent
         StopAllCoroutines();
     }
 
-    public override void Death()
+    public override void Die()
     {
-        transform.GetChild(0).gameObject.SetActive(true);
+        EndMovement();
+        StopAllCoroutines();
+        //stats.isDead = true; stats에서 처리
+        movement.CancelMove();
         isDead = true;
     }
 }

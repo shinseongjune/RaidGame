@@ -7,7 +7,7 @@ public class TitleManager : MonoBehaviour
 {
     public void StartGame()
     {
-        SceneManager.LoadScene("BossBattleScene");
+        SceneManager.LoadScene("MenuScene");
     }
 
     public void ExitGame()

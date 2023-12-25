@@ -61,7 +61,7 @@ public abstract class ControlComponent : MonoBehaviour
 
         if (stats.isDead)
         {
-            Death();
+            Die();
         }
     }
 
@@ -170,5 +170,5 @@ public abstract class ControlComponent : MonoBehaviour
         transform.LookAt(dir);
     }
 
-    public abstract void Death();
+    public abstract void Die();
 }

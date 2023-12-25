@@ -41,7 +41,7 @@ public class CharacterControlComponent : ControlComponent
         animator.SetBool("isKnockBacked", false);
     }
 
-    public void UseConsumable()
+    public void UseConsumable(int i)
     {
 
     }
@@ -95,12 +95,12 @@ public class CharacterControlComponent : ControlComponent
         }
     }
 
-    public override void Death()
+    public override void Die()
     {
         EndMovement();
         StopAllCoroutines();
-        stats.enabled = false;
-        movement.enabled = false;
+        //stats.isDead = true; stats에서 처리
+        movement.CancelMove();
         skillSlots.enabled = false;
         animator.SetTrigger("DyingTrigger");
         isDead = true;

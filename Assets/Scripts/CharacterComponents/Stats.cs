@@ -123,9 +123,9 @@ public class Stats : MonoBehaviour
     {
         Type callerType = Type.GetType(caller);
 
-        if (typeof(ControlComponent).IsAssignableFrom(callerType))
+        if (!typeof(ControlComponent).IsAssignableFrom(callerType))
         {
-
+            return;
         }
 
         if (isImmune)
@@ -138,6 +138,7 @@ public class Stats : MonoBehaviour
         if (hp <= 0)
         {
             isDead = true;
+            GetComponent<ControlComponent>().Die();
         }
     }
 
