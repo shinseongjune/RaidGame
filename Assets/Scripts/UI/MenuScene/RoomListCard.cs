@@ -13,6 +13,6 @@ public class RoomListCard : MonoBehaviour
 
     public void SelectRoom()
     {
-        menuManager.JoinRoom(roomName);
+        menuManager.OnClick_JoinRoom(roomName);
     }
 }

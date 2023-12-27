@@ -11,6 +11,6 @@ public class RoomMakingWindow : MonoBehaviour
 
     public void MakeRoom()
     {
-        menuManager.CreateRoom(bossSelectDropdown.value);
+        menuManager.OnClick_CreateRoom(bossSelectDropdown.value);
     }
 }
