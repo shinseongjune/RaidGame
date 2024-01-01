@@ -172,7 +172,7 @@ public class MenuManager : MonoBehaviourPunCallbacks
             Transform cardButtonObject = card.transform.GetChild(0);
             cardButtonObject.GetChild(1).GetComponent<TextMeshProUGUI>().text = card.roomName; //방제
             cardButtonObject.GetChild(2).GetComponent<Image>(); //TODO: 보스이미지
-            //TODO: 제대로 설계하고 고치기. cardButtonObject.GetChild(3).GetComponent<TextMeshProUGUI>().text = PhotonNetwork.CurrentRoom.CustomProperties["TargetBoss"].ToString(); //TODO: 보스이름
+            //TODO: 제대로 설계하고 고치기. cardButtonObject.GetChild(3).GetComponent<TextMeshProUGUI>().text = PhotonNetwork.CurrentRoom.CustomProperties["TargetBoss"].ToString(); //TODO: 보스이름 인덱스로 데이터베이스에서 가져올것
         }
     }
 }

@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Skill_Warrior
+  m_EditorClassIdentifier: 
+  m_GroupName: Skill_Warrior
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 8cb566fe6dfe70447a60ed6d0ff32980
+  m_SerializeEntries:
+  - m_GUID: 4341c7d477ccea44e8f59c7a486cdcca
+    m_Address: Assets/ScriptableObjects/Skills/Player/TempWarrior/Shield.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Skill_Warrior_Skill
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fc70f8e9d7e1e9441851cf7d7250fda8
+    m_Address: Assets/ScriptableObjects/Skills/Player/TempWarrior/BasicAttack_TestBasic.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Skill_Warrior_Basic
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0a8596b1b1eaae240a0feb3809efef21
+    m_Address: Assets/ScriptableObjects/Skills/Player/TempWarrior/TestFireball.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Skill_Warrior_Skill
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7ea6f53ed1049ea4486417b30c586413
+    m_Address: Assets/ScriptableObjects/Skills/Player/TempWarrior/TestMeteor.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Skill_Warrior_Skill
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 1cbc3774b4816f940ac3c009cf3c5be4, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 100b11168259bbe458cb9d314166c3f7, type: 2}
+    - {fileID: 11400000, guid: c48f14b5abe7ac14e82b22bb2b0f9ef7, type: 2}
