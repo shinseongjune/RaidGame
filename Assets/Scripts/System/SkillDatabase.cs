@@ -53,13 +53,13 @@ public class SkillDatabase : MonoBehaviour
     }
     #endregion Singleton
 
-    List<Skill> warriorBasic = new();
-    List<Skill> priestBasic = new();
-    List<Skill> archerBasic = new();
-
-    List<Skill> warriorSkill = new();
-    List<Skill> priestSkill = new();
-    List<Skill> archerSkill = new();
+    public List<Skill> warriorBasic = new();
+    public List<Skill> priestBasic = new();
+    public List<Skill> archerBasic = new();
+    
+    public List<Skill> warriorSkill = new();
+    public List<Skill> priestSkill = new();
+    public List<Skill> archerSkill = new();
 
     private void Start()
     {
