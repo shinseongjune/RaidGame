@@ -26,6 +26,7 @@ namespace Item
         public List<StatMod> mods = new();
         public List<SpecialEffect> effects = new();
 
+        //TODO: sprite 추가할 것.
             //TODO: 외형 적용
             //public GameObject skillPrefab;
             //public List<GameObject> afterEffectPrefabs = new List<GameObject>();
