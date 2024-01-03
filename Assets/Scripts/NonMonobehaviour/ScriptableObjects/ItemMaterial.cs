@@ -4,15 +4,16 @@ using UnityEngine;
 
 namespace Item
 {
+    public enum Rarity
+    {
+        COMMON,
+        RARE,
+        LEGENDARY,
+    }
+
     [CreateAssetMenu(fileName = "NewItemMaterial", menuName = "ScriptableObjects/ItemMaterial")]
     public class ItemMaterial : ScriptableObject
     {
-        public enum Rarity
-        {
-            COMMON,
-            RARE,
-            LEGENDARY,
-        }
 
         public string materialName;
         public Rarity rarity;

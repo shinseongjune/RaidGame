@@ -15,3 +15,4 @@ MonoBehaviour:
   itemName: Burning Sword
   description: 
   type: 2
+  rarity: 2

@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: fe1bfd121016c004dac9153e28ee4dd1
   m_currentHash:
     serializedVersion: 2
-    Hash: cf586d6325f5568b33fa57b0bce1d540
+    Hash: 08d96406223be9f0cc0c9bbeb8ee01ac
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -47,6 +47,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5db90080ab3fc2f49975707a0d5594b8, type: 2}
   - {fileID: 11400000, guid: bfaf11a61703b5842b9c0bf1b2bb8fba, type: 2}
   - {fileID: 11400000, guid: 26c96e4804090b14bb29f12b84f5392f, type: 2}
+  - {fileID: 11400000, guid: 003783ce191968e49b20f1989302ee2e, type: 2}
+  - {fileID: 11400000, guid: 0322e8f3e8051ea4997ad35d64675d3d, type: 2}
+  - {fileID: 11400000, guid: 89e3bb863b926334299cd1ff26207c7c, type: 2}
+  - {fileID: 11400000, guid: e4b5893320b20c041ade645a2df02f1e, type: 2}
+  - {fileID: 11400000, guid: 2847fb385a685074f9ddeb7f220a5b5e, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -90,6 +95,9 @@ MonoBehaviour:
     - default
     - Skill_Warrior_Basic
     - Skill_Warrior_Skill
+    - Equipable_Common
+    - Equipable_Rare
+    - Equipable_Legendary
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 1ed5988dd2a58104e8f45b6b7463da18, type: 2}

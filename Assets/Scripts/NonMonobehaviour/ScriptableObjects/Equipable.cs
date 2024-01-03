@@ -10,7 +10,7 @@ namespace Item
     {
         public enum Type
         {
-            HEAD,
+            HELMET,
             ARMOR,
             SWORD,
             STAFF,
@@ -21,6 +21,7 @@ namespace Item
         public string description;
 
         public Type type;
+        public Rarity rarity;
 
         // Equipable Database에서 등록.
         public List<StatMod> mods = new();
