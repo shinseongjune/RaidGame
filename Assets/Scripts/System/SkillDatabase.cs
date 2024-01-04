@@ -63,7 +63,7 @@ public class SkillDatabase : MonoBehaviour
 
     private void Start()
     {
-        Addressables.LoadAssetAsync<IList<Skill>>("Skill_Warrior_Basic").Completed += (AsyncOperationHandle<IList<Skill>> handle) =>
+        Addressables.LoadAssetsAsync<Skill>("Skill_Warrior_Basic", null).Completed += (AsyncOperationHandle<IList<Skill>> handle) =>
         {
             if (handle.Status == AsyncOperationStatus.Succeeded)
             {
@@ -71,10 +71,12 @@ public class SkillDatabase : MonoBehaviour
                 {
                     warriorBasic.Add(skill);
                 }
+
+                warriorBasic.Sort();
             }
         };
 
-        Addressables.LoadAssetAsync<IList<Skill>>("Skill_Warrior_Skill").Completed += (AsyncOperationHandle<IList<Skill>> handle) =>
+        Addressables.LoadAssetsAsync<Skill>("Skill_Warrior_Skill", null).Completed += (AsyncOperationHandle<IList<Skill>> handle) =>
         {
             if (handle.Status == AsyncOperationStatus.Succeeded)
             {
@@ -82,6 +84,8 @@ public class SkillDatabase : MonoBehaviour
                 {
                     warriorSkill.Add(skill);
                 }
+
+                warriorSkill.Sort();
             }
         };
 

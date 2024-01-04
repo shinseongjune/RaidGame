@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine;
 namespace Item
 {
     [CreateAssetMenu(fileName = "NewConsumable", menuName = "ScriptableObjects/Consumable")]
-    public class Consumable : ScriptableObject
+    public class Consumable : ScriptableObject, IComparable<Consumable>
     {
         public enum Type
         {
@@ -25,6 +26,19 @@ namespace Item
 
         public GameObject itemPrefab;
         public List<GameObject> afterEffectPrefabs = new List<GameObject>();
+
+        public int CompareTo(Consumable other)
+        {
+            int typeComp = type.CompareTo(other.type);
+            if (typeComp != 0)
+            {
+                return typeComp;
+            }
+            else
+            {
+                return itemName.CompareTo(other.itemName);
+            }
+        }
 
         //TODO: sprite 추가할 것.
     }

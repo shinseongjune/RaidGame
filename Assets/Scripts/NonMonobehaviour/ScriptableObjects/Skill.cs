@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewSkill", menuName = "ScriptableObjects/Skill")]
-public class Skill : ScriptableObject
+public class Skill : ScriptableObject, IComparable<Skill>
 {
     public enum Type
     {
@@ -38,6 +39,11 @@ public class Skill : ScriptableObject
 
     public GameObject skillPrefab;
     public List<GameObject> afterEffectPrefabs = new List<GameObject>();
+
+    public int CompareTo(Skill other)
+    {
+        return skillName.CompareTo(other.skillName);
+    }
 
     //TODO: sprite 추가할 것. 그리고 UI에서도 적용하기.
     //TODO: 모션타입, 태그리스트(평타,공격/마법,투사체~~,근접/원거리 기타등등)
