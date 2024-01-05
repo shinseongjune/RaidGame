@@ -71,8 +71,6 @@ public class SkillDatabase : MonoBehaviour
                 {
                     warriorBasic.Add(skill);
                 }
-
-                warriorBasic.Sort();
             }
         };
 
@@ -84,8 +82,6 @@ public class SkillDatabase : MonoBehaviour
                 {
                     warriorSkill.Add(skill);
                 }
-
-                warriorSkill.Sort();
             }
         };
 

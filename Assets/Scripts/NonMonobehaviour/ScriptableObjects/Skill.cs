@@ -9,10 +9,10 @@ public class Skill : ScriptableObject, IComparable<Skill>
 {
     public enum Type
     {
-        Projectile,
-        Place,
-        Target,
-        Instant,
+        PROJECTILE,
+        PLACE,
+        TARGET,
+        INSTANT,
     }
 
     public string skillName;

@@ -1,6 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+public class SkillSlot
+{
+    public Skill skill;
+    public float cooldown = 0;
+    //TODO: 스택 등 고려할것.
+}
 
 public class SkillSlots : MonoBehaviour
 {
@@ -21,19 +27,19 @@ public class SkillSlots : MonoBehaviour
 
     public SkillSlot q
     {
-        get { return slots["q"]; }
+        get { return slots.TryGetValue("q", out SkillSlot value) ? value : null; }
     }
     public SkillSlot w
     {
-        get { return slots["w"]; }
+        get { return slots.TryGetValue("w", out SkillSlot value) ? value : null; }
     }
     public SkillSlot e
     {
-        get { return slots["e"]; }
+        get { return slots.TryGetValue("e", out SkillSlot value) ? value : null; }
     }
     public SkillSlot r
     {
-        get { return slots["r"]; }
+        get { return slots.TryGetValue("r", out SkillSlot value) ? value : null; }
     }
 
     /*
@@ -100,17 +106,17 @@ public class SkillSlots : MonoBehaviour
             Vector3 skillPosition;
             switch (skill.type)
             {
-                case Skill.Type.Projectile:
+                case Skill.Type.PROJECTILE:
                     skillPosition = firePoint.position == null ? transform.position + Vector3.up : firePoint.position;
 
                     StartCoroutine(SpawnPrefab(skill.skillPrefab, skillPosition, skill.preDelay));
                     //TODO: predelay, postdelay를 캐릭터컨트롤러에 전달하기.
                     break;
-                case Skill.Type.Place:
+                case Skill.Type.PLACE:
                     break;
-                case Skill.Type.Target:
+                case Skill.Type.TARGET:
                     break;
-                case Skill.Type.Instant:
+                case Skill.Type.INSTANT:
                     skillPosition = firePoint.position == null ? transform.position + Vector3.up : firePoint.position;
 
                     StartCoroutine(SpawnPrefab(skill.skillPrefab, skillPosition, skill.preDelay));
@@ -121,17 +127,31 @@ public class SkillSlots : MonoBehaviour
 
     public bool DoSkill(string input, Vector3 point)
     {
-        SkillSlot slot = slots[input];
-        if (slot == null || slot.skill == null)
+        SkillSlot slot;
+
+        switch (input)
+        {
+            case "q":
+                slot = q;
+                break;
+            case "w":
+                slot = w;
+                break;
+            case "e":
+                slot = e;
+                break;
+            case "r":
+                slot = r;
+                break;
+            default:
+                throw new System.Exception("invalid skill button input!");
+        }
+
+        if (slot == null || slot.skill == null || slot.cooldown > 0)
         {
             return false;
         }
         Skill skill = slot.skill;
-
-        if (slot.cooldown > 0)
-        {
-            return false;
-        }
 
         if (stats.UseCost(skill.cost, skill.costStat))
         {
@@ -139,20 +159,21 @@ public class SkillSlots : MonoBehaviour
             Vector3 skillPosition;
             switch (skill.type)
             {
-                case Skill.Type.Projectile:
-                    skillPosition = firePoint.position == null ? transform.position + Vector3.up : firePoint.position;
+                case Skill.Type.PROJECTILE:
+                    skillPosition = firePoint == null ? transform.position + Vector3.up : firePoint.position;
 
                     StartCoroutine(SpawnPrefab(skill.skillPrefab, skillPosition, skill.preDelay));
                     //TODO: predelay, postdelay를 캐릭터컨트롤러에 전달하기.
                     break;
-                case Skill.Type.Place:
+                case Skill.Type.PLACE:
 
                     StartCoroutine(SpawnPrefab(skill.skillPrefab, point, skill.preDelay));
                     break;
-                case Skill.Type.Target:
+                case Skill.Type.TARGET:
+                    //TODO: 타겟팅 구현.
                     break;
-                case Skill.Type.Instant:
-                    skillPosition = firePoint.position == null ? transform.position + Vector3.up : firePoint.position;
+                case Skill.Type.INSTANT:
+                    skillPosition = transform.position;
 
                     StartCoroutine(SpawnPrefab(skill.skillPrefab, skillPosition, skill.preDelay));
                     break;

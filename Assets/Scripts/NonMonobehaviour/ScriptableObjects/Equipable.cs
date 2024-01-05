@@ -24,9 +24,8 @@ namespace Item
         public Type type;
         public Rarity rarity;
 
-        // Equipable Database에서 등록.
-        public List<StatMod> mods = new();
-        public List<SpecialEffect> effects = new();
+        [SerializeField]
+        public List<GameObject> effectsPrefabs = new();
 
         public int CompareTo(Equipable other)
         {

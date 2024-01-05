@@ -2,21 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class SkillBase : MonoBehaviour
+public abstract class ItemBase : MonoBehaviour
 {
-    public GameObject target;
-
     /// <summary>
-    /// Skill User(Player)
+    /// Item User(Player)
     /// </summary>
     public GameObject owner;
 
     /// <summary>
-    /// Skill Scriptable Object
+    /// Item Scriptable Object
     /// </summary>
     public GameObject source;
-
-    public List<GameObject> alreadyHitObjects = new List<GameObject>();
 
     /// <summary>
     /// Use this when you need initialization
