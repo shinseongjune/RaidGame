@@ -41,7 +41,7 @@ public class BasicAttack_Fireball : SkillBase
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && !alreadyHitObjects.Contains(other.gameObject))
         {
             alreadyHitObjects.Add(other.gameObject);
-            other.GetComponentInParent<Stats>().Damaged(damage.damage);
+            other.GetComponentInParent<ControlComponent>().Damaged(damage.damage);
             Boom();
         }
     }

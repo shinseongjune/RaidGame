@@ -49,18 +49,22 @@ public class ItemSlots : MonoBehaviour
     {
         ItemSlot oneSlot = new();
         oneSlot.item = tempOne;
+        oneSlot.count = 3;
         slots.Add("1", oneSlot);
-
+        
         ItemSlot twoSlot = new();
         twoSlot.item = tempTwo;
+        oneSlot.count = 3;
         slots.Add("2", twoSlot);
 
         ItemSlot threeSlot = new();
         threeSlot.item = tempThree;
+        oneSlot.count = 3;
         slots.Add("3", threeSlot);
 
         ItemSlot fourSlot = new();
         fourSlot.item = tempFour;
+        oneSlot.count = 3;
         slots.Add("4", fourSlot);
     }
 
@@ -114,9 +118,12 @@ public class ItemSlots : MonoBehaviour
                 itemPosition = firePoint == null ? transform.position + Vector3.up : firePoint.position;
 
                 //TODO: ItemBase 만들어서 프리팹 만들고 구현.
-                //SkillBase skill = Instantiate(prefab, position, transform.rotation).GetComponent<SkillBase>();
-                //skill.source = gameObject;
-                //skill.GetOn();
+                ThrowableBase throwable = Instantiate(item.itemPrefab, itemPosition, transform.rotation).GetComponent<ThrowableBase>();
+                throwable.owner = gameObject;
+                throwable.source = item;
+                throwable.startPosition = itemPosition;
+                throwable.endPosition = point;
+                throwable.GetOn();
                 break;
             case Consumable.Type.INSTANT:
                 itemPosition = transform.position;

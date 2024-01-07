@@ -10,28 +10,40 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Equipable_Sword
+  m_Name: Equipable
   m_EditorClassIdentifier: 
-  m_GroupName: Equipable_Sword
+  m_GroupName: Equipable
   m_Data:
     m_SerializedData: []
-  m_GUID: 282034aa0bf1d4441a08e0f0be898261
+  m_GUID: e3dba74f7f00f79468f6abc1081d1fff
   m_SerializeEntries:
   - m_GUID: 2b2e05e617905424586626e8701babb6
     m_Address: Assets/ScriptableObjects/Items/Equipables/Sword_BurningSword.asset
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Equipable_Legendary
+    - Equipable_Weapon
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3251b21e827991c43baddf6af17f47fb
+    m_Address: Assets/ScriptableObjects/Items/Equipables/Helmet_WoodCap.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Equipable_Helmet
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9a3bf7117ccafdf42bdb4b56e91e43dd
+    m_Address: Assets/ScriptableObjects/Items/Equipables/Armor_WoodArmor.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Equipable_Armor
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 06b2a0d60a705e440bf6198a661d007e
     m_Address: Assets/ScriptableObjects/Items/Equipables/Sword_IronSword.asset
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Equipable_Rare
+    - Equipable_Weapon
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 1cbc3774b4816f940ac3c009cf3c5be4, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 5fc47c09a6745a742b8274657c7a2893, type: 2}
-    - {fileID: 11400000, guid: e6f53b2ba4f47b84d8139a80e1eacfc5, type: 2}
+    - {fileID: 11400000, guid: 662d335e7bdaa9f4eb3a6bf998455e8b, type: 2}
+    - {fileID: 11400000, guid: 1ed2ed5ae8a2ee7418fb1752b9866412, type: 2}

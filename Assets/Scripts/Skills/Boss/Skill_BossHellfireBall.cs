@@ -62,8 +62,8 @@ public class Skill_BossHellfireBall : SkillBase
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            Stats stats = other.GetComponentInParent<Stats>();
-            stats.Damaged(damage.damage);
+            ControlComponent control = other.GetComponentInParent<ControlComponent>();
+            control.Damaged(damage.damage);
 
             Instantiate(aftereffect_hellfireBoomEffect, target.transform.position, target.transform.rotation);
 

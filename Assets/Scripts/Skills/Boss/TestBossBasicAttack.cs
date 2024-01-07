@@ -28,11 +28,8 @@ public class TestBossBasicAttack : SkillBase
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            Stats stats = other.GetComponentInParent<Stats>();
-            if (stats != null)
-            {
-                stats.Damaged(damage.damage);
-            }
+            ControlComponent control = other.GetComponentInParent<ControlComponent>();
+            control.Damaged(damage.damage);
         }
     }
 

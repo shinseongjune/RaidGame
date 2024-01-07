@@ -28,7 +28,7 @@ public class Skill_Meteor : SkillBase
 
             foreach (Collider target in targets)
             {
-                target.GetComponentInParent<Stats>().Damaged(damage.damage);
+                target.GetComponentInParent<ControlComponent>().Damaged(damage.damage);
             }
 
             AfterEffect_Meteor_MagmaGround after = Instantiate(afterEffect_MagmaGround, transform.position, transform.rotation).GetComponent<AfterEffect_Meteor_MagmaGround>();

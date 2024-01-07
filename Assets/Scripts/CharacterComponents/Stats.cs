@@ -119,13 +119,11 @@ public class Stats : MonoBehaviour
     /// <summary>
     /// control component에서만 접근 가능
     /// </summary>
-    public void Damaged(float damage, [CallerMemberName] string caller = "")
+    public void Damaged(float damage, Type callerType)
     {
-        Type callerType = Type.GetType(caller);
-
         if (!typeof(ControlComponent).IsAssignableFrom(callerType))
         {
-            return;
+            throw new Exception("Damaged() must be called by attached Control Component!");
         }
 
         if (isImmune)

@@ -5,6 +5,7 @@ using UnityEngine;
 public class CharacterControlComponent : ControlComponent
 {
     public SkillSlots skillSlots;
+    public ItemSlots itemSlots;
     public Animator animator;
     public bool isDead = false;
     public bool isEnd = false;
@@ -14,6 +15,7 @@ public class CharacterControlComponent : ControlComponent
         base.Awake();
 
         TryGetComponent<SkillSlots>(out skillSlots);
+        TryGetComponent<ItemSlots>(out itemSlots);
         TryGetComponent<Animator>(out animator);
 
         stats.canRegen = true;
@@ -80,6 +82,23 @@ public class CharacterControlComponent : ControlComponent
             {
                 //TODO: 스킬 딜레이 받아와서 모션 시간 지정+actpreventer 처리할것.
                 animator.SetTrigger("SlashTrigger");
+            }
+        }
+    }
+
+    public void GetItemButton(Vector3 point, string button)
+    {
+        if (actPreventer == 0)
+        {
+            movement.CancelMove();
+            Look(point);
+            if (!itemSlots.UseItem(button, point))
+            {
+                //TODO: 실패 피드백. UI흔들기
+            }
+            else
+            {
+                //TODO: 아이템 사용 모션? 없어도 될듯? 일단 나중에.
             }
         }
     }

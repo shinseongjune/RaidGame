@@ -20,17 +20,20 @@ MonoBehaviour:
   - m_GUID: 5b59525a38d70aa409fd488aff3262fb
     m_Address: Assets/ScriptableObjects/Items/Consumables/Instant_HPPotion.asset
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Consumable
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 93bf2792d6d3b934b8a7c5c5aa38b5e5
     m_Address: Assets/ScriptableObjects/Items/Consumables/Instant_MPPotion.asset
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Consumable
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: be8640afd3fe15342ab732b991103417
     m_Address: Assets/ScriptableObjects/Items/Consumables/Throw_FireBomb.asset
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Consumable
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 1cbc3774b4816f940ac3c009cf3c5be4, type: 2}

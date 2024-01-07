@@ -31,8 +31,8 @@ public class TestBasicAttack : SkillBase
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && !alreadyHitObjects.Contains(other.gameObject))
         {
             alreadyHitObjects.Add(other.gameObject);
-            Stats stats = other.GetComponentInParent<Stats>();
-            stats.Damaged(damage.damage);
+            ControlComponent control = other.GetComponentInParent<ControlComponent>();
+            control.Damaged(damage.damage);
 
             Vector3 closest = other.ClosestPoint(transform.position);
             Instantiate(hitEffect, closest, Quaternion.identity);

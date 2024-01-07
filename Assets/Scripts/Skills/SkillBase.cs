@@ -7,7 +7,7 @@ public abstract class SkillBase : MonoBehaviour
     public GameObject target;
 
     /// <summary>
-    /// Skill User(Player)
+    /// Skill User(GamePlayer)
     /// </summary>
     public GameObject owner;
 

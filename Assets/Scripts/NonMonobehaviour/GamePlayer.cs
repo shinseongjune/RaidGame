@@ -4,7 +4,7 @@ using System.Drawing;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
-public class Player
+public class GamePlayer
 {
     public int id;
 
@@ -78,6 +78,12 @@ public class Player
                     break;
                 case "space":
                     character.GetSpaceBar(hit.point);
+                    break;
+                case "1":
+                case "2":
+                case "3":
+                case "4":
+                    character.GetItemButton(hit.point, button);
                     break;
             }
         }

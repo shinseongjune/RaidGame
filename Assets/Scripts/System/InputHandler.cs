@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InputHandler : MonoBehaviour
 {
-    public Player player;
+    public GamePlayer player;
 
     void Update()
     {
@@ -43,19 +43,19 @@ public class InputHandler : MonoBehaviour
         }
         else if (Input.GetButtonDown("1"))
         {
-
+            player.GetButton("1");
         }
         else if (Input.GetButtonDown("2"))
         {
-
+            player.GetButton("2");
         }
         else if (Input.GetButtonDown("3"))
         {
-
+            player.GetButton("3");
         }
         else if (Input.GetButtonDown("4"))
         {
-
+            player.GetButton("4");
         }
 
         //TODO: asdf zxcv enter escape f1~f5 g horizontal&vertical

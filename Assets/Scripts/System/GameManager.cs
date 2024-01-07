@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject inputHandlerPrefab;
 
-    Player player;
+    GamePlayer player;
     InputHandler inputHandler;
 
     GameObject playerCharacter;
@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
         surface.BuildNavMesh();
 
         //test player generation
-        player = new Player();
+        player = new GamePlayer();
         inputHandler = Instantiate(inputHandlerPrefab).GetComponent<InputHandler>();
 
         playerCharacter = Instantiate(tempPlayerPrefabs[0], field.transform.Find("PlayerStartPositions").GetChild(0).position, Quaternion.identity);
@@ -85,6 +85,9 @@ public class GameManager : MonoBehaviour
         //wCoolSetter.slot = slots.w;
         //eCoolSetter.slot = slots.e;
         //dashCoolSetter.move = playerControl.movement;
+
+        ItemSlots items = playerControl.itemSlots;
+        items.AssignTempItem();
 
         //test boss generation
         bossControl = Instantiate(tempBossPrefab, field.transform.Find("BossStartPositions").GetChild(0).position, Quaternion.LookRotation(Vector3.back)).GetComponent<TempBossControlComponent>();

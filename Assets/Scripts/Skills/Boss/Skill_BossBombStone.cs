@@ -58,10 +58,9 @@ public class Skill_BossBombStone : SkillBase
 
             foreach (Collider collider in colliders)
             {
-                Stats stats = collider.GetComponentInParent<Stats>();
-                stats.Damaged(damage.damage);
-
                 CharacterControlComponent control = collider.GetComponentInParent<CharacterControlComponent>();
+                control.Damaged(damage.damage);
+
                 Vector3 knockbackVector = (control.transform.position - transform.position).normalized * knockbackPower;
 
                 KnockBack knockBack = new KnockBack("Æø¹ßÀÇ ¿©ÆÄ", SpecialEffect.Type.Renewable, false, source, control, knockbackVector);

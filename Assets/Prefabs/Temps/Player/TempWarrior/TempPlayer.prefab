@@ -4574,6 +4574,7 @@ GameObject:
   - component: {fileID: 4267613453313946900}
   - component: {fileID: 1990769260264647504}
   - component: {fileID: 6291721613013323589}
+  - component: {fileID: -543343100258685460}
   - component: {fileID: 5766178162184186737}
   - component: {fileID: 2133535245724198391}
   - component: {fileID: 7482776909802102051}
@@ -4678,6 +4679,23 @@ MonoBehaviour:
   tempSkillE: {fileID: 11400000, guid: 4341c7d477ccea44e8f59c7a486cdcca, type: 2}
   tempSkillR: {fileID: 0}
   firePoint: {fileID: 786243720159185981}
+--- !u!114 &-543343100258685460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6789263574828256460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7175658be65a2b1498234c237cfcab20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tempOne: {fileID: 11400000, guid: be8640afd3fe15342ab732b991103417, type: 2}
+  tempTwo: {fileID: 0}
+  tempThree: {fileID: 0}
+  tempFour: {fileID: 0}
+  firePoint: {fileID: 786243720159185981}
 --- !u!114 &5766178162184186737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4713,6 +4731,7 @@ MonoBehaviour:
   actPreventer: 0
   movePreventer: 0
   skillSlots: {fileID: 0}
+  itemSlots: {fileID: 0}
   animator: {fileID: 0}
   isDead: 0
   isEnd: 0

@@ -2,6 +2,8 @@ using Item;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class ItemDatabase : MonoBehaviour
 {
@@ -52,9 +54,55 @@ public class ItemDatabase : MonoBehaviour
     #endregion Singleton
 
     public List<Equipable> weapons = new();
+    public List<Equipable> helmets = new();
+    public List<Equipable> armors = new();
+
+    public List<Consumable> consumables = new();
 
     void Start()
     {
-        
+        Addressables.LoadAssetsAsync<Equipable>("Equipable_Weapon", null).Completed += (AsyncOperationHandle<IList<Equipable>> handle) =>
+        {
+            if (handle.Status == AsyncOperationStatus.Succeeded)
+            {
+                foreach (var item in handle.Result)
+                {
+                    weapons.Add(item);
+                }
+            }
+        };
+
+        Addressables.LoadAssetsAsync<Equipable>("Equipable_Helmet", null).Completed += (AsyncOperationHandle<IList<Equipable>> handle) =>
+        {
+            if (handle.Status == AsyncOperationStatus.Succeeded)
+            {
+                foreach (var item in handle.Result)
+                {
+                    helmets.Add(item);
+                }
+            }
+        };
+
+        Addressables.LoadAssetsAsync<Equipable>("Equipable_Armor", null).Completed += (AsyncOperationHandle<IList<Equipable>> handle) =>
+        {
+            if (handle.Status == AsyncOperationStatus.Succeeded)
+            {
+                foreach (var item in handle.Result)
+                {
+                    armors.Add(item);
+                }
+            }
+        };
+
+        Addressables.LoadAssetsAsync<Consumable>("Consumable", null).Completed += (AsyncOperationHandle<IList<Consumable>> handle) =>
+        {
+            if (handle.Status == AsyncOperationStatus.Succeeded)
+            {
+                foreach (var item in handle.Result)
+                {
+                    consumables.Add(item);
+                }
+            }
+        };
     }
 }

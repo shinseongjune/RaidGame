@@ -131,6 +131,17 @@ public class MenuManager : MonoBehaviourPunCallbacks
     public void OnClick_ExitRoom()
     {
         //TODO: 방에서 나가기 기능. room 방장 넘겨주거나 없애버리기. UI는 에디터에서 조절.
+        PhotonNetwork.LeaveRoom();
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        base.OnPlayerEnteredRoom(newPlayer);
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        base.OnPlayerLeftRoom(otherPlayer);
     }
 
     public void OnClick_JoinRoom(string name)

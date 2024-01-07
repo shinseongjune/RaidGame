@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5834b5087d578d24c926ce20cd31e6d6, type: 3}
-  m_Name: Equipable_Sword_ContentUpdateGroupSchema
+  m_Name: Equipable_ContentUpdateGroupSchema
   m_EditorClassIdentifier: 
-  m_Group: {fileID: 11400000, guid: 003783ce191968e49b20f1989302ee2e, type: 2}
+  m_Group: {fileID: 11400000, guid: 50b7994f2e87e11439ee07d66f06111b, type: 2}
   m_StaticContent: 0

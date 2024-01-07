@@ -26,8 +26,8 @@ public class Skill_BossGlobalKnockBack_DeathZone : SkillBase
             {
                 if (target != null)
                 {
-                    Stats stats = target.GetComponentInParent<Stats>();
-                    stats.Damaged(damage.damage * Time.deltaTime);
+                    ControlComponent control = target.GetComponentInParent<ControlComponent>();
+                    control.Damaged(damage.damage * Time.deltaTime);
                 }
             }
         }

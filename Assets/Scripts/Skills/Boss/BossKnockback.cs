@@ -28,9 +28,8 @@ public class BossKnockback : SkillBase
 
             foreach (Collider other in others)
             {
-                Stats stats = other.GetComponentInParent<Stats>();
-                stats.Damaged(damage.damage);
                 CharacterControlComponent control = other.GetComponentInParent<CharacterControlComponent>();
+                control.Damaged(damage.damage);
                 Vector3 dir = (other.transform.position - transform.position).normalized;
                 if (dir == Vector3.zero) dir = -other.transform.forward;
                 Vector3 knockbackVector = dir * knockbackPower;

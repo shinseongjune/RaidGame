@@ -40,7 +40,7 @@ public class AfterEffect_Meteor_MagmaGround : SkillBase
         {
             if (!alreadyHitObjectsCooldowns.ContainsKey(target.gameObject))
             {
-                target.GetComponentInParent<Stats>().Damaged(damage.damage);
+                target.GetComponentInParent<ControlComponent>().Damaged(damage.damage);
                 alreadyHitObjectsCooldowns.Add(target.gameObject, TICK_TIME);
             }
         }

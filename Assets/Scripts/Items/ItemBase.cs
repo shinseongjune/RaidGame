@@ -1,3 +1,4 @@
+using Item;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,14 +6,14 @@ using UnityEngine;
 public abstract class ItemBase : MonoBehaviour
 {
     /// <summary>
-    /// Item User(Player)
+    /// Item User(GamePlayer)
     /// </summary>
     public GameObject owner;
 
     /// <summary>
     /// Item Scriptable Object
     /// </summary>
-    public GameObject source;
+    public Consumable source;
 
     /// <summary>
     /// Use this when you need initialization

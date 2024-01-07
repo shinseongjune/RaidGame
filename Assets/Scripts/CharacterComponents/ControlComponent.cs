@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class ControlComponent : MonoBehaviour
@@ -171,4 +173,10 @@ public abstract class ControlComponent : MonoBehaviour
     }
 
     public abstract void Die();
+
+    //TODO: damage 적용 개선 필요.
+    public void Damaged(float damage)
+    {
+        stats.Damaged(damage, GetType());
+    }
 }

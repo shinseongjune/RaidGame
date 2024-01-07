@@ -17,5 +17,5 @@ MonoBehaviour:
   type: 0
   range: 3
   coolDown: 5
-  itemPrefab: {fileID: 0}
+  itemPrefab: {fileID: 8840120443458737443, guid: 51fce8b64e0c2a64a90649a7913b1693, type: 3}
   afterEffectPrefabs: []
