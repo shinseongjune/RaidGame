@@ -8,6 +8,9 @@ namespace Item
     [CreateAssetMenu(fileName = "NewConsumable", menuName = "ScriptableObjects/Consumable")]
     public class Consumable : ScriptableObject, IComparable<Consumable>
     {
+        [Min(0)]
+        public int id;
+
         public enum Type
         {
             THROW,
@@ -29,15 +32,7 @@ namespace Item
 
         public int CompareTo(Consumable other)
         {
-            int typeComp = type.CompareTo(other.type);
-            if (typeComp != 0)
-            {
-                return typeComp;
-            }
-            else
-            {
-                return itemName.CompareTo(other.itemName);
-            }
+            return id.CompareTo(other.id);
         }
 
         //TODO: sprite 추가할 것.

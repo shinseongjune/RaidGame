@@ -7,6 +7,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewSkill", menuName = "ScriptableObjects/Skill")]
 public class Skill : ScriptableObject, IComparable<Skill>
 {
+    [Min(0)]
+    public int id;
+
     public enum Type
     {
         PROJECTILE,
@@ -42,7 +45,7 @@ public class Skill : ScriptableObject, IComparable<Skill>
 
     public int CompareTo(Skill other)
     {
-        return skillName.CompareTo(other.skillName);
+        return id.CompareTo(other.id);
     }
 
     //TODO: sprite 추가할 것. 그리고 UI에서도 적용하기.

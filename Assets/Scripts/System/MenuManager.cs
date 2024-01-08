@@ -81,7 +81,9 @@ public class MenuManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.InRoom)
         {
+            noRoomButtons.SetActive(false);
 
+            roomWindow.SetActive(true);
         }
     }
 
@@ -113,11 +115,12 @@ public class MenuManager : MonoBehaviourPunCallbacks
         //TODO: 로그인 후 아이디로 방제 설정. 매개변수로 아이디 받아오기
         RoomOptions options = new();
         options.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable
-            {
-                { "CreationTime", DateTimeOffset.UtcNow.ToUnixTimeSeconds() },
-                { "TargetBoss", bossIndex }, //TODO: 임시코드. 보스 데이터베이스 작업, 로그인 등 하고나서 인덱스 및 플레이어id/name 삽입
-                { "leaderID", 0 }
-            };
+        {
+            { "CreationTime", DateTimeOffset.UtcNow.ToUnixTimeSeconds() },
+            { "TargetBoss", bossIndex },
+            { "leaderID", 0 }, //TODO: 임시코드. 보스 데이터베이스 작업, 로그인 등 하고나서 인덱스 및 플레이어id/name 삽입
+            
+        };
         options.CustomRoomPropertiesForLobby = new string[] { "CreationTime", "TargetBoss" };
 
         //TODO: 이름 제대로 플레이어 아이디로 넣기.

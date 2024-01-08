@@ -18,6 +18,8 @@ namespace Item
             BOW
         }
 
+        public int id;
+
         public string itemName;
         public string description;
 

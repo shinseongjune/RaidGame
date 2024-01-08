@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c4b250d46cb87764db714e6be3ad3bc1, type: 3}
-  m_Name: Legendary_BurningSoul
+  m_Name: 00_Common_Iron
   m_EditorClassIdentifier: 
-  materialName: Burning Soul
-  rarity: 2
+  materialName: Iron
+  rarity: 0

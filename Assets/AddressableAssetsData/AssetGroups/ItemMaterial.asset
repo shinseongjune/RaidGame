@@ -16,7 +16,31 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: ff11ad6b48375474e8ab61b581499e9e
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: a503b4e42eacf22458e47171796a382c
+    m_Address: Assets/ScriptableObjects/Items/Materials/00_Common_Iron.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemMaterial
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: adc927e46b4e05142859b56e45399839
+    m_Address: Assets/ScriptableObjects/Items/Materials/03_Legendary_BurningSoul.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemMaterial
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ad96d3b90d78592408aa502e56268a74
+    m_Address: Assets/ScriptableObjects/Items/Materials/02_Rare_FireEssence.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemMaterial
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 72184dfad94bacf40b19fa49a167900e
+    m_Address: Assets/ScriptableObjects/Items/Materials/01_Common_Wood.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemMaterial
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 1cbc3774b4816f940ac3c009cf3c5be4, type: 2}
   m_SchemaSet:

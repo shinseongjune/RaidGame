@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: fe1bfd121016c004dac9153e28ee4dd1
   m_currentHash:
     serializedVersion: 2
-    Hash: 6b64335425f24aaf9e0b94b0e8bf2f22
+    Hash: 9c4e46bf6b9503655065dcf32a40c2b7
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -50,6 +50,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e4b5893320b20c041ade645a2df02f1e, type: 2}
   - {fileID: 11400000, guid: 2847fb385a685074f9ddeb7f220a5b5e, type: 2}
   - {fileID: 11400000, guid: 50b7994f2e87e11439ee07d66f06111b, type: 2}
+  - {fileID: 11400000, guid: 731e92bd25a45484795665f3d22cbf73, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -97,6 +98,8 @@ MonoBehaviour:
     - Equipable_Weapon
     - Equipable_Armor
     - Equipable_Helmet
+    - ItemMaterial
+    - MaterialRecipe
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 1ed5988dd2a58104e8f45b6b7463da18, type: 2}

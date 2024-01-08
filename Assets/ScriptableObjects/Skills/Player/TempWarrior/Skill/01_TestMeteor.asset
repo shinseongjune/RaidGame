@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eff2cc56bcf64b241bf8a0c7d7643b73, type: 3}
+  m_Name: 01_TestMeteor
+  m_EditorClassIdentifier: 
+  id: 1
+  skillName: "\uBA54\uD14C\uC624"
+  description: 
+  type: 1
+  range: 0
+  costStat: 1
+  cost: 30
+  coolDown: 5
+  preDelay: 0.2
+  postDelay: 0.1
+  skillPrefab: {fileID: 3110945203766960551, guid: b7c8d2640f2be574dbb9a4a0bcc91d40, type: 3}
+  afterEffectPrefabs: []

@@ -9,16 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eff2cc56bcf64b241bf8a0c7d7643b73, type: 3}
-  m_Name: BasicAttack_TestBasic
+  m_Script: {fileID: 11500000, guid: b59b51c5efc31994f969aef6feaab66c, type: 3}
+  m_Name: 00_Instant_HPPotion
   m_EditorClassIdentifier: 
-  skillName: "\uD3C9\uD0C01"
+  itemName: HP Potion
   description: 
-  type: 3
-  costStat: 1
-  cost: 0
-  coolDown: 0.2
-  preDelay: 0.2
-  postDelay: 0.3
-  skillPrefab: {fileID: 1430408056455349902, guid: 56f1ca3af9a66b140b3615373f5bb001, type: 3}
+  type: 1
+  range: 0
+  coolDown: 12
+  itemPrefab: {fileID: 0}
   afterEffectPrefabs: []

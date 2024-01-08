@@ -73,6 +73,7 @@ public class SkillDatabase : MonoBehaviour
                 }
             }
         };
+        warriorBasic.Sort();
 
         Addressables.LoadAssetsAsync<Skill>("Skill_Warrior_Skill", null).Completed += (AsyncOperationHandle<IList<Skill>> handle) =>
         {
@@ -84,6 +85,7 @@ public class SkillDatabase : MonoBehaviour
                 }
             }
         };
+        warriorSkill.Sort();
 
         //TODO: 다른 직업 평타,스킬 어드레서블 로드
     }

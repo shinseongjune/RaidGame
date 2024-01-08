@@ -9,13 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b59b51c5efc31994f969aef6feaab66c, type: 3}
-  m_Name: Instant_MPPotion
+  m_Script: {fileID: 11500000, guid: c4b250d46cb87764db714e6be3ad3bc1, type: 3}
+  m_Name: 03_Legendary_BurningSoul
   m_EditorClassIdentifier: 
-  itemName: MP Potion
-  description: 
-  type: 1
-  range: 0
-  coolDown: 5
-  itemPrefab: {fileID: 0}
-  afterEffectPrefabs: []
+  id: 3
+  materialName: Burning Soul
+  rarity: 2

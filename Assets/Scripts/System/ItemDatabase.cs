@@ -58,6 +58,9 @@ public class ItemDatabase : MonoBehaviour
     public List<Equipable> armors = new();
 
     public List<Consumable> consumables = new();
+    public List<ItemMaterial> materials = new();
+
+    public List<MaterialRecipe> recipes = new();
 
     void Start()
     {
@@ -71,6 +74,7 @@ public class ItemDatabase : MonoBehaviour
                 }
             }
         };
+        weapons.Sort();
 
         Addressables.LoadAssetsAsync<Equipable>("Equipable_Helmet", null).Completed += (AsyncOperationHandle<IList<Equipable>> handle) =>
         {
@@ -82,6 +86,7 @@ public class ItemDatabase : MonoBehaviour
                 }
             }
         };
+        helmets.Sort();
 
         Addressables.LoadAssetsAsync<Equipable>("Equipable_Armor", null).Completed += (AsyncOperationHandle<IList<Equipable>> handle) =>
         {
@@ -93,6 +98,7 @@ public class ItemDatabase : MonoBehaviour
                 }
             }
         };
+        armors.Sort();
 
         Addressables.LoadAssetsAsync<Consumable>("Consumable", null).Completed += (AsyncOperationHandle<IList<Consumable>> handle) =>
         {
@@ -104,5 +110,30 @@ public class ItemDatabase : MonoBehaviour
                 }
             }
         };
+        consumables.Sort();
+
+        Addressables.LoadAssetsAsync<ItemMaterial>("ItemMaterial", null).Completed += (AsyncOperationHandle<IList<ItemMaterial>> handle) =>
+        {
+            if (handle.Status == AsyncOperationStatus.Succeeded)
+            {
+                foreach (var item in handle.Result)
+                {
+                    materials.Add(item);
+                }
+            }
+        };
+        materials.Sort();
+
+        Addressables.LoadAssetsAsync<MaterialRecipe>("MaterialRecipe", null).Completed += (AsyncOperationHandle<IList<MaterialRecipe>> handle) =>
+        {
+            if (handle.Status == AsyncOperationStatus.Succeeded)
+            {
+                foreach (var item in handle.Result)
+                {
+                    recipes.Add(item);
+                }
+            }
+        };
+        recipes.Sort();
     }
 }

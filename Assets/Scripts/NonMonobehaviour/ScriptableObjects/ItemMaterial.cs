@@ -15,21 +15,15 @@ namespace Item
     [CreateAssetMenu(fileName = "NewItemMaterial", menuName = "ScriptableObjects/ItemMaterial")]
     public class ItemMaterial : ScriptableObject, IComparable<ItemMaterial>
     {
+        [Min(0)]
+        public int id;
 
         public string materialName;
         public Rarity rarity;
 
         public int CompareTo(ItemMaterial other)
         {
-            int rarityComp = rarity.CompareTo(other.rarity);
-            if (rarityComp != 0)
-            {
-                return rarityComp;
-            }
-            else
-            {
-                return materialName.CompareTo(other.materialName);
-            }
+            return id.CompareTo(other.id);
         }
 
         //TODO: sprite 추가하기.
