@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eff2cc56bcf64b241bf8a0c7d7643b73, type: 3}
   m_Name: BossBaseAttack
   m_EditorClassIdentifier: 
+  id: 0
   skillName: "\uBCF4\uC2A41\uD3C9\uD0C0"
   description: 
   type: 3
-  range: 4
+  range: 3
   costStat: 1
   cost: 0
   coolDown: 2
-  preDelay: 1
+  preDelay: 0.1
   postDelay: 0.6
   skillPrefab: {fileID: 1430408056455349902, guid: 546ac1a95588f534b93629ee07a721f0, type: 3}
   afterEffectPrefabs: []

@@ -332,6 +332,8 @@ MonoBehaviour:
   roomListCardPrefab: {fileID: 3969009111601714788, guid: fb991e44bb2d69e40aa9a61224a44f88, type: 3}
   characterSettingsWindow: {fileID: 1969350213}
   waitCanvas: {fileID: 260821293}
+  startButton: {fileID: 2080813072}
+  myRoomIndex: 0
 --- !u!1 &125799816
 GameObject:
   m_ObjectHideFlags: 0
@@ -4480,6 +4482,8 @@ MonoBehaviour:
   helmets: []
   armors: []
   consumables: []
+  materials: []
+  recipes: []
 --- !u!4 &1317141087
 Transform:
   m_ObjectHideFlags: 0
@@ -6398,7 +6402,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 2080813073}
   m_OnClick:
     m_PersistentCalls:

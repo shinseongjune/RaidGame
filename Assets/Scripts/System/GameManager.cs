@@ -41,14 +41,14 @@ public class GameManager : MonoBehaviour
     CharacterControlComponent playerControl;
     TempBossControlComponent bossControl;
 
-    public SliderValueSetter playerHPBar;
-    public SliderValueSetter playerMPBar;
-    public SliderValueSetter bossHPBar;
+    SliderValueSetter playerHPBar;
+    SliderValueSetter playerMPBar;
+    SliderValueSetter bossHPBar;
 
-    public SkillIconCooldownSetter qCoolSetter;
-    public SkillIconCooldownSetter wCoolSetter;
-    public SkillIconCooldownSetter eCoolSetter;
-    public DashIconCooldownSetter dashCoolSetter;
+    SkillIconCooldownSetter qCoolSetter;
+    SkillIconCooldownSetter wCoolSetter;
+    SkillIconCooldownSetter eCoolSetter;
+    DashIconCooldownSetter dashCoolSetter;
 
     bool isGameOver = false;
 

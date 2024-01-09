@@ -1,3 +1,4 @@
+using ExitGames.Client.Photon.StructWrapping;
 using Photon.Pun;
 using Photon.Realtime;
 using System;
@@ -24,8 +25,13 @@ public class MenuManager : MonoBehaviourPunCallbacks
 
     public GameObject waitCanvas;
 
+    public Button startButton;
+
     bool isReadyToCreateRoom = false;
     int bossIndex;
+
+    bool isReadyToUpdateRoom = false;
+    bool isNewUpdatedCustomProperties = false;
 
     private void Awake()
     {
@@ -37,6 +43,14 @@ public class MenuManager : MonoBehaviourPunCallbacks
         waitCanvas.SetActive(true);
 
         PhotonNetwork.ConnectUsingSettings();
+    }
+
+    private void Update()
+    {
+        if (isReadyToUpdateRoom && isNewUpdatedCustomProperties)
+        {
+            UpdateRoomView();
+        }
     }
 
     public override void OnConnectedToMaster()
@@ -89,21 +103,19 @@ public class MenuManager : MonoBehaviourPunCallbacks
 
     public void OnClick_CreateRoom(int bossIndex)
     {
-        //TODO: 서버 연결 확인과 콜백 등을 이용해서 서버 연결 확인 후 방 생성되도록. gpt '멀티플레이 게임 photon 구현'
         if (!PhotonNetwork.IsConnectedAndReady)
         {
             isReadyToCreateRoom = true;
             PhotonNetwork.ConnectUsingSettings();
+            return;
         }
-        else if (!PhotonNetwork.InLobby)
+        if (!PhotonNetwork.InLobby)
         {
             isReadyToCreateRoom = true;
             PhotonNetwork.JoinLobby();
+            return;
         }
-        else
-        {
-            CreateRoom(bossIndex);
-        }
+        CreateRoom(bossIndex);
     }
 
     void CreateRoom(int bossIndex)
@@ -112,50 +124,104 @@ public class MenuManager : MonoBehaviourPunCallbacks
 
         roomMakingWindow.SetActive(false);
 
-        //TODO: 로그인 후 아이디로 방제 설정. 매개변수로 아이디 받아오기
+        GamePlayerData currentPlayer = LoginDataManager.Instance.currentPlayer;
         RoomOptions options = new();
+        Player me = PhotonNetwork.LocalPlayer;
         options.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable
         {
             { "CreationTime", DateTimeOffset.UtcNow.ToUnixTimeSeconds() },
             { "TargetBoss", bossIndex },
-            { "leaderID", 0 }, //TODO: 임시코드. 보스 데이터베이스 작업, 로그인 등 하고나서 인덱스 및 플레이어id/name 삽입
+            { "masterId", me.UserId },
+            { me.UserId + "//name", currentPlayer.name },
+            { me.UserId + "//chosen", currentPlayer.chosenCharacterId }
             
         };
-        options.CustomRoomPropertiesForLobby = new string[] { "CreationTime", "TargetBoss" };
+        options.CustomRoomPropertiesForLobby = new string[] { "CreationTime", "TargetBoss", "masterId", me.UserId + "//name" };
+        options.MaxPlayers = 3;
 
-        //TODO: 이름 제대로 플레이어 아이디로 넣기.
-        PhotonNetwork.CreateRoom("Player Name Title", new Photon.Realtime.RoomOptions { MaxPlayers = 3 });
+        PhotonNetwork.CreateRoom(currentPlayer.userId.ToString(), options);
+    }
 
-        //TODO: room window UI에 텍스트 넣기. 캐릭터 이미지 등 제대로된 레이아웃 설치하고 아이디 및 이미지 제대로 넣을 것.
+    public override void OnCreatedRoom()
+    {
+        base.OnCreatedRoom();
+
+        //TODO: 캐릭터 이미지 등 제대로된 레이아웃 설치하고 아이디 및 이미지 제대로 넣을 것.
         roomWindow.SetActive(true);
-        roomWindow.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "test player name1";
+        startButton.interactable = true;
+
+        isReadyToUpdateRoom = true;
     }
 
     public void OnClick_ExitRoom()
     {
-        //TODO: 방에서 나가기 기능. room 방장 넘겨주거나 없애버리기. UI는 에디터에서 조절.
+        //UI는 에디터에서 조절.
+        Player me = PhotonNetwork.LocalPlayer;
+
+        var newProperties = new ExitGames.Client.Photon.Hashtable
+        {
+            { me.UserId + "//name", null },
+            { me.UserId + "//chosen", null }
+        };
+
+        PhotonNetwork.CurrentRoom.SetCustomProperties(newProperties);
         PhotonNetwork.LeaveRoom();
+    }
+
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        Room room = PhotonNetwork.CurrentRoom;
+        room.CustomProperties["masterId"] = newMasterClient.UserId;
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            startButton.interactable = true;
+        }
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         base.OnPlayerEnteredRoom(newPlayer);
+
+        isReadyToUpdateRoom = true;
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         base.OnPlayerLeftRoom(otherPlayer);
+
+        isReadyToUpdateRoom = true;
+
     }
 
     public void OnClick_JoinRoom(string name)
     {
-        //TODO: 임시코드. 로그인 후 방제 제대로 생성 후 수정.
-        PhotonNetwork.JoinRoom("Player Name Title");
-        //PhotonNetwork.JoinRoom(name);
+        PhotonNetwork.JoinRoom(name);
+    }
+
+    public override void OnJoinedRoom()
+    {
+        base.OnJoinedRoom();
 
         roomWindow.SetActive(true);
 
         roomListWindow.SetActive(false);
+
+        startButton.interactable = false;
+
+        Room room = PhotonNetwork.CurrentRoom;
+        Player me = PhotonNetwork.LocalPlayer;
+        var currentPlayer = LoginDataManager.Instance.currentPlayer;
+
+        var newProperties = new ExitGames.Client.Photon.Hashtable
+        {
+            { me.UserId + "//name", currentPlayer.name },
+            { me.UserId + "//chosen", currentPlayer.chosenCharacterId }
+        };
+
+        room.SetCustomProperties(newProperties);
+
+        isReadyToUpdateRoom = true;
     }
 
     public void StartGame()
@@ -167,26 +233,70 @@ public class MenuManager : MonoBehaviourPunCallbacks
     {
         foreach (Transform card in roomListWindowContent.transform.GetComponentInChildren<Transform>())
         {
-            Destroy(card);
+            Destroy(card.gameObject);
         }
 
         var sortedRooms = roomList.OrderBy(room => room.CustomProperties["CreationTime"]).ToList();
 
         foreach (var room in sortedRooms)
         {
+            if (room.PlayerCount <= 0)
+            {
+                continue;
+            }
             RoomListCard card = Instantiate(roomListCardPrefab, roomListWindowContent).GetComponent<RoomListCard>();
 
             //card.roomName = PhotonNetwork.CurrentRoom.Name;
             //TODO: 임시코드. 로그인 후 방제 제대로 생성하고 고치기.
-            card.roomName = "TestRoomName";
+            card.roomName = room.Name;
             card.roomListWindow = roomListWindow;
             card.roomWindow = roomWindow;
             card.menuManager = this;
 
+            string masterId = (string)room.CustomProperties["masterId"];
+            string masterName = (string)room.CustomProperties[masterId + "//name"];
+
             Transform cardButtonObject = card.transform.GetChild(0);
-            cardButtonObject.GetChild(1).GetComponent<TextMeshProUGUI>().text = card.roomName; //방제
-            cardButtonObject.GetChild(2).GetComponent<Image>(); //TODO: 보스이미지
-            //TODO: 제대로 설계하고 고치기. cardButtonObject.GetChild(3).GetComponent<TextMeshProUGUI>().text = PhotonNetwork.CurrentRoom.CustomProperties["TargetBoss"].ToString(); //TODO: 보스이름 인덱스로 데이터베이스에서 가져올것
+            cardButtonObject.GetChild(1).GetComponent<TextMeshProUGUI>().text = masterName;
+            //cardButtonObject.GetChild(2).GetComponent<Image>(); //TODO: 보스이미지
+            //TODO: cardButtonObject.GetChild(3).GetComponent<TextMeshProUGUI>().text = PhotonNetwork.CurrentRoom.CustomProperties["TargetBoss"].ToString(); //TODO: 보스이름 인덱스로 데이터베이스에서 가져올것
         }
+    }
+
+    public void UpdateRoomView()
+    {
+        Room room = PhotonNetwork.CurrentRoom;
+        var players = room.Players.Values.ToList();
+
+        for (int i = 0; i < players.Count; ++i)
+        {
+            Player player = players[i];
+            string playerName = (string)room.CustomProperties[player.UserId + "//name"];
+            Transform playerBackground = roomWindow.transform.GetChild(i).GetComponent<Transform>();
+            playerBackground.GetChild(0).GetComponent<TextMeshProUGUI>().text = playerName;
+        }
+
+        for (int i = players.Count; i < 3; ++i)
+        {
+            Transform playerBackground = roomWindow.transform.GetChild(i).GetComponent<Transform>();
+            playerBackground.GetChild(0).GetComponent<TextMeshProUGUI>().text = "empty";
+        }
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            startButton.interactable = true;
+        }
+
+        isReadyToUpdateRoom = false;
+
+        isNewUpdatedCustomProperties = false;
+    }
+
+    public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged)
+    {
+        base.OnRoomPropertiesUpdate(propertiesThatChanged);
+
+        isReadyToUpdateRoom = true;
+        isNewUpdatedCustomProperties = true;
     }
 }

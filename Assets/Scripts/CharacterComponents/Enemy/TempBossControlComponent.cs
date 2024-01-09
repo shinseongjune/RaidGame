@@ -25,6 +25,7 @@ public class TempBossControlComponent : ControlComponent
         hellfire
     }
 
+    public Animator animator;
     public Vector3 mapCenter;
 
     SkillName nowSkillName;
@@ -40,7 +41,7 @@ public class TempBossControlComponent : ControlComponent
     bool canUseBombStone = true;
     bool canUseBombStone2 = true;
 
-    bool isdisappearing = false;
+    bool isDisappearing = false;
 
     public Skill basic;
     public Skill knockback;
@@ -62,6 +63,9 @@ public class TempBossControlComponent : ControlComponent
     public bool isDead = false;
     public bool isEnd = false;
 
+    string nowSkillBoolName;
+    float totalRange;
+
     public override void Awake()
     {
         base.Awake();
@@ -75,6 +79,11 @@ public class TempBossControlComponent : ControlComponent
         globalKnockBackSkillSlot.skill = globalknockback;
         bombStoneSkillSlot.skill = bombstone;
         hellfireBallSkillSlot.skill = hellfire;
+    }
+
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
     }
 
     public override void Update()
@@ -121,7 +130,7 @@ public class TempBossControlComponent : ControlComponent
 
     public override void EndMovement()
     {
-
+        animator.SetBool("isWalking", false);
     }
 
     void Think()
@@ -129,11 +138,11 @@ public class TempBossControlComponent : ControlComponent
         switch (nowState)
         {
             case State.Normal:
-                if (isdisappearing)
+                if (isDisappearing)
                 {
                     movement.agent.enabled = true;
                     transform.GetChild(0).gameObject.SetActive(true);
-                    isdisappearing = false;
+                    isDisappearing = false;
                 }
 
                 if (target == null)
@@ -157,35 +166,39 @@ public class TempBossControlComponent : ControlComponent
                     break;
                 }
                 //move preventer > 0일 경우 이동스킵
-                bool isReached = Vector3.Distance(target.transform.position, transform.position) <= nowSkill.skill.range;
+                bool isReached = Vector3.Distance(target.transform.position, transform.position) <= totalRange;
                 if (movePreventer == 0)
                 {
                     if (!isReached)
                     {
+                        animator.SetBool("isWalking", true);
                         movement.MoveTo(target.transform.position);
                     }
                 }
                 //범위 도달 시 기술 사용
                 if (isReached)
                 {
+                    animator.SetBool("isWalking", false);
                     //기술 사용
                     DoSkill();
+                    //캐스팅으로 전환
+                    nowState = State.Casting;
                 }
-                //캐스팅으로 전환
-                nowState = State.Casting;
                 break;
             case State.Casting:
                 //시간 후 normal
                 waitingTime -= Time.deltaTime;
                 if (waitingTime <= 0)
                 {
+                    animator.SetBool(nowSkillBoolName, false);
                     nowState = State.Normal;
                 }
                 break;
             case State.Disappeared:
                 //무적
-                if (isdisappearing)
+                if (isDisappearing)
                 {
+                    animator.SetBool("isWalking", false);
                     transform.GetChild(0).gameObject.SetActive(false);
                     movement.agent.enabled = false;
                 }
@@ -197,9 +210,11 @@ public class TempBossControlComponent : ControlComponent
                 }
                 break;
             case State.Global:
+                animator.SetBool(nowSkillBoolName, false);
                 //중심이동
                 if (Vector3.Distance(transform.position, mapCenter) > 0.5f)
                 {
+                    animator.SetBool("isWalking", true);
                     movement.SetStoppingDistance(0.1f);
                     movement.MoveTo(mapCenter);
                 }
@@ -211,14 +226,16 @@ public class TempBossControlComponent : ControlComponent
                     canUseglobalKnockBack = false;
 
                     waitingTime = 7.5f;
-                    isdisappearing = true;
+                    isDisappearing = true;
                     nowState = State.Disappeared;
                 }
                 break;
             case State.BombStone:
+                animator.SetBool(nowSkillBoolName, false);
                 //중심이동
                 if (Vector3.Distance(transform.position, mapCenter) > 0.5f)
                 {
+                    animator.SetBool("isWalking", true);
                     movement.SetStoppingDistance(0.1f);
                     movement.MoveTo(mapCenter);
                 }
@@ -237,7 +254,7 @@ public class TempBossControlComponent : ControlComponent
                     }
 
                     waitingTime = 15f;
-                    isdisappearing = true;
+                    isDisappearing = true;
                     nowState = State.Disappeared;
                 }
                 break;
@@ -265,6 +282,7 @@ public class TempBossControlComponent : ControlComponent
         {
             stopDist += nowSkill.skill.range;
         }
+        totalRange = stopDist;
         movement.SetStoppingDistance(stopDist);
     }
 
@@ -310,14 +328,20 @@ public class TempBossControlComponent : ControlComponent
         switch (nowSkillName)
         {
             case SkillName.basic:
+                nowSkillBoolName = "isBaseAttacking";
+                animator.SetBool(nowSkillBoolName, true);
                 skillPosition = skillPoint.position;
                 StartCoroutine(SpawnPrefab(nowSkill.skill.skillPrefab, skillPosition, nowSkill.skill.preDelay));
                 break;
             case SkillName.knockback:
+                nowSkillBoolName = "isSpecialAttacking";
+                animator.SetBool(nowSkillBoolName, true);
                 skillPosition = target.transform.position;
                 StartCoroutine(SpawnPrefab(nowSkill.skill.skillPrefab, skillPosition, nowSkill.skill.preDelay));
                 break;
             case SkillName.multiknockback:
+                nowSkillBoolName = "isSpecialAttacking";
+                animator.SetBool(nowSkillBoolName, true);
                 StartCoroutine(SpawnPrefab(nowSkill.skill.skillPrefab, nowSkill.skill.preDelay));
                 StartCoroutine(SpawnPrefab(nowSkill.skill.skillPrefab, nowSkill.skill.preDelay + waitingTime));
                 StartCoroutine(SpawnPrefab(nowSkill.skill.skillPrefab, nowSkill.skill.preDelay + waitingTime * 2));
@@ -325,13 +349,17 @@ public class TempBossControlComponent : ControlComponent
                 break;
             case SkillName.globalknockback:
                 skillPosition = Vector3.zero;
+                animator.SetBool(nowSkillBoolName, false);
                 StartCoroutine(SpawnPrefab(nowSkill.skill.skillPrefab, skillPosition, nowSkill.skill.preDelay));
                 break;
             case SkillName.bombstone:
                 skillPosition = Vector3.zero;
+                animator.SetBool(nowSkillBoolName, false);
                 StartCoroutine(SpawnPrefab(nowSkill.skill.skillPrefab, skillPosition, nowSkill.skill.preDelay));
                 break;
             case SkillName.hellfire:
+                nowSkillBoolName = "isHellfireAttacking";
+                animator.SetBool(nowSkillBoolName, true);
                 skillPosition = hellfirePoint.position;
                 StartCoroutine(SpawnPrefab(nowSkill.skill.skillPrefab, skillPosition, nowSkill.skill.preDelay));
                 break;
@@ -365,6 +393,7 @@ public class TempBossControlComponent : ControlComponent
 
     public override void Die()
     {
+        animator.SetBool("isDead", true);
         EndMovement();
         StopAllCoroutines();
         //stats.isDead = true; stats에서 처리
