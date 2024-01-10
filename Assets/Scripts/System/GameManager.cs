@@ -42,10 +42,10 @@ public class GameManager : MonoBehaviourPun
     public GameObject gameCanvasPrefab;
     GameObject gameCanvas;
 
-    int dieCount = 0;
-    bool isGameOver = false;
+    int deathCount = 0;
+    bool isCheckedDeath = false;
 
-    bool isDieChecked = false;
+    bool isGameOver = false;
 
     int bossIndex;
     string playerName;
@@ -58,6 +58,8 @@ public class GameManager : MonoBehaviourPun
 
     private void Awake()
     {
+        PhotonNetwork.AutomaticallySyncScene = true;
+
         room = PhotonNetwork.CurrentRoom;
         characterDB = CharacterDatabase.Instance;
     }
@@ -136,12 +138,6 @@ public class GameManager : MonoBehaviourPun
             return;
         }
 
-        if (!isDieChecked && playerControl.isDead)
-        {
-            photonView.RPC("DieRPC", RpcTarget.MasterClient);
-            isDieChecked = true;
-        }
-
         if (bossControl.isDead)
         {
             playerControl.isEnd = true;
@@ -156,7 +152,13 @@ public class GameManager : MonoBehaviourPun
             isGameOver = true;
         }
 
-        if (dieCount >= 3)
+        if (!isCheckedDeath && playerControl.isDead)
+        {
+            ++deathCount;
+            isCheckedDeath = true;
+        }
+
+        if (deathCount >= room.PlayerCount)
         {
             bossControl.isEnd = true;
 
@@ -269,12 +271,6 @@ public class GameManager : MonoBehaviourPun
         eImage.sprite = slots.e.skill.icon;
 
         gameCanvas.SetActive(true);
-    }
-
-    [PunRPC]
-    void DieRPC()
-    {
-        ++dieCount;
     }
 
     [PunRPC]

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Skill_BossBombStone : SkillBase
+public class Skill_BossBombStone : SkillBase, IPunInstantiateMagicCallback
 {
     public float lifeTime;
     float maxLifeTime;
@@ -22,32 +22,21 @@ public class Skill_BossBombStone : SkillBase
 
     public TempBossControlComponent bossControl;
 
-    void Start()
+    public void OnPhotonInstantiate(PhotonMessageInfo info)
     {
-        hpBar.targetStats = stats;
-        hpBar.targetType = Stat.Type.MaxHP;
-        maxLifeTime = lifeTime;
-        boomCountImageMaxX = boomCountImage.rectTransform.anchoredPosition.x;
-
-        bossControl = source.GetComponent<TempBossControlComponent>();
-
-        Stats bombStats = GetComponent<Stats>();
-        bombStats.InitializeStats();
-        bombStats.enabled = true;
-        hpBar.gameObject.SetActive(true);
-
-        //TODO: 임시 스탯 설정. 제대로 된 시스템 구축 후 수정 필요.
-        damage = new();
-        damage.damage = 450f;
-        damage.type = Damage.Type.Fire;
+        GetOn();
     }
 
     void Update()
     {
         if (stats.isDead)
         {
+            if (photonView == null || !photonView.IsMine)
+            {
+                return;
+            }
             bossControl.waitingTime = 0.3f;
-            Destroy(gameObject);
+            PhotonNetwork.Destroy(gameObject);
             return;
         }
 
@@ -64,7 +53,7 @@ public class Skill_BossBombStone : SkillBase
 
             foreach (Collider collider in colliders)
             {
-                if (!collider.GetComponent<PhotonView>().IsMine)
+                if (!collider.GetComponentInParent<PhotonView>().IsMine || alreadyHitObjects.Contains(collider.transform.root.gameObject))
                 {
                     continue;
                 }
@@ -76,18 +65,40 @@ public class Skill_BossBombStone : SkillBase
                 KnockBack knockBack = new KnockBack("폭발의 여파", SpecialEffect.Type.Renewable, false, source, control, knockbackVector);
 
                 control.AppendSpecialEffect(knockBack);
+
+                alreadyHitObjects.Add(collider.transform.root.gameObject);
             }
 
             Instantiate(afterEffect_BoomStoneBurst, transform.position, transform.rotation);
 
             bossControl.waitingTime = 0.3f;
-            Destroy(gameObject);
+
+            if (photonView == null || !photonView.IsMine)
+            {
+                return;
+            }
+            PhotonNetwork.Destroy(gameObject);
             return;
         }
     }
 
     public override void GetOn()
     {
+        hpBar.targetStats = stats;
+        hpBar.targetType = Stat.Type.MaxHP;
+        maxLifeTime = lifeTime;
+        boomCountImageMaxX = boomCountImage.rectTransform.anchoredPosition.x;
 
+        bossControl = source?.GetComponent<TempBossControlComponent>() ?? FindFirstObjectByType<TempBossControlComponent>();
+
+        Stats bombStats = GetComponent<Stats>();
+        bombStats.InitializeStats();
+        bombStats.enabled = true;
+        hpBar.gameObject.SetActive(true);
+
+        //TODO: 임시 스탯 설정. 제대로 된 시스템 구축 후 수정 필요.
+        damage = new();
+        damage.damage = 450f;
+        damage.type = Damage.Type.Fire;
     }
 }

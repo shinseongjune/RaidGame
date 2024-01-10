@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public abstract class ControlComponent : MonoBehaviour
+public abstract class ControlComponent : MonoBehaviour, IPunInstantiateMagicCallback
 {
     public Movement movement;
     public Stats stats;
@@ -30,6 +30,11 @@ public abstract class ControlComponent : MonoBehaviour
         TryGetComponent(out movement);
         TryGetComponent(out stats);
         photonView = GetComponent<PhotonView>();
+    }
+
+    public virtual void OnPhotonInstantiate(PhotonMessageInfo info)
+    {
+
     }
 
     public virtual void Update()
@@ -180,12 +185,15 @@ public abstract class ControlComponent : MonoBehaviour
     //TODO: damage 적용 개선 필요.
     public void Damaged(float damage)
     {
-        photonView.RPC("masterDamaged", RpcTarget.MasterClient, damage);
+        photonView.RPC("RPCDamaged", RpcTarget.All, damage);
     }
 
     [PunRPC]
-    public void masterDamaged(float damage)
+    public void RPCDamaged(float damage)
     {
-        stats.Damaged(damage);
+        if (photonView.IsMine)
+        {
+            stats.Damaged(damage);
+        }
     }
 }

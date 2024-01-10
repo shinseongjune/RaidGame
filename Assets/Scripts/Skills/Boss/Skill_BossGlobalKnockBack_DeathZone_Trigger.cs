@@ -11,7 +11,7 @@ public class Skill_BossGlobalKnockBack_DeathZone_Trigger : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            if (!other.GetComponent<PhotonView>().IsMine)
+            if (!other.GetComponentInParent<PhotonView>().IsMine)
             {
                 return;
             }
@@ -23,7 +23,7 @@ public class Skill_BossGlobalKnockBack_DeathZone_Trigger : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            if (!other.GetComponent<PhotonView>().IsMine)
+            if (!other.GetComponentInParent<PhotonView>().IsMine)
             {
                 return;
             }

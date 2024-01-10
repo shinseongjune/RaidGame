@@ -1,6 +1,4 @@
 using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterControlComponent : ControlComponent
@@ -18,10 +16,32 @@ public class CharacterControlComponent : ControlComponent
         TryGetComponent<SkillSlots>(out skillSlots);
         TryGetComponent<ItemSlots>(out itemSlots);
         TryGetComponent<Animator>(out animator);
+        TryGetComponent<Stats>(out stats);
 
         photonView = GetComponent<PhotonView>();
 
         stats.canRegen = true;
+    }
+
+    public override void OnPhotonInstantiate(PhotonMessageInfo info)
+    {
+        base.Awake();
+
+        TryGetComponent<SkillSlots>(out skillSlots);
+        TryGetComponent<ItemSlots>(out itemSlots);
+        TryGetComponent<Animator>(out animator);
+        TryGetComponent<Stats>(out stats);
+
+        photonView = GetComponent<PhotonView>();
+
+        stats.canRegen = true;
+
+        stats.InitializeStats();
+
+        skillSlots.enabled = true;
+        itemSlots.enabled = true;
+        animator.enabled = true;
+        stats.enabled = true;
     }
 
     public override void Update()

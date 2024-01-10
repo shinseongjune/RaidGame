@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Skill_BossGlobalKnockBack : SkillBase
+public class Skill_BossGlobalKnockBack : SkillBase, IPunInstantiateMagicCallback
 {
     public Damage damage;
 
@@ -18,13 +18,9 @@ public class Skill_BossGlobalKnockBack : SkillBase
 
     public float deathzoneTime = 1.5f;
 
-    private void Start()
+    public void OnPhotonInstantiate(PhotonMessageInfo info)
     {
-        damage = new();
-        damage.damage = 15f;
-        damage.type = Damage.Type.Fire;
-
-        photonView = GetComponent<PhotonView>();
+        GetOn();
     }
 
     void Update()
@@ -46,7 +42,7 @@ public class Skill_BossGlobalKnockBack : SkillBase
 
             foreach (Collider other in others)
             {
-                if (!other.GetComponent<PhotonView>().IsMine)
+                if (!other.GetComponentInParent<PhotonView>().IsMine || alreadyHitObjects.Contains(other.transform.root.gameObject))
                 {
                     continue;
                 }
@@ -69,6 +65,10 @@ public class Skill_BossGlobalKnockBack : SkillBase
             boomCount--;
         }
 
+        if (photonView == null || !photonView.IsMine)
+        {
+            return;
+        }
         if (boomCount <= 0)
         {
             PhotonNetwork.Destroy(gameObject);
@@ -77,6 +77,10 @@ public class Skill_BossGlobalKnockBack : SkillBase
 
     public override void GetOn()
     {
+        damage = new();
+        damage.damage = 15f;
+        damage.type = Damage.Type.Fire;
 
+        photonView = GetComponent<PhotonView>();
     }
 }

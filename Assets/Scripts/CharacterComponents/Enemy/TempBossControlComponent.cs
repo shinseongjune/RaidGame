@@ -88,6 +88,24 @@ public class TempBossControlComponent : ControlComponent
         animator = GetComponent<Animator>();
     }
 
+    public override void OnPhotonInstantiate(PhotonMessageInfo info)
+    {
+        base.Awake();
+
+        nowSkill = basicAttackSlot;
+        nowSkillName = SkillName.basic;
+
+        basicAttackSlot.skill = basic;
+        KnockBackSkillSlot.skill = knockback;
+        MultiKnockBackSkillSlot.skill = knockback;
+        globalKnockBackSkillSlot.skill = globalknockback;
+        bombStoneSkillSlot.skill = bombstone;
+        hellfireBallSkillSlot.skill = hellfire;
+
+        photonView = GetComponent<PhotonView>();
+        animator = GetComponent<Animator>();
+    }
+
     public override void Update()
     {
         if (!photonView.IsMine)
@@ -152,6 +170,11 @@ public class TempBossControlComponent : ControlComponent
                     isDisappearing = false;
                 }
 
+                if (target != null && target.GetComponent<CharacterControlComponent>().isDead )
+                {
+                    target = null;
+                }
+
                 if (target == null)
                 {
                     if (!FindTarget())
@@ -167,7 +190,7 @@ public class TempBossControlComponent : ControlComponent
                 nowState = State.Chasing;
                 break;
             case State.Chasing:
-                if (target == null || nowSkill == null)
+                if (target == null || target.GetComponent<CharacterControlComponent>().isDead || nowSkill == null)
                 {
                     nowState = State.Normal;
                     break;
@@ -279,12 +302,17 @@ public class TempBossControlComponent : ControlComponent
         Collider[] colliders = Physics.OverlapSphere(transform.position, sight, 1 << LayerMask.NameToLayer("Player"));
 
         //TODO: aggro °è»ê µî
-        if (colliders.Length != 0)
+        foreach (var collider in colliders)
         {
-            target = colliders[0].gameObject;
+            if (collider.GetComponentInParent<CharacterControlComponent>().isDead)
+            {
+                continue;
+            }
+            target = collider.transform.root.gameObject;
             SetStoppingDistance();
             return true;
         }
+        
         return false;
     }
 

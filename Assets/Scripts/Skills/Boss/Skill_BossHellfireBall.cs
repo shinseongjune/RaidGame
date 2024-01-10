@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Skill_BossHellfireBall : SkillBase
+public class Skill_BossHellfireBall : SkillBase, IPunInstantiateMagicCallback
 {
     public float startTime;
     public float lifeTime;
@@ -18,17 +18,17 @@ public class Skill_BossHellfireBall : SkillBase
 
     bool isOn = false;
 
-    private void Start()
+    public void OnPhotonInstantiate(PhotonMessageInfo info)
     {
-        damage = new Damage();
-        damage.damage = 350f;
-        damage.type = Damage.Type.Fire;
-
-        photonView = GetComponent<PhotonView>();
+        GetOn();
     }
 
     void Update()
     {
+        if (photonView == null || !photonView.IsMine)
+        {
+            return;
+        }
         if (!isOn)
         {
             return;
@@ -58,6 +58,12 @@ public class Skill_BossHellfireBall : SkillBase
 
     public override void GetOn()
     {
+        damage = new Damage();
+        damage.damage = 350f;
+        damage.type = Damage.Type.Fire;
+
+        photonView = GetComponent<PhotonView>();
+
         isOn = true;
     }
 
@@ -65,12 +71,14 @@ public class Skill_BossHellfireBall : SkillBase
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            if (!other.GetComponent<PhotonView>().IsMine)
+            if (!other.GetComponentInParent<PhotonView>().IsMine || alreadyHitObjects.Contains(other.transform.root.gameObject))
             {
                 return;
             }
             ControlComponent control = other.GetComponentInParent<ControlComponent>();
             control.Damaged(damage.damage);
+
+            alreadyHitObjects.Add(other.transform.root.gameObject);
 
             Instantiate(aftereffect_hellfireBoomEffect, target.transform.position, target.transform.rotation);
 
