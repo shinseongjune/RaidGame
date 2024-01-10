@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,16 +19,26 @@ public class TestBasicAttack : SkillBase
 
     void Update()
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
         lifeTime -= Time.deltaTime;
 
         if (lifeTime <= 0)
         {
-            Destroy(gameObject);
+            PhotonNetwork.Destroy(gameObject);
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && !alreadyHitObjects.Contains(other.gameObject))
         {
             alreadyHitObjects.Add(other.gameObject);
@@ -35,7 +46,7 @@ public class TestBasicAttack : SkillBase
             control.Damaged(damage.damage);
 
             Vector3 closest = other.ClosestPoint(transform.position);
-            Instantiate(hitEffect, closest, Quaternion.identity);
+            PhotonNetwork.Instantiate(hitEffect.name, closest, Quaternion.identity);
         }
     }
 

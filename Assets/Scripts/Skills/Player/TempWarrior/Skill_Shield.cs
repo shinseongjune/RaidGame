@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,11 +9,21 @@ public class Skill_Shield : SkillBase
 
     SpecialEffect effect;
 
+    private void Awake()
+    {
+        photonView = GetComponent<PhotonView>();
+    }
+
     void Update()
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
         if (source == null)
         {
-            Destroy(gameObject);
+            PhotonNetwork.Destroy(gameObject);
 
             return;
         }
@@ -23,17 +34,25 @@ public class Skill_Shield : SkillBase
 
         if (lifeTime <= 0 )
         {
-            Destroy(gameObject);
+            PhotonNetwork.Destroy(gameObject);
         }
     }
 
     private void OnDestroy()
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
         RemoveMod();
     }
 
     void ApplyMod()
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
         CharacterControlComponent control = source.GetComponent<CharacterControlComponent>();
         if (control != null)
         {
@@ -43,6 +62,10 @@ public class Skill_Shield : SkillBase
 
     void RemoveMod()
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
         CharacterControlComponent control = source.GetComponent<CharacterControlComponent>();
         if (control != null)
         {
@@ -52,6 +75,10 @@ public class Skill_Shield : SkillBase
 
     public override void GetOn()
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
         effect = new ShieldEffect("½Çµå", SpecialEffect.Type.Renewable, false, source, source.GetComponent<CharacterControlComponent>(), lifeTime);
         ApplyMod();
     }

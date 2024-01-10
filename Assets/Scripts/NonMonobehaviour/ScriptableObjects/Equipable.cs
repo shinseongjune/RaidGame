@@ -42,7 +42,7 @@ namespace Item
             }
         }
 
-        //TODO: sprite 추가할 것.
+        public Sprite icon;
         //TODO: 외형 적용
         //public GameObject skillPrefab;
         //public List<GameObject> afterEffectPrefabs = new List<GameObject>();

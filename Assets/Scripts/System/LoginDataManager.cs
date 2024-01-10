@@ -163,6 +163,16 @@ public class LoginDataManager : MonoBehaviour
         public int chosenCharacterId = 0;
         public CharacterEquipSettings[] equipSettings = new CharacterEquipSettings[3];
 
+        public int basic = 0;
+        public int q = 0;
+        public int w = 1;
+        public int e = 2;
+
+        public int one = -1;
+        public int two = -1;
+        public int three = -1;
+        public int four = -1;
+
         public SerializableGamePlayerDataForSave(GamePlayerData data)
         {
             userId = data.userId;
@@ -171,6 +181,14 @@ public class LoginDataManager : MonoBehaviour
 
             chosenCharacterId = data.chosenCharacterId;
             Array.Copy(data.equipSettings, equipSettings, data.equipSettings.Length);
+            basic = data.basic;
+            q = data.q;
+            w = data.w;
+            e = data.e;
+            one = data.one;
+            two = data.two;
+            three = data.three;
+            four = data.four;
 
             inventory = data.inventory.ConvertToSavable();
         }
@@ -184,7 +202,14 @@ public class LoginDataManager : MonoBehaviour
             data.password = password;
 
             data.chosenCharacterId = chosenCharacterId;
-            Array.Copy(equipSettings, data.equipSettings, equipSettings.Length);
+            data.basic = basic;
+            data.q = q;
+            data.w = w;
+            data.e = e;
+            data.one = one;
+            data.two = two;
+            data.three = three;
+            data.four = four;
 
             data.inventory = inventory.ConvertToGameInventory();
 

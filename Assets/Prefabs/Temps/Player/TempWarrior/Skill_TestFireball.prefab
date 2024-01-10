@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 5675068476913192752}
   - component: {fileID: 1366823907135045968}
   - component: {fileID: 5651578122304516777}
+  - component: {fileID: -2593499281481824932}
+  - component: {fileID: -8782099354429154824}
   m_Layer: 0
   m_Name: Skill_TestFireball
   m_TagString: Untagged
@@ -99,8 +101,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3e5eba8b7cd9e647b1e8f86f2f9db2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  owner: {fileID: 0}
   source: {fileID: 0}
-  preDelay: 0.1
+  alreadyHitObjects: []
   speed: 80
   lifeTime: 0.7
   afterEffect_Explosion: {fileID: 4841544300303640527, guid: 7dcdf562fd066bd44b65d13ff9bdaeec, type: 3}
@@ -152,6 +156,44 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &-2593499281481824932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4988494055859785916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
+--- !u!114 &-8782099354429154824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4988494055859785916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &5581893455755794233
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,7 +205,7 @@ GameObject:
   - component: {fileID: 2393540361096364019}
   - component: {fileID: 1858878120199310546}
   - component: {fileID: 3355708746680661909}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}

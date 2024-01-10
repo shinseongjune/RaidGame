@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,8 @@ public class TestBossBasicAttack : SkillBase
         damage = new Damage();
         damage.damage = 5f;
         damage.type = Damage.Type.Physical;
+
+        photonView = GetComponent<PhotonView>();
     }
 
     void Update()
@@ -20,7 +23,7 @@ public class TestBossBasicAttack : SkillBase
 
         if (lifeTime <= 0)
         {
-            Destroy(gameObject);
+            PhotonNetwork.Destroy(gameObject);
         }
     }
 
@@ -28,6 +31,10 @@ public class TestBossBasicAttack : SkillBase
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
+            if (!other.GetComponent<PhotonView>().IsMine)
+            {
+                return;
+            }
             ControlComponent control = other.GetComponentInParent<ControlComponent>();
             control.Damaged(damage.damage);
         }

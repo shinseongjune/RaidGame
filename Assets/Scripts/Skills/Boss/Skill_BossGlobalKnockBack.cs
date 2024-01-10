@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,8 @@ public class Skill_BossGlobalKnockBack : SkillBase
         damage = new();
         damage.damage = 15f;
         damage.type = Damage.Type.Fire;
+
+        photonView = GetComponent<PhotonView>();
     }
 
     void Update()
@@ -43,6 +46,10 @@ public class Skill_BossGlobalKnockBack : SkillBase
 
             foreach (Collider other in others)
             {
+                if (!other.GetComponent<PhotonView>().IsMine)
+                {
+                    continue;
+                }
                 CharacterControlComponent control = other.GetComponentInParent<CharacterControlComponent>();
                 control.Damaged(damage.damage);
                 Vector3 dir = (other.transform.position - transform.position).normalized;
@@ -64,7 +71,7 @@ public class Skill_BossGlobalKnockBack : SkillBase
 
         if (boomCount <= 0)
         {
-            Destroy(gameObject);
+            PhotonNetwork.Destroy(gameObject);
         }
     }
 

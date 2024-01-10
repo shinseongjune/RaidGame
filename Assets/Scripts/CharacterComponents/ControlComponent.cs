@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ public abstract class ControlComponent : MonoBehaviour
 {
     public Movement movement;
     public Stats stats;
+    public PhotonView photonView;
 
     //TODO: equips, consumables
 
@@ -27,6 +29,7 @@ public abstract class ControlComponent : MonoBehaviour
     {
         TryGetComponent(out movement);
         TryGetComponent(out stats);
+        photonView = GetComponent<PhotonView>();
     }
 
     public virtual void Update()
@@ -177,6 +180,12 @@ public abstract class ControlComponent : MonoBehaviour
     //TODO: damage 적용 개선 필요.
     public void Damaged(float damage)
     {
-        stats.Damaged(damage, GetType());
+        photonView.RPC("masterDamaged", RpcTarget.MasterClient, damage);
+    }
+
+    [PunRPC]
+    public void masterDamaged(float damage)
+    {
+        stats.Damaged(damage);
     }
 }

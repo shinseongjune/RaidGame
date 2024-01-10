@@ -30,9 +30,6 @@ public class MenuManager : MonoBehaviourPunCallbacks
     bool isReadyToCreateRoom = false;
     int bossIndex;
 
-    bool isReadyToUpdateRoom = false;
-    bool isNewUpdatedCustomProperties = false;
-
     private void Awake()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
@@ -40,15 +37,24 @@ public class MenuManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        waitCanvas.SetActive(true);
-
-        PhotonNetwork.ConnectUsingSettings();
+        CheckRoom(); //TODO: 배틀씬에서 돌아왔을 때 룸 확인하고 윈도우 설정하기.
+        
+        if (!PhotonNetwork.IsConnected)
+        {
+            waitCanvas.SetActive(true);
+            PhotonNetwork.ConnectUsingSettings();
+        }
     }
 
-    private void Update()
+    void CheckRoom()
     {
-        if (isReadyToUpdateRoom && isNewUpdatedCustomProperties)
+        if (PhotonNetwork.InRoom)
         {
+            waitCanvas.SetActive(false);
+            noRoomButtons.SetActive(false);
+
+            roomWindow.SetActive(true);
+
             UpdateRoomView();
         }
     }
@@ -67,8 +73,6 @@ public class MenuManager : MonoBehaviourPunCallbacks
         else
         {
             waitCanvas.SetActive(false);
-
-            CheckRoom(); //TODO: 배틀씬에서 돌아왔을 때 룸 확인하고 윈도우 설정하기.
         }
     }
 
@@ -89,16 +93,6 @@ public class MenuManager : MonoBehaviourPunCallbacks
     {
         waitCanvas.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Connecting..";
         PhotonNetwork.ConnectUsingSettings();
-    }
-
-    void CheckRoom()
-    {
-        if (PhotonNetwork.InRoom)
-        {
-            noRoomButtons.SetActive(false);
-
-            roomWindow.SetActive(true);
-        }
     }
 
     public void OnClick_CreateRoom(int bossIndex)
@@ -131,12 +125,11 @@ public class MenuManager : MonoBehaviourPunCallbacks
         {
             { "CreationTime", DateTimeOffset.UtcNow.ToUnixTimeSeconds() },
             { "TargetBoss", bossIndex },
-            { "masterId", me.UserId },
             { me.UserId + "//name", currentPlayer.name },
-            { me.UserId + "//chosen", currentPlayer.chosenCharacterId }
-            
+            { me.UserId + "//chosen", currentPlayer.chosenCharacterId },
+
         };
-        options.CustomRoomPropertiesForLobby = new string[] { "CreationTime", "TargetBoss", "masterId", me.UserId + "//name" };
+        options.CustomRoomPropertiesForLobby = new string[] { "CreationTime", "TargetBoss", me.UserId + "//name" };
         options.MaxPlayers = 3;
 
         PhotonNetwork.CreateRoom(currentPlayer.userId.ToString(), options);
@@ -149,8 +142,6 @@ public class MenuManager : MonoBehaviourPunCallbacks
         //TODO: 캐릭터 이미지 등 제대로된 레이아웃 설치하고 아이디 및 이미지 제대로 넣을 것.
         roomWindow.SetActive(true);
         startButton.interactable = true;
-
-        isReadyToUpdateRoom = true;
     }
 
     public void OnClick_ExitRoom()
@@ -161,7 +152,9 @@ public class MenuManager : MonoBehaviourPunCallbacks
         var newProperties = new ExitGames.Client.Photon.Hashtable
         {
             { me.UserId + "//name", null },
-            { me.UserId + "//chosen", null }
+            { me.UserId + "//chosen", null },
+            { me.UserId + "//skill", null },
+            { me.UserId + "//consumable", null },
         };
 
         PhotonNetwork.CurrentRoom.SetCustomProperties(newProperties);
@@ -170,9 +163,6 @@ public class MenuManager : MonoBehaviourPunCallbacks
 
     public override void OnMasterClientSwitched(Player newMasterClient)
     {
-        Room room = PhotonNetwork.CurrentRoom;
-        room.CustomProperties["masterId"] = newMasterClient.UserId;
-
         if (PhotonNetwork.IsMasterClient)
         {
             startButton.interactable = true;
@@ -183,14 +173,11 @@ public class MenuManager : MonoBehaviourPunCallbacks
     {
         base.OnPlayerEnteredRoom(newPlayer);
 
-        isReadyToUpdateRoom = true;
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         base.OnPlayerLeftRoom(otherPlayer);
-
-        isReadyToUpdateRoom = true;
 
     }
 
@@ -216,12 +203,10 @@ public class MenuManager : MonoBehaviourPunCallbacks
         var newProperties = new ExitGames.Client.Photon.Hashtable
         {
             { me.UserId + "//name", currentPlayer.name },
-            { me.UserId + "//chosen", currentPlayer.chosenCharacterId }
+            { me.UserId + "//chosen", currentPlayer.chosenCharacterId },
         };
 
         room.SetCustomProperties(newProperties);
-
-        isReadyToUpdateRoom = true;
     }
 
     public void StartGame()
@@ -253,7 +238,7 @@ public class MenuManager : MonoBehaviourPunCallbacks
             card.roomWindow = roomWindow;
             card.menuManager = this;
 
-            string masterId = (string)room.CustomProperties["masterId"];
+            int masterId = room.masterClientId;
             string masterName = (string)room.CustomProperties[masterId + "//name"];
 
             Transform cardButtonObject = card.transform.GetChild(0);
@@ -279,24 +264,19 @@ public class MenuManager : MonoBehaviourPunCallbacks
         for (int i = players.Count; i < 3; ++i)
         {
             Transform playerBackground = roomWindow.transform.GetChild(i).GetComponent<Transform>();
-            playerBackground.GetChild(0).GetComponent<TextMeshProUGUI>().text = "empty";
+            playerBackground.GetChild(0).GetComponent<TextMeshProUGUI>().text = "{empty}";
         }
 
         if (PhotonNetwork.IsMasterClient)
         {
             startButton.interactable = true;
         }
-
-        isReadyToUpdateRoom = false;
-
-        isNewUpdatedCustomProperties = false;
     }
 
     public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged)
     {
         base.OnRoomPropertiesUpdate(propertiesThatChanged);
 
-        isReadyToUpdateRoom = true;
-        isNewUpdatedCustomProperties = true;
+        UpdateRoomView();
     }
 }

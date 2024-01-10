@@ -1,10 +1,11 @@
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class Stats : MonoBehaviour
+public class Stats : MonoBehaviourPun, IPunObservable
 {
     public CharacterBaseData data;
 
@@ -51,11 +52,6 @@ public class Stats : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        InitializeStats(data.MaxHP, data.MaxMP, data.Might, data.Armor, data.FireResist, data.ColdResist, data.LightningResist, data.CritChance, data.CritDamage);
-    }
-
     private void Update()
     {
         if (isDead)
@@ -91,19 +87,19 @@ public class Stats : MonoBehaviour
         }
     }
 
-    public void InitializeStats(float maxHP, float maxMP, float might, float armor, float fireRes, float coldRes, float lightningRes, float critChance, float critDamage)
+    public void InitializeStats()
     {
-        stats.Add(new Stat(maxHP));
-        hp = maxHP;
-        stats.Add(new Stat(maxMP));
-        mp = maxMP;
-        stats.Add(new Stat(might));
-        stats.Add(new Stat(armor));
-        stats.Add(new Stat(fireRes));
-        stats.Add(new Stat(coldRes));
-        stats.Add(new Stat(lightningRes));
-        stats.Add(new Stat(critChance));
-        stats.Add(new Stat(critDamage));
+        stats.Add(new Stat(data.MaxHP));
+        hp = data.MaxHP;
+        stats.Add(new Stat(data.MaxMP));
+        mp = data.MaxMP;
+        stats.Add(new Stat(data.Might));
+        stats.Add(new Stat(data.Armor));
+        stats.Add(new Stat(data.FireResist));
+        stats.Add(new Stat(data.ColdResist));
+        stats.Add(new Stat(data.LightningResist));
+        stats.Add(new Stat(data.CritChance));
+        stats.Add(new Stat(data.CritDamage));
     }
 
     public void SetImmunityOn()
@@ -116,16 +112,8 @@ public class Stats : MonoBehaviour
         isImmune = false;
     }
 
-    /// <summary>
-    /// control component에서만 접근 가능
-    /// </summary>
-    public void Damaged(float damage, Type callerType)
+    public void Damaged(float damage)
     {
-        if (!typeof(ControlComponent).IsAssignableFrom(callerType))
-        {
-            throw new Exception("Damaged() must be called by attached Control Component!");
-        }
-
         if (isImmune)
         {
             return;
@@ -135,9 +123,15 @@ public class Stats : MonoBehaviour
 
         if (hp <= 0)
         {
-            isDead = true;
-            GetComponent<ControlComponent>().Die();
+            photonView.RPC("Die", RpcTarget.All);
         }
+    }
+
+    [PunRPC]
+    void Die()
+    {
+        isDead = true;
+        GetComponent<ControlComponent>().Die();
     }
 
     public void Healed(float heal)
@@ -178,5 +172,21 @@ public class Stats : MonoBehaviour
     public void HealMana(float heal)
     {
         mp = Mathf.Min(mp + heal, stats[(int)Stat.Type.MaxMP].Current);
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            // 데이터 전송: 로컬 플레이어의 float 값을 다른 플레이어들에게 보냅니다.
+            stream.SendNext(hp);
+            stream.SendNext(mp);
+        }
+        else if (stream.IsReading)
+        {
+            // 데이터 수신: 다른 플레이어로부터 float 값을 받습니다.
+            hp = (float)stream.ReceiveNext();
+            mp = (float)stream.ReceiveNext();
+        }
     }
 }

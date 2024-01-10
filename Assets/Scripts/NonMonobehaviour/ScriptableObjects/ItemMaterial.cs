@@ -26,6 +26,6 @@ namespace Item
             return id.CompareTo(other.id);
         }
 
-        //TODO: sprite 추가하기.
+        public Sprite icon;
     }
 }

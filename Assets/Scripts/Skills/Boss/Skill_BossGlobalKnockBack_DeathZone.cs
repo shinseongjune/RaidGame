@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,10 @@ public class Skill_BossGlobalKnockBack_DeathZone : SkillBase
             {
                 if (target != null)
                 {
+                    if (!target.GetComponent<PhotonView>().IsMine)
+                    {
+                        continue;
+                    }
                     ControlComponent control = target.GetComponentInParent<ControlComponent>();
                     control.Damaged(damage.damage * Time.deltaTime);
                 }

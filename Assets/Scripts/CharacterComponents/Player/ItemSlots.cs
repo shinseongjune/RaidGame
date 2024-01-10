@@ -1,4 +1,6 @@
 using Item;
+using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,12 +17,6 @@ public class ItemSlot
 public class ItemSlots : MonoBehaviour
 {
     public Dictionary<string, ItemSlot> slots = new();
-
-    //TODO: 임시 아이템. 지울것.
-    public Consumable tempOne;
-    public Consumable tempTwo;
-    public Consumable tempThree;
-    public Consumable tempFour;
 
     public Transform firePoint;
 
@@ -44,28 +40,47 @@ public class ItemSlots : MonoBehaviour
         get { return slots.TryGetValue("4", out ItemSlot value) ? value : null; }
     }
 
-    //TODO: 임시 아이템 할당. 시스템 수정 후 지울 것.
-    public void AssignTempItem()
+    public void AssignItem()
     {
+        PhotonView view = GetComponent<PhotonView>();
         ItemSlot oneSlot = new();
-        oneSlot.item = tempOne;
-        oneSlot.count = 3;
-        slots.Add("1", oneSlot);
-        
         ItemSlot twoSlot = new();
-        twoSlot.item = tempTwo;
-        oneSlot.count = 3;
-        slots.Add("2", twoSlot);
-
         ItemSlot threeSlot = new();
-        threeSlot.item = tempThree;
-        oneSlot.count = 3;
-        slots.Add("3", threeSlot);
-
         ItemSlot fourSlot = new();
-        fourSlot.item = tempFour;
-        oneSlot.count = 3;
-        slots.Add("4", fourSlot);
+        if (view.IsMine)
+        {
+            ItemDatabase itemDB = ItemDatabase.Instance;
+            GamePlayerData data = LoginDataManager.Instance.currentPlayer;
+
+            //TODO: 임시로 count 설정. inventory와 비교해서 설정.
+            if (data.one is not -1)
+            {
+                oneSlot.item = itemDB.consumables[data.one];
+                oneSlot.count = 3;
+            }
+            slots.Add("1", oneSlot);
+
+            if (data.two is not -1)
+            {
+                twoSlot.item = itemDB.consumables[data.two];
+                oneSlot.count = 3;
+            }
+            slots.Add("2", twoSlot);
+
+            if (data.three is not -1)
+            {
+                threeSlot.item = itemDB.consumables[data.three];
+                oneSlot.count = 3;
+            }
+            slots.Add("3", threeSlot);
+
+            if (data.four is not -1)
+            {
+                fourSlot.item = itemDB.consumables[data.four];
+                oneSlot.count = 3;
+            }
+            slots.Add("4", fourSlot);
+        }
     }
 
     void Update()
@@ -118,7 +133,7 @@ public class ItemSlots : MonoBehaviour
                 itemPosition = firePoint == null ? transform.position + Vector3.up : firePoint.position;
 
                 //TODO: ItemBase 만들어서 프리팹 만들고 구현.
-                ThrowableBase throwable = Instantiate(item.itemPrefab, itemPosition, transform.rotation).GetComponent<ThrowableBase>();
+                ThrowableBase throwable = PhotonNetwork.Instantiate(item.itemPrefab.name, itemPosition, transform.rotation).GetComponent<ThrowableBase>();
                 throwable.owner = gameObject;
                 throwable.source = item;
                 throwable.startPosition = itemPosition;

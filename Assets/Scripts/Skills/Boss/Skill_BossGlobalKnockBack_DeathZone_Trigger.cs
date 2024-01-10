@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,10 @@ public class Skill_BossGlobalKnockBack_DeathZone_Trigger : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
+            if (!other.GetComponent<PhotonView>().IsMine)
+            {
+                return;
+            }
             parentScript.Triggered(other.gameObject);
         }
     }
@@ -18,6 +23,10 @@ public class Skill_BossGlobalKnockBack_DeathZone_Trigger : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
+            if (!other.GetComponent<PhotonView>().IsMine)
+            {
+                return;
+            }
             parentScript.TriggerExited(other.gameObject);
         }
     }

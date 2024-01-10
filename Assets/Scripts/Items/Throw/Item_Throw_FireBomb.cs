@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -18,6 +19,11 @@ public class Item_Throw_FireBomb : ThrowableBase
 
     public override void Update()
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
         transform.Rotate(0, rotationSpeed * Time.deltaTime, 0);
 
         base.Update();
@@ -39,8 +45,8 @@ public class Item_Throw_FireBomb : ThrowableBase
     }
     protected override void WhenArrived()
     {
-        Instantiate(boomPrefab, transform.position, transform.rotation);
+        PhotonNetwork.Instantiate(boomPrefab.name, transform.position, transform.rotation);
 
-        Destroy(gameObject);
+        PhotonNetwork.Destroy(gameObject);
     }
 }

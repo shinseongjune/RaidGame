@@ -16,7 +16,9 @@ MonoBehaviour:
   itemName: MP Potion
   description: 
   type: 1
+  maxCount: 3
   range: 0
   coolDown: 5
   itemPrefab: {fileID: 0}
   afterEffectPrefabs: []
+  icon: {fileID: 21300000, guid: b03776efab951914d90bb8e1d27e69cc, type: 3}

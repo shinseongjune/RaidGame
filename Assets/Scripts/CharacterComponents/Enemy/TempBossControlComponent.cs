@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -83,11 +84,17 @@ public class TempBossControlComponent : ControlComponent
 
     private void Start()
     {
+        photonView = GetComponent<PhotonView>();
         animator = GetComponent<Animator>();
     }
 
     public override void Update()
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
         if (isDead || isEnd)
         {
             return;
@@ -141,7 +148,7 @@ public class TempBossControlComponent : ControlComponent
                 if (isDisappearing)
                 {
                     movement.agent.enabled = true;
-                    transform.GetChild(0).gameObject.SetActive(true);
+                    photonView.RPC("SetVisibility", RpcTarget.All, true);
                     isDisappearing = false;
                 }
 
@@ -199,7 +206,7 @@ public class TempBossControlComponent : ControlComponent
                 if (isDisappearing)
                 {
                     animator.SetBool("isWalking", false);
-                    transform.GetChild(0).gameObject.SetActive(false);
+                    photonView.RPC("SetVisibility", RpcTarget.All, false);
                     movement.agent.enabled = false;
                 }
 
@@ -259,6 +266,12 @@ public class TempBossControlComponent : ControlComponent
                 }
                 break;
         }
+    }
+
+    [PunRPC]
+    public void SetVisibility(bool value)
+    {
+        transform.GetChild(0).gameObject.SetActive(value);
     }
 
     bool FindTarget()
@@ -370,7 +383,7 @@ public class TempBossControlComponent : ControlComponent
     {
         yield return new WaitForSeconds(delay);
 
-        SkillBase skill = Instantiate(prefab, position, transform.rotation).GetComponent<SkillBase>();
+        SkillBase skill = PhotonNetwork.Instantiate(prefab.name, position, transform.rotation).GetComponent<SkillBase>();
         skill.source = gameObject;
         if (target != null) skill.target = target;
         skill.GetOn();
@@ -380,7 +393,7 @@ public class TempBossControlComponent : ControlComponent
     {
         yield return new WaitForSeconds(delay);
 
-        SkillBase skill = Instantiate(prefab, target.transform.position, transform.rotation).GetComponent<SkillBase>();
+        SkillBase skill = PhotonNetwork.Instantiate(prefab.name, target.transform.position, transform.rotation).GetComponent<SkillBase>();
         skill.source = gameObject;
         if (target != null) skill.target = target;
         skill.GetOn();
@@ -396,7 +409,6 @@ public class TempBossControlComponent : ControlComponent
         animator.SetBool("isDead", true);
         EndMovement();
         StopAllCoroutines();
-        //stats.isDead = true; stats에서 처리
         movement.CancelMove();
         isDead = true;
     }

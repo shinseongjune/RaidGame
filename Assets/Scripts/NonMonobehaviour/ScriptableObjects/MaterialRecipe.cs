@@ -17,13 +17,16 @@ namespace Item
             public int count;
         }
 
+        [Min(0)]
+        public int id;
+
         public List<MaterialCount> materials = new();
 
         public ScriptableObject result;
 
         public int CompareTo(MaterialRecipe other)
         {
-            return materials[0].material.CompareTo(other.materials[0].material);
+            return id.CompareTo(other.id);
         }
     }
 }

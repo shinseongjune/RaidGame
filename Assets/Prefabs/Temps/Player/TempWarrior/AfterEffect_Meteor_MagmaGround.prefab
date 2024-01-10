@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 901321125152460473}
   - component: {fileID: 5526247126887317193}
   - component: {fileID: 1634192097983444004}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Embers_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4920,7 +4920,7 @@ GameObject:
   - component: {fileID: 4670496144598529729}
   - component: {fileID: 4903078891610702840}
   - component: {fileID: 9169531793493381058}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Explosion_Sphere_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9825,7 +9825,7 @@ GameObject:
   - component: {fileID: 2716070365451661548}
   - component: {fileID: 7020353652638110928}
   - component: {fileID: 3557589838254997132}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Embers_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14675,6 +14675,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3094938328693006650}
   - component: {fileID: 9124840449071137363}
+  - component: {fileID: 7912844097881855702}
+  - component: {fileID: -6706240717469162261}
   m_Layer: 0
   m_Name: AfterEffect_Meteor_MagmaGround
   m_TagString: Untagged
@@ -14716,8 +14718,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ac9dcb3eb01870469e33e3c28eef80b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  owner: {fileID: 0}
+  source: {fileID: 0}
+  alreadyHitObjects: []
   lifeTime: 3
   TICK_TIME: 0.1
+--- !u!114 &7912844097881855702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3116165247276683026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
+--- !u!114 &-6706240717469162261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3116165247276683026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &4799309203349061286
 GameObject:
   m_ObjectHideFlags: 0
@@ -14729,7 +14773,7 @@ GameObject:
   - component: {fileID: 1170838138838949282}
   - component: {fileID: 7811309338593156177}
   - component: {fileID: 8674872940308844761}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Embers_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19580,7 +19624,7 @@ GameObject:
   - component: {fileID: 8918085980602019842}
   - component: {fileID: 6738331280896512415}
   - component: {fileID: 2927721858674344498}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Ground_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24480,7 +24524,7 @@ GameObject:
   - component: {fileID: 8457520323681859148}
   - component: {fileID: 8118899594848402622}
   - component: {fileID: 7132651604065781906}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Debris_Smoke_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29380,7 +29424,7 @@ GameObject:
   - component: {fileID: 4914353262120018394}
   - component: {fileID: 9091809643108869066}
   - component: {fileID: 8126328910527989285}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Debris_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34336,7 +34380,7 @@ GameObject:
   - component: {fileID: 6500556802450441772}
   - component: {fileID: 9162127457486206571}
   - component: {fileID: 4928898992236082818}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Explosion_Wave_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39234,7 +39278,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1339973439073854183}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlaneForCollision
   m_TagString: Untagged
   m_Icon: {fileID: 0}

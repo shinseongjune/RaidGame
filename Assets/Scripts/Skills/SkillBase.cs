@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,8 @@ public abstract class SkillBase : MonoBehaviour
     /// Skill Scriptable Object
     /// </summary>
     public GameObject source;
+
+    public PhotonView photonView;
 
     public List<GameObject> alreadyHitObjects = new List<GameObject>();
 

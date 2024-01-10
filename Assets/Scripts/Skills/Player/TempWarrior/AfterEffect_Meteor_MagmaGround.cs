@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,10 +21,17 @@ public class AfterEffect_Meteor_MagmaGround : SkillBase
         damage = new Damage();
         damage.damage = 5;
         damage.type = Damage.Type.Fire;
+
+        photonView = GetComponent<PhotonView>();
     }
 
     void Update()
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
         foreach (var obj in alreadyHitObjectsCooldowns.Keys.ToList())
         {
             alreadyHitObjectsCooldowns[obj] -= Time.deltaTime;
@@ -49,7 +57,7 @@ public class AfterEffect_Meteor_MagmaGround : SkillBase
 
         if (lifeTime <= 0)
         {
-            Destroy(gameObject);
+            PhotonNetwork.Destroy(gameObject);
         }
     }
 

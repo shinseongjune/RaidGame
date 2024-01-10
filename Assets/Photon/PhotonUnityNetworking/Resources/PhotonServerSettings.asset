@@ -39,6 +39,11 @@ MonoBehaviour:
   - DestroySpaceship
   - Fire
   - RespawnSpaceship
+  - DieRPC
+  - LoseGame
+  - Die
+  - masterDamaged
+  - SetVisibility
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

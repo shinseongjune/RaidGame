@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59b51c5efc31994f969aef6feaab66c, type: 3}
   m_Name: 00_Instant_HPPotion
   m_EditorClassIdentifier: 
+  id: 0
   itemName: HP Potion
   description: 
   type: 1
+  maxCount: 3
   range: 0
   coolDown: 12
   itemPrefab: {fileID: 0}
   afterEffectPrefabs: []
+  icon: {fileID: 21300000, guid: cfe8fc141c1287a47860844a3c6dd648, type: 3}

@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eff2cc56bcf64b241bf8a0c7d7643b73, type: 3}
   m_Name: 00_BasicAttack_TestBasic
   m_EditorClassIdentifier: 
-  skillName: "\uD3C9\uD0C01"
+  id: 0
+  skillName: Slash
   description: 
   type: 3
+  range: 0
   costStat: 1
   cost: 0
   coolDown: 0.2
@@ -22,3 +24,4 @@ MonoBehaviour:
   postDelay: 0.3
   skillPrefab: {fileID: 1430408056455349902, guid: 56f1ca3af9a66b140b3615373f5bb001, type: 3}
   afterEffectPrefabs: []
+  icon: {fileID: 0}

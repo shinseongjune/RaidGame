@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,11 +16,23 @@ public class AfterEffect_Item_FireBomb : MonoBehaviour
 
     public List<GameObject> deleteList = new();
 
+    PhotonView photonView;
+
+    private void Awake()
+    {
+        photonView = GetComponent<PhotonView>();
+    }
+
     void Update()
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
         if (duration <= 0)
         {
-            Destroy(gameObject);
+            PhotonNetwork.Destroy(gameObject);
         }
         var keys = new List<GameObject>(alreadyHitObjects.Keys);
         foreach (var obj in keys)
@@ -50,6 +63,11 @@ public class AfterEffect_Item_FireBomb : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && !alreadyHitObjects.ContainsKey(other.gameObject))
         {
             other.GetComponentInParent<ControlComponent>().Damaged(damage);

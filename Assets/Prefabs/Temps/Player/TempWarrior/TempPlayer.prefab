@@ -4578,6 +4578,9 @@ GameObject:
   - component: {fileID: 5766178162184186737}
   - component: {fileID: 2133535245724198391}
   - component: {fileID: 7482776909802102051}
+  - component: {fileID: 653877121989360747}
+  - component: {fileID: 922451274282475238}
+  - component: {fileID: 9185918095064602934}
   m_Layer: 7
   m_Name: TempPlayer
   m_TagString: Untagged
@@ -4673,11 +4676,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9724352284cdd3e43b41053b4fef14e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tempBasic: {fileID: 11400000, guid: fc70f8e9d7e1e9441851cf7d7250fda8, type: 2}
-  tempSkillQ: {fileID: 11400000, guid: 0a8596b1b1eaae240a0feb3809efef21, type: 2}
-  tempSkillW: {fileID: 11400000, guid: 7ea6f53ed1049ea4486417b30c586413, type: 2}
-  tempSkillE: {fileID: 11400000, guid: 4341c7d477ccea44e8f59c7a486cdcca, type: 2}
-  tempSkillR: {fileID: 0}
   firePoint: {fileID: 786243720159185981}
 --- !u!114 &-543343100258685460
 MonoBehaviour:
@@ -4691,10 +4689,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7175658be65a2b1498234c237cfcab20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tempOne: {fileID: 11400000, guid: be8640afd3fe15342ab732b991103417, type: 2}
-  tempTwo: {fileID: 0}
-  tempThree: {fileID: 0}
-  tempFour: {fileID: 0}
   firePoint: {fileID: 786243720159185981}
 --- !u!114 &5766178162184186737
 MonoBehaviour:
@@ -4762,6 +4756,83 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &653877121989360747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6789263574828256460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 5766178162184186737}
+  - {fileID: 922451274282475238}
+  - {fileID: 9185918095064602934}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &922451274282475238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6789263574828256460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
+--- !u!114 &9185918095064602934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6789263574828256460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 1
+    Name: isWalking
+  - Type: 9
+    SynchronizeType: 1
+    Name: SlashTrigger
+  - Type: 9
+    SynchronizeType: 1
+    Name: DyingTrigger
+  - Type: 4
+    SynchronizeType: 1
+    Name: isDashing
+  - Type: 4
+    SynchronizeType: 1
+    Name: isKnockBacked
+  - Type: 1
+    SynchronizeType: 1
+    Name: AttackSpeed
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
 --- !u!1 &6790205612176902504
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,8 @@ public class Skill_BossHellfireBall : SkillBase
         damage = new Damage();
         damage.damage = 350f;
         damage.type = Damage.Type.Fire;
+
+        photonView = GetComponent<PhotonView>();
     }
 
     void Update()
@@ -48,7 +51,7 @@ public class Skill_BossHellfireBall : SkillBase
 
             if (lifeTime <= 0)
             {
-                Destroy(gameObject);
+                PhotonNetwork.Destroy(gameObject);
             }
         }
     }
@@ -62,12 +65,16 @@ public class Skill_BossHellfireBall : SkillBase
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
+            if (!other.GetComponent<PhotonView>().IsMine)
+            {
+                return;
+            }
             ControlComponent control = other.GetComponentInParent<ControlComponent>();
             control.Damaged(damage.damage);
 
             Instantiate(aftereffect_hellfireBoomEffect, target.transform.position, target.transform.rotation);
 
-            Destroy(gameObject);
+            PhotonNetwork.Destroy(gameObject);
         }
     }
 }

@@ -1,3 +1,5 @@
+using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,13 +15,6 @@ public class SkillSlots : MonoBehaviour
     public SkillSlot basicAttack = new SkillSlot();
 
     public Dictionary<string, SkillSlot> slots = new Dictionary<string, SkillSlot>();
-
-    //TODO:임시 스킬오브젝트. 지울것.
-    public Skill tempBasic;
-    public Skill tempSkillQ;
-    public Skill tempSkillW;
-    public Skill tempSkillE;
-    public Skill tempSkillR;
 
     Stats stats;
 
@@ -54,26 +49,46 @@ public class SkillSlots : MonoBehaviour
     public SkillSlot v;
     */
 
-    //TODO: 임시코드. 지우고 외부에서 player가 선택한대로 할당하기.
-    public void AssignTempSkill()
+    public void AssignSkill()
     {
-        basicAttack.skill = tempBasic;
+        PhotonView view = GetComponent<PhotonView>();
+        if (view.IsMine)
+        {
+            SkillDatabase skillDB = SkillDatabase.Instance;
+            GamePlayerData data = LoginDataManager.Instance.currentPlayer;
+            List<Skill> basics = skillDB.warriorBasic;
+            List<Skill> skills = skillDB.warriorSkill;
+            switch (data.chosenCharacterId)
+            {
+                case 0:
+                    //warrior
+                    basics = skillDB.warriorBasic;
+                    skills = skillDB.warriorSkill;
+                    break;
+                case 1:
+                    //priest
+                    break;
+                case 2:
+                    //archer
+                    break;
+                default:
+                    throw new Exception("invalid character index..");
+            }
 
-        SkillSlot qSlot = new();
-        qSlot.skill = tempSkillQ;
-        slots.Add("q", qSlot);
+            basicAttack.skill = basics[data.basic];
 
-        SkillSlot wSlot = new();
-        wSlot.skill = tempSkillW;
-        slots.Add("w", wSlot);
+            SkillSlot qSlot = new();
+            qSlot.skill = skills[data.q];
+            slots.Add("q", qSlot);
 
-        SkillSlot eSlot = new();
-        eSlot.skill = tempSkillE;
-        slots.Add("e", eSlot);
+            SkillSlot wSlot = new();
+            wSlot.skill = skills[data.w];
+            slots.Add("w", wSlot);
 
-        SkillSlot rSlot = new();
-        rSlot.skill = tempSkillR;
-        slots.Add("r", rSlot);
+            SkillSlot eSlot = new();
+            eSlot.skill = skills[data.e];
+            slots.Add("e", eSlot);
+        }
     }
 
     private void Start()
@@ -192,7 +207,7 @@ public class SkillSlots : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
 
-        SkillBase skill = Instantiate(prefab, position, transform.rotation).GetComponent<SkillBase>();
+        SkillBase skill = PhotonNetwork.Instantiate(prefab.name, position, transform.rotation).GetComponent<SkillBase>();
         skill.source = gameObject;
         skill.GetOn();
     }

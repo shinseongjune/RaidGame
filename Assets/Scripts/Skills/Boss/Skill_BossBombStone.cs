@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,7 +20,7 @@ public class Skill_BossBombStone : SkillBase
     public Image boomCountImage;
     public float boomCountImageMaxX;
 
-    TempBossControlComponent bossControl;
+    public TempBossControlComponent bossControl;
 
     void Start()
     {
@@ -29,6 +30,11 @@ public class Skill_BossBombStone : SkillBase
         boomCountImageMaxX = boomCountImage.rectTransform.anchoredPosition.x;
 
         bossControl = source.GetComponent<TempBossControlComponent>();
+
+        Stats bombStats = GetComponent<Stats>();
+        bombStats.InitializeStats();
+        bombStats.enabled = true;
+        hpBar.gameObject.SetActive(true);
 
         //TODO: 임시 스탯 설정. 제대로 된 시스템 구축 후 수정 필요.
         damage = new();
@@ -58,6 +64,10 @@ public class Skill_BossBombStone : SkillBase
 
             foreach (Collider collider in colliders)
             {
+                if (!collider.GetComponent<PhotonView>().IsMine)
+                {
+                    continue;
+                }
                 CharacterControlComponent control = collider.GetComponentInParent<CharacterControlComponent>();
                 control.Damaged(damage.damage);
 

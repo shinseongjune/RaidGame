@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,11 +19,18 @@ public class CharacterControlComponent : ControlComponent
         TryGetComponent<ItemSlots>(out itemSlots);
         TryGetComponent<Animator>(out animator);
 
+        photonView = GetComponent<PhotonView>();
+
         stats.canRegen = true;
     }
 
     public override void Update()
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
         if (isDead || isEnd)
         {
             return;
@@ -118,7 +126,6 @@ public class CharacterControlComponent : ControlComponent
     {
         EndMovement();
         StopAllCoroutines();
-        //stats.isDead = true; stats에서 처리
         movement.CancelMove();
         skillSlots.enabled = false;
         animator.SetTrigger("DyingTrigger");

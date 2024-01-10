@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,10 +6,20 @@ using UnityEngine;
 public class InputHandler : MonoBehaviour
 {
     public GamePlayer player;
+    public bool isReady = false;
 
     void Update()
     {
+        if (!isReady)
+        {
+            return;
+        }
+
         if (player.character.isDead || player.character.isEnd)
+        {
+            return;
+        }
+        if (!PhotonNetwork.LocalPlayer.IsLocal)
         {
             return;
         }

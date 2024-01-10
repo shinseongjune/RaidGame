@@ -22,6 +22,9 @@ namespace Item
 
         public Type type;
 
+        [Min(1)]
+        public int maxCount;
+
         //TODO: skill slots에서 range 구현.
         public float range;
 
@@ -35,6 +38,6 @@ namespace Item
             return id.CompareTo(other.id);
         }
 
-        //TODO: sprite 추가할 것.
+        public Sprite icon;
     }
 }

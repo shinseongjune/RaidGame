@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e6d972cfa8371b45851a411fdc9b2e0, type: 3}
+  m_Name: Boss00_Magmagma
+  m_EditorClassIdentifier: 
+  id: 0
+  Name: magmagma
+  MaxHP: 1500
+  MaxMP: 0
+  Might: 0
+  Armor: 10
+  FireResist: 10
+  ColdResist: 0
+  LightningResist: 0
+  CritChance: 0
+  CritDamage: 0
+  MovementSpeed: 11
+  prefab: {fileID: 6500600954716205702, guid: c6b224363dc8caa4d8af3f17df8c0459, type: 3}
+  mapPrefab: {fileID: 2808583723579128132, guid: edc5c6c2a04717844925d7c02fd873e8, type: 3}

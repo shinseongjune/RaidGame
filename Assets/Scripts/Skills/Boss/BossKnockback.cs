@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,8 @@ public class BossKnockback : SkillBase
         damage = new Damage();
         damage.damage = 15;
         damage.type = Damage.Type.Fire;
+
+        photonView = GetComponent<PhotonView>();
     }
 
     void Update()
@@ -28,6 +31,10 @@ public class BossKnockback : SkillBase
 
             foreach (Collider other in others)
             {
+                if (!other.GetComponent<PhotonView>().IsMine)
+                {
+                    continue;
+                }
                 CharacterControlComponent control = other.GetComponentInParent<CharacterControlComponent>();
                 control.Damaged(damage.damage);
                 Vector3 dir = (other.transform.position - transform.position).normalized;
@@ -43,7 +50,7 @@ public class BossKnockback : SkillBase
 
             Instantiate(aftereffect_knockBackBoom, transform.position, transform.rotation);
 
-            Destroy(gameObject);
+            PhotonNetwork.Destroy(gameObject);
         }
     }
 

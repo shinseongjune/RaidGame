@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 7212119225381942749}
   - component: {fileID: 2136887570583742344}
   - component: {fileID: 2995157445157645857}
+  - component: {fileID: -4643369199984029582}
+  - component: {fileID: -2659460106471930021}
   m_Layer: 0
   m_Name: AfterEffect_TestFireball_Boom
   m_TagString: Untagged
@@ -68,10 +70,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31cf8988a9fe07446a9ba5d0ca1f56a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  owner: {fileID: 0}
   source: {fileID: 0}
+  alreadyHitObjects: []
   lifeTime: 0.4
   boomCore: {fileID: 6182367306394348100}
-  alreadyHitObjects: []
+--- !u!114 &-4643369199984029582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4841544300303640527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
+--- !u!114 &-2659460106471930021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4841544300303640527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &7783469809822200226
 GameObject:
   m_ObjectHideFlags: 0
@@ -83,7 +125,7 @@ GameObject:
   - component: {fileID: 48833484672402969}
   - component: {fileID: 7261082349887395382}
   - component: {fileID: 5642434619531139194}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4972,7 +5014,7 @@ GameObject:
   - component: {fileID: 5652305418140888583}
   - component: {fileID: 1641371123548882753}
   - component: {fileID: 7867498579179097714}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BoomCore
   m_TagString: Untagged
   m_Icon: {fileID: 0}

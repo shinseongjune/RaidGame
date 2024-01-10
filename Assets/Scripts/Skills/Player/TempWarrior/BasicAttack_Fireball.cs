@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,10 +22,17 @@ public class BasicAttack_Fireball : SkillBase
         //TODO: source.stats 등으로부터 damage 계산.
         damage = new Damage();
         damage.damage = 30;
+
+        photonView = GetComponent<PhotonView>();
     }
 
     void Update()
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
         lifeTime -= Time.deltaTime;
 
         Vector3 movePosition = transform.position + transform.forward * speed * Time.deltaTime;
@@ -38,6 +46,11 @@ public class BasicAttack_Fireball : SkillBase
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && !alreadyHitObjects.Contains(other.gameObject))
         {
             alreadyHitObjects.Add(other.gameObject);
@@ -48,9 +61,14 @@ public class BasicAttack_Fireball : SkillBase
 
     void Boom()
     {
-        AfterEffect_BasicAttack_Fireball boom = Instantiate(afterEffect_Explosion, transform.position, transform.rotation).GetComponent<AfterEffect_BasicAttack_Fireball>();
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
+        AfterEffect_BasicAttack_Fireball boom = PhotonNetwork.Instantiate(afterEffect_Explosion.name, transform.position, transform.rotation).GetComponent<AfterEffect_BasicAttack_Fireball>();
         boom.SetDataAndTriggerOn(damage, alreadyHitObjects, source);
-        Destroy(gameObject);
+        PhotonNetwork.Destroy(gameObject);
     }
 
     public override void GetOn()

@@ -72,9 +72,9 @@ public class ItemDatabase : MonoBehaviour
                 {
                     weapons.Add(item);
                 }
+                weapons.Sort();
             }
         };
-        weapons.Sort();
 
         Addressables.LoadAssetsAsync<Equipable>("Equipable_Helmet", null).Completed += (AsyncOperationHandle<IList<Equipable>> handle) =>
         {
@@ -84,9 +84,9 @@ public class ItemDatabase : MonoBehaviour
                 {
                     helmets.Add(item);
                 }
+                helmets.Sort();
             }
         };
-        helmets.Sort();
 
         Addressables.LoadAssetsAsync<Equipable>("Equipable_Armor", null).Completed += (AsyncOperationHandle<IList<Equipable>> handle) =>
         {
@@ -96,9 +96,9 @@ public class ItemDatabase : MonoBehaviour
                 {
                     armors.Add(item);
                 }
+                armors.Sort();
             }
         };
-        armors.Sort();
 
         Addressables.LoadAssetsAsync<Consumable>("Consumable", null).Completed += (AsyncOperationHandle<IList<Consumable>> handle) =>
         {
@@ -108,9 +108,9 @@ public class ItemDatabase : MonoBehaviour
                 {
                     consumables.Add(item);
                 }
+                consumables.Sort();
             }
         };
-        consumables.Sort();
 
         Addressables.LoadAssetsAsync<ItemMaterial>("ItemMaterial", null).Completed += (AsyncOperationHandle<IList<ItemMaterial>> handle) =>
         {
@@ -120,9 +120,9 @@ public class ItemDatabase : MonoBehaviour
                 {
                     materials.Add(item);
                 }
+                materials.Sort();
             }
         };
-        materials.Sort();
 
         Addressables.LoadAssetsAsync<MaterialRecipe>("MaterialRecipe", null).Completed += (AsyncOperationHandle<IList<MaterialRecipe>> handle) =>
         {
@@ -132,8 +132,8 @@ public class ItemDatabase : MonoBehaviour
                 {
                     recipes.Add(item);
                 }
+                recipes.Sort();
             }
         };
-        recipes.Sort();
     }
 }

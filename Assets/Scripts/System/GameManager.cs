@@ -1,17 +1,22 @@
+using Photon.Pun;
+using Photon.Realtime;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviourPun
 {
     public GameObject gameOverBackground;
     public GameObject winImage;
     public GameObject loseImage;
     public GameObject titleButton;
-    public GameObject gameCanvas;
+
+    Room room;
 
     [SerializeField]
     CameraRig cameraRig;
@@ -19,14 +24,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     NavMeshSurface surface;
 
-    [SerializeField]
-    List<GameObject> mapPrefabs = new List<GameObject>();
-
-    [SerializeField]
-    List<GameObject> tempPlayerPrefabs = new List<GameObject>();
-
-    [SerializeField]
-    GameObject tempBossPrefab;
+    CharacterDatabase characterDB;
 
     [SerializeField]
     GameObject inputHandlerPrefab;
@@ -41,73 +39,107 @@ public class GameManager : MonoBehaviour
     CharacterControlComponent playerControl;
     TempBossControlComponent bossControl;
 
-    SliderValueSetter playerHPBar;
-    SliderValueSetter playerMPBar;
-    SliderValueSetter bossHPBar;
+    public GameObject gameCanvasPrefab;
+    GameObject gameCanvas;
 
-    SkillIconCooldownSetter qCoolSetter;
-    SkillIconCooldownSetter wCoolSetter;
-    SkillIconCooldownSetter eCoolSetter;
-    DashIconCooldownSetter dashCoolSetter;
-
+    int dieCount = 0;
     bool isGameOver = false;
+
+    bool isDieChecked = false;
+
+    int bossIndex;
+    string playerName;
+    int characterId;
+    CharacterBaseData playerData;
+
+    bool isReadyToStart = false;
+    GameObject mapPrefab;
+    GameObject bossPrefab;
+
+    private void Awake()
+    {
+        room = PhotonNetwork.CurrentRoom;
+        characterDB = CharacterDatabase.Instance;
+    }
 
     void Start()
     {
-        #region 테스트 게임
-        //test map generation
-        field = Instantiate(mapPrefabs[0]);
-
-        surface.BuildNavMesh();
-
-        //test player generation
-        player = new GamePlayer();
         inputHandler = Instantiate(inputHandlerPrefab).GetComponent<InputHandler>();
-
-        playerCharacter = Instantiate(tempPlayerPrefabs[0], field.transform.Find("PlayerStartPositions").GetChild(0).position, Quaternion.identity);
-        cameraRig.transform.position = playerCharacter.transform.position;
-        cameraRig.target = playerCharacter.transform;
-        
-        player.character = playerCharacter.GetComponent<CharacterControlComponent>();
-        playerControl = player.character;
-        player.inputHandler = inputHandler;
+        player = new GamePlayer();
         inputHandler.player = player;
+        player.inputHandler = inputHandler;
 
-        Stats playerStats = playerCharacter.GetComponent<Stats>();
-        //playerHPBar.targetStats = playerStats;
-        //playerHPBar.targetType = Stat.Type.MaxHP;
-        //playerMPBar.targetStats = playerStats;
-        //playerMPBar.targetType = Stat.Type.MaxMP;
+        bossIndex = Convert.ToInt32(room.CustomProperties["TargetBoss"]);
+        mapPrefab = characterDB.bosses[bossIndex].mapPrefab;
+        bossPrefab = characterDB.bosses[bossIndex].prefab;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            MakeMap(bossIndex);
+            field = GameObject.Find("Map");
+            surface.BuildNavMesh();
 
-        SkillSlots slots = playerControl.skillSlots;
-        slots.AssignTempSkill();
-        //qCoolSetter.slot = slots.q;
-        //wCoolSetter.slot = slots.w;
-        //eCoolSetter.slot = slots.e;
-        //dashCoolSetter.move = playerControl.movement;
+            MakeCharacters();
+            MakeBoss(bossIndex);
+            MakeUI();
+            isReadyToStart = true;
+        }
 
-        ItemSlots items = playerControl.itemSlots;
-        items.AssignTempItem();
-
-        //test boss generation
-        bossControl = Instantiate(tempBossPrefab, field.transform.Find("BossStartPositions").GetChild(0).position, Quaternion.LookRotation(Vector3.back)).GetComponent<TempBossControlComponent>();
-        bossControl.mapCenter = field.transform.Find("SpecialPositions").GetChild(0).transform.position;
-
-        Stats bossStats = bossControl.GetComponent<Stats>();
-        //bossHPBar.targetStats = bossStats;
-        //bossHPBar.targetType = Stat.Type.MaxHP;
-
-        #endregion 테스트 게임
-
-        //TODO: 나중)메뉴에서 캐릭터나 맵을 선택해 정보를 받아오고 인스턴스 만들고 할당하는 방식으로 완성.
-        //멀티나 카메라는 나중에 생각하자.
     }
 
     private void Update()
     {
+        if (field == null)
+        {
+            field = GameObject.Find(mapPrefab.name + "(Clone)") ?? null;
+            if (field == null)
+            {
+                return;
+            }
+            else
+            {
+                surface.BuildNavMesh();
+
+                MakeCharacters();
+            }
+        }
+
+        if (bossControl == null)
+        {
+            bossControl = GameObject.Find(bossPrefab.name + "(Clone)")?.GetComponent<TempBossControlComponent>();
+            if (bossControl == null)
+            {
+                return;
+            }
+            else
+            {
+                bossControl.mapCenter = field.transform.Find("SpecialPositions").GetChild(0).transform.position;
+                Stats bossStats = bossControl.GetComponent<Stats>();
+                bossStats.data = characterDB.bosses[bossIndex];
+                bossStats.InitializeStats();
+
+                bossStats.enabled = true;
+                bossControl.enabled = true;
+
+                MakeUI();
+                isReadyToStart = true;
+            }
+        }
+        
+
+        if (!isReadyToStart)
+        {
+            return;
+        }
+
         if (isGameOver)
         {
             return;
+        }
+
+        if (!isDieChecked && playerControl.isDead)
+        {
+            photonView.RPC("DieRPC", RpcTarget.MasterClient);
+            isDieChecked = true;
         }
 
         if (bossControl.isDead)
@@ -123,28 +155,145 @@ public class GameManager : MonoBehaviour
 
             isGameOver = true;
         }
-        else if (playerControl.isDead)
+
+        if (dieCount >= 3)
         {
             bossControl.isEnd = true;
 
             gameCanvas.SetActive(false);
 
-            //패배처리
-            gameOverBackground.SetActive(true);
-            loseImage.SetActive(true);
-            titleButton.SetActive(true);
-
-            isGameOver = true;
+            photonView.RPC("LoseGame", RpcTarget.All);
         }
     }
 
-    public void GoTitleScene()
+    void MakeMap(int bossIndex)
+    {
+        object[] instantiationData = new object[] { "map" };
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.Instantiate(mapPrefab.name, Vector3.zero, Quaternion.identity, 0, instantiationData).name = "Map";
+        }
+    }
+
+    void MakeCharacters()
+    {
+        characterId = LoginDataManager.Instance.currentPlayer.chosenCharacterId;
+        playerName = PhotonNetwork.LocalPlayer.UserId + "_Player";
+
+        playerData = characterDB.players[characterId];
+        GameObject playerPrefab = playerData.prefab;
+
+        object[] instantiationData = new object[] { "character" };
+        PhotonNetwork.Instantiate(playerPrefab.name, Vector3.zero, Quaternion.identity, 0, instantiationData).name = playerName;
+
+        playerCharacter = GameObject.Find(playerName);
+        int positionIndex = PhotonNetwork.LocalPlayer.ActorNumber % 3;
+        playerCharacter.transform.position = field.transform.Find("PlayerStartPositions").GetChild(positionIndex).position;
+        Vector3 bossPos = field.transform.Find("BossStartPositions").GetChild(0).position;
+        playerCharacter.transform.rotation = Quaternion.LookRotation(new Vector3(bossPos.x, playerCharacter.transform.position.y, bossPos.z));
+
+        cameraRig.transform.position = playerCharacter.transform.position;
+        cameraRig.target = playerCharacter.transform;
+
+        player.character = playerCharacter.GetComponent<CharacterControlComponent>();
+        playerControl = player.character;
+
+        Stats stats = playerControl.GetComponent<Stats>();
+        stats.data = playerData;
+        stats.InitializeStats();
+
+        SkillSlots slots = playerControl.skillSlots;
+        slots.AssignSkill();
+
+        ItemSlots items = playerControl.itemSlots;
+        items.AssignItem();
+
+        slots.enabled = true;
+        stats.enabled = true;
+        items.enabled = true;
+        playerControl.enabled = true;
+
+        inputHandler.isReady = true;
+    }
+
+    void MakeBoss(int bossIndex)
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            object[] instantiationData = new object[] { "boss" };
+            PhotonNetwork.Instantiate(bossPrefab.name, field.transform.Find("BossStartPositions").GetChild(0).position, Quaternion.LookRotation(Vector3.back), 0, instantiationData).name = "Boss";
+            GameObject boss = GameObject.Find("Boss");
+            bossControl = boss.GetComponent<TempBossControlComponent>();
+            bossControl.mapCenter = field.transform.Find("SpecialPositions").GetChild(0).transform.position;
+        }
+        Stats bossStats = bossControl.GetComponent<Stats>();
+        bossStats.data = characterDB.bosses[bossIndex];
+        bossStats.InitializeStats();
+
+        bossStats.enabled = true;
+        bossControl.enabled = true;
+    }
+
+    void MakeUI()
+    {
+        gameCanvas = Instantiate(gameCanvasPrefab);
+
+        SliderValueSetter hpSetter = gameCanvas.transform.GetChild(0).GetChild(0).GetComponent<SliderValueSetter>();
+        hpSetter.targetStats = playerCharacter.GetComponent<Stats>();
+        hpSetter.targetType = Stat.Type.MaxHP;
+
+        SliderValueSetter mpSetter = gameCanvas.transform.GetChild(0).GetChild(1).GetComponent<SliderValueSetter>();
+        mpSetter.targetStats = playerCharacter.GetComponent<Stats>();
+        mpSetter.targetType = Stat.Type.MaxMP;
+
+        SliderValueSetter bossSetter = gameCanvas.transform.GetChild(1).GetComponent<SliderValueSetter>();
+        bossSetter.targetStats = bossControl.GetComponent<Stats>();
+        bossSetter.targetType = Stat.Type.MaxHP;
+
+        SkillSlots slots = playerCharacter.GetComponent<SkillSlots>();
+        SkillIconCooldownSetter qSetter = gameCanvas.transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<SkillIconCooldownSetter>();
+        SkillIconCooldownSetter wSetter = gameCanvas.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<SkillIconCooldownSetter>();
+        SkillIconCooldownSetter eSetter = gameCanvas.transform.GetChild(2).GetChild(2).GetChild(0).GetComponent<SkillIconCooldownSetter>();
+        DashIconCooldownSetter dashSetter = gameCanvas.transform.GetChild(2).GetChild(3).GetChild(0).GetComponent<DashIconCooldownSetter>();
+        qSetter.slot = slots.q;
+        wSetter.slot = slots.w;
+        eSetter.slot = slots.e;
+
+        dashSetter.move = playerCharacter.GetComponent<Movement>();
+
+        Image qImage = gameCanvas.transform.GetChild(2).GetChild(0).GetComponent<Image>();
+        Image wImage = gameCanvas.transform.GetChild(2).GetChild(1).GetComponent<Image>();
+        Image eImage = gameCanvas.transform.GetChild(2).GetChild(2).GetComponent<Image>();
+        qImage.sprite = slots.q.skill.icon;
+        wImage.sprite = slots.w.skill.icon;
+        eImage.sprite = slots.e.skill.icon;
+
+        gameCanvas.SetActive(true);
+    }
+
+    [PunRPC]
+    void DieRPC()
+    {
+        ++dieCount;
+    }
+
+    [PunRPC]
+    void LoseGame()
+    {
+        gameOverBackground.SetActive(true);
+        loseImage.SetActive(true);
+        titleButton.SetActive(true);
+
+        isGameOver = true;
+    }
+
+    public void GoMenuScene()
     {
 #if UNITY_ANDROID
-        SceneManager.LoadScene("AndroidTitleScene");
+        //SceneManager.LoadScene("AndroidTitleScene");
 #endif
 #if UNITY_STANDALONE_WIN
-        SceneManager.LoadScene("TitleScene");
+        PhotonNetwork.LoadLevel("MenuScene");
 #endif
     }
 }
